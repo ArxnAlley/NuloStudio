@@ -1,0 +1,185 @@
+/* =====================================================
+   INTRO SECTION
+===================================================== */
+
+.galleryIntro
+{
+    padding: 160px 8% 80px;
+
+    text-align: center;
+
+    background-color: #050507;
+}
+
+.galleryMainTitle
+{
+    font-family: Orbitron;
+
+    font-size: clamp(36px, 4.5vw, 56px);
+
+    margin-bottom: 20px;
+}
+
+.galleryMainTitle span
+{
+    color: #CC18F5;
+
+    text-shadow: 0 0 20px rgba(204, 24, 245, 0.35);
+}
+
+.gallerySubtext
+{
+    opacity: 0.6;
+
+    margin-bottom: 60px;
+
+    letter-spacing: 0.5px;
+}
+
+/* =====================================================
+   SECTIONS
+===================================================== */
+
+.gallerySection
+{
+    padding: 60px 8% 120px;
+}
+
+#glass
+{
+    padding-top: 20px;
+}
+
+/* =====================================================
+   SCROLL REVEAL HEADERS
+===================================================== */
+
+.galleryTitle
+{
+    text-align: center;
+
+    font-family: Orbitron;
+
+    font-size: 32px;
+
+    margin-bottom: 60px;
+
+    color: #00FFA7;
+
+    text-shadow: 0 0 5px rgba(0, 255, 167, 0.35);
+
+    opacity: 0;
+
+    transform: translateY(80px) scale(0.92);
+
+    filter: blur(6px);
+
+    transition:
+        opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1),
+        transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1),
+        text-shadow 0.8s ease,
+        filter 0.8s ease;
+}
+
+.galleryTitle.reveal
+{
+    opacity: 1;
+
+    transform: translateY(0) scale(1);
+
+    text-shadow: 0 0 25px rgba(0, 255, 167, 0.35);
+
+    filter: blur(0);
+}
+
+/* =====================================================
+   GRID
+===================================================== */
+
+.galleryGrid
+{
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+
+    gap: 40px;
+}
+
+/* =====================================================
+   CARD
+===================================================== */
+
+.galleryCard
+{
+    position: relative;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    aspect-ratio: 1 / 1;
+
+    background-color: #111111;
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+
+    will-change: transform, opacity;
+
+    opacity: 0;
+
+    transform: translateY(40px) scale(0.96);
+}
+
+.galleryCard img
+{
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    transition: 0.6s ease;
+}
+
+/* HOVER EFFECT */
+
+.galleryCard:hover
+{
+    transform: translateY(-12px);
+
+    border-color: #00FFA7;
+
+    box-shadow:
+        0 0 25px rgba(0, 255, 167, 0.35),
+        0 0 60px rgba(0, 255, 167, 0.15);
+}
+
+.galleryCard:hover img
+{
+    transform: scale(1.08);
+}
+
+/* CARD REVEAL STATE */
+
+.galleryCard.cardReveal
+{
+    opacity: 1;
+
+    transform: translateY(0) scale(1);
+}
+
+/* =====================================================
+   SMOOTH SCROLL
+===================================================== */
+
+html
+{
+    scroll-behavior: smooth;
+}
+
+section
+{
+    scroll-margin-top: 90px;
+}

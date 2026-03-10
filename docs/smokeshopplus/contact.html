@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+
+        <meta charset="UTF-8">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title> Contact Smoke Shop+ </title>
+
+        <!-- FONTS -->
+
+        <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Inter:wght@300;400;600&family=Anton&display=swap" rel="stylesheet">
+
+        <!-- CSS LINKS -->
+
+        <link rel="stylesheet" href="css/styleIndex.css">
+
+        <link rel="stylesheet" href="css/styleForms.css">
+
+        <!-- ICONS -->
+
+        <script src="https://unpkg.com/lucide@latest"></script>
+
+    </head>
+
+    <body>
+
+        <!-- ========================================
+                        NAV
+        ======================================== -->
+
+        <nav class="NAV">
+
+            <!-- LOGO -->
+
+            <a href="index.html" class="LOGO">
+                Smoke&nbsp;<span>Shop+</span>
+            </a>
+
+            <!-- NAV LINKS -->
+
+            <div class="navLinks">
+
+                <a href="index.html"> Home </a>
+
+                <a href="index.html#whyUs"> About </a>
+
+                <a href="index.html#categories"> Gear </a>
+
+                <a href="index.html#reviews"> Reviews </a>
+
+                <a href="gallery.html"> Gallery </a>
+
+                <!-- CONTACT DROPDOWN -->
+
+                <div class="navDropdown">
+
+                    <button class="navDropdownTrigger" aria-expanded="false">
+                        Contact &#9662;
+                    </button>
+
+                    <div class="navDropdownMenu">
+
+                        <a href="hireForm.html"> Join The Team </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- CALL BUTTON -->
+
+            <a href="tel:+16063698939" class="callBTN">
+
+                <span class="phoneText"> &#128222; Call Now </span>
+
+                <span class="phoneIcon"> &#128222; </span>
+
+            </a>
+
+            <!-- HAMBURGER -->
+
+            <button class="hamburgerBTN" aria-label="Open navigation menu">
+
+                <span></span>
+
+                <span></span>
+
+                <span></span>
+
+            </button>
+
+        </nav>
+
+        <!-- ========================================
+                    MOBILE MENU PANEL
+        ======================================== -->
+
+        <div class="mobileMenu" id="mobileMenu">
+
+            <div class="mobileMenuInner">
+
+                <a href="index.html"> Home </a>
+
+                <a href="index.html#whyUs"> About </a>
+
+                <a href="index.html#categories"> Gear </a>
+
+                <a href="index.html#reviews"> Reviews </a>
+
+                <a href="gallery.html"> Gallery </a>
+
+                <a href="hireForm.html"> Join The Team </a>
+
+                <a href="tel:+16063698939" class="mobileCallBtn" aria-label="Call Smoke Shop Plus">
+                    <i data-lucide="phone"></i>
+                </a>
+
+            </div>
+
+        </div>
+
+        <!-- ========================================
+                        FORM PAGE
+        ======================================== -->
+
+        <main class="formPage">
+
+            <section class="formWrapper">
+
+                <h1 class="formTitle">
+                    Let's Connect
+                </h1>
+
+                <p class="formSub">
+                    Questions, product requests, or looking for something specific?
+                    Send us a message and our team will get back to you shortly.
+                </p>
+
+                <form
+                    action="https://formspree.io/f/xqedbjjj"
+                    method="POST"
+                    class="eliteForm"
+                >
+
+                    <input type="hidden" name="_subject" value="Smoke Shop+ — New Customer Inquiry">
+
+                    <input type="hidden" name="_captcha" value="false">
+
+                    <input type="hidden" name="page" value="Contact Page">
+
+                    <div class="formGrid">
+
+                        <label for="name" class="visuallyHidden">
+                            Full Name
+                        </label>
+
+                        <input
+                            id="name"
+                            type="text"
+                            name="name"
+                            placeholder="Full Name"
+                            required
+                        >
+
+                        <label for="email" class="visuallyHidden">
+                            Email Address
+                        </label>
+
+                        <input
+                            id="email"
+                            type="email"
+                            name="email"
+                            placeholder="Email Address"
+                            required
+                        >
+
+                        <label for="phone" class="visuallyHidden">
+                            Phone Number
+                        </label>
+
+                        <input
+                            id="phone"
+                            type="tel"
+                            name="phone"
+                            placeholder="Phone (optional)"
+                        >
+
+                    </div>
+
+                    <label for="message" class="visuallyHidden">
+                        How can we help you?
+                    </label>
+
+                    <textarea
+                        id="message"
+                        name="message"
+                        placeholder="How can we help you?"
+                        rows="6"
+                        required
+                    ></textarea>
+
+                    <button class="ghostSubmit">
+                        Send Message &#8594;
+                    </button>
+
+                </form>
+
+            </section>
+
+        </main>
+
+        <!-- ========================================
+                        FOOTER
+        ======================================== -->
+
+        <footer class="FOOTER">
+
+            <div class="footerContainer">
+
+                <div class="footerBrand">
+
+                    <a href="index.html" class="LOGO">
+                        Smoke&nbsp;<span>Shop+</span>
+                    </a>
+
+                    <p> Catlettsburg's Premium Smoke Destination. </p>
+
+                    <div class="footerSocials">
+
+                        <a href="https://www.instagram.com/smokeshopplus/" target="_blank" aria-label="Instagram">
+                            <i data-lucide="instagram"></i>
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <div class="footerHours">
+
+                    <h4> Hours &amp; Location </h4>
+
+                    <p> Mon-Sun | 8am - Midnight </p>
+
+                    <p>
+                        3333 Louisa Rd Suite 3<br>
+                        Catlettsburg, KY 41129
+                    </p>
+
+                    <a href="tel:+16063698939"> &#128222; (606) 369-8939 </a>
+
+                </div>
+
+                <div class="footerLinks">
+
+                    <h4> Quick Links </h4>
+
+                    <a href="index.html#categories"> Gear </a>
+
+                    <a href="gallery.html"> Gallery </a>
+
+                    <a href="index.html#reviews"> Reviews </a>
+
+                    <a href="index.html#whyUs"> About </a>
+
+                </div>
+
+                <div class="footerLegal">
+
+                    <h4> Legal </h4>
+
+                    <a href="privacy.html"> Privacy </a>
+
+                    <a href="terms.html"> Terms </a>
+
+                    <a href="accessibility.html"> Accessibility </a>
+
+                </div>
+
+            </div>
+
+            <div class="footerBottom">
+
+                <p> &copy; 2026 Smoke Shop+ </p>
+
+                <div class="devCredit">
+
+                <span class="devLabel">Built by</span>
+
+                <a href="https://nulostudio.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="devLink">
+
+                    <img src="/images/nuloLogo.PNG" alt="Nulo Studio logo">
+
+                </a>
+
+            </div>
+
+        </footer>
+
+        <!-- SCRIPTS -->
+
+        <script src="js/indexJS.js"></script>
+
+        <script> lucide.createIcons(); </script>
+
+
+    </body>
+
+</html>
