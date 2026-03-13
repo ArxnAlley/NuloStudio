@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Page Not Found | Ohio Valley Construction & Plumbing LLC</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Barlow:wght@300;400&family=Barlow+Condensed:wght@600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="css/styleGlobal.css" />
+  <style>
+    .notFoundPage {
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--darkBg);
+      padding: 8rem 2rem 5rem;
+      text-align: center;
+    }
+    .notFoundNum {
+      font-family: var(--fontDisplay);
+      font-size: clamp(6rem, 15vw, 12rem);
+      font-weight: 700;
+      color: var(--purple);
+      opacity: 0.15;
+      line-height: 1;
+      margin-bottom: -2rem;
+    }
+    .notFoundContent h1 { color: var(--white); margin-bottom: 1rem; }
+    .notFoundContent p { margin-bottom: 2rem; max-width: 460px; margin-left: auto; margin-right: auto; }
+    .notFoundLinks {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="siteHeader scrolled" style="background:rgba(0,0,0,0.98); padding:0.75rem 0;">
+    <div class="container">
+      <div class="headerInner">
+        <a href="index.html" class="headerLogo">
+          <img src="logos/mainLogo.png" alt="OVC Logo" />
+          <div class="logoText">
+            <span class="logoName">Ohio Valley C&P</span>
+            <span class="logoSub">Construction & Plumbing LLC</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="notFoundPage">
+      <div class="notFoundContent">
+        <div class="notFoundNum">404</div>
+        <span class="sectionLabel" style="justify-content:center">Page Not Found</span>
+        <h1>Oops — Wrong Pipe.</h1>
+        <div class="dividerPurpleCenter"></div>
+        <p>That page doesn't exist, but we're pretty good at finding things. Head back to the homepage or give us a call.</p>
+        <div class="notFoundLinks">
+          <a href="index.html" class="btnPrimary">Back to Home <i class="fas fa-arrow-right"></i></a>
+          <a href="tel:7405343215" class="btnCall"><i class="fas fa-phone-alt"></i> (740) 534-3215</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="siteFooter">
+    <div class="container">
+      <div class="footerBottom">
+        <p>© 2025 Ohio Valley Construction & Plumbing LLC. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

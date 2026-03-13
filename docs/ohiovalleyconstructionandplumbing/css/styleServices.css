@@ -1,0 +1,153 @@
+/* =============================================
+   OHIO VALLEY CONSTRUCTION & PLUMBING LLC
+   Services Page Styles — styleServices.css
+   ============================================= */
+
+/* ---- Services Grid Layout ---- */
+.servicesPage {
+  background: var(--darkBg);
+  padding: 5.5rem 0;
+}
+
+.servicesList {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* ---- Service Block (alternating) ---- */
+.serviceBlock {
+  padding: 5rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.serviceBlock:nth-child(even) {
+  background: var(--charcoal);
+}
+
+.serviceBlockInner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+}
+
+.serviceBlock:nth-child(even) .serviceBlockInner {
+  direction: rtl;
+}
+
+.serviceBlock:nth-child(even) .serviceBlockText,
+.serviceBlock:nth-child(even) .serviceBlockImg {
+  direction: ltr;
+}
+
+.serviceBlockImg {
+  border-radius: var(--radiusLg);
+  overflow: hidden;
+  height: 400px;
+  position: relative;
+}
+
+.serviceBlockImg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.serviceBlockImg:hover img {
+  transform: scale(1.04);
+}
+
+.serviceBlockImg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 2px solid var(--border);
+  border-radius: var(--radiusLg);
+  pointer-events: none;
+}
+
+.serviceBlockTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(90,31,166,0.12);
+  border: 1px solid rgba(90,31,166,0.25);
+  color: var(--purpleLight);
+  font-family: var(--fontCondensed);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.75rem;
+  border-radius: 100px;
+  margin-bottom: 1rem;
+}
+
+.serviceBlockText h2 {
+  color: var(--white);
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  margin-bottom: 0.75rem;
+}
+
+.serviceBlockText p {
+  margin-bottom: 1rem;
+}
+
+.serviceFeatureList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 1rem 0 1.5rem;
+}
+
+.serviceFeatureItem {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.8);
+}
+
+.serviceFeatureItem i {
+  color: var(--purple);
+  font-size: 0.8rem;
+  flex-shrink: 0;
+}
+
+/* ---- Light block override ---- */
+.serviceBlockLight {
+  background: var(--lightBg) !important;
+}
+
+.serviceBlockLight .serviceBlockText h2 {
+  color: var(--black);
+}
+
+.serviceBlockLight .serviceBlockText p {
+  color: #555;
+}
+
+.serviceBlockLight .serviceFeatureItem {
+  color: #333;
+}
+
+.serviceBlockLight .serviceBlockText .sectionLabel {
+  color: var(--purple);
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 1024px) {
+  .serviceBlockInner { gap: 3rem; }
+}
+
+@media (max-width: 768px) {
+  .serviceBlockInner {
+    grid-template-columns: 1fr;
+    direction: ltr !important;
+  }
+  .serviceBlock:nth-child(even) .serviceBlockInner { direction: ltr; }
+  .serviceBlockImg { height: 280px; }
+  .serviceBlock { padding: 3.5rem 0; }
+}

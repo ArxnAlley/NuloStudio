@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project Gallery | Ohio Valley Construction & Plumbing LLC | Proctorville, OH</title>
+  <meta name="description" content="See completed plumbing, deck, roofing, and construction projects by Ohio Valley Construction & Plumbing LLC in Lawrence County, Ohio." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="css/styleGlobal.css" />
+  <link rel="stylesheet" href="css/styleGallery.css" />
+</head>
+<body>
+
+  <header class="siteHeader" id="siteHeader">
+    <div class="container">
+      <div class="headerInner">
+        <a href="index.html" class="headerLogo">
+          <img src="logos/mainLogo.png" alt="OVC Logo" />
+          <div class="logoText">
+            <span class="logoName">Ohio Valley C&P</span>
+            <span class="logoSub">Construction & Plumbing LLC</span>
+          </div>
+        </a>
+        <nav class="mainNav">
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="services.html">Services</a>
+          <a href="emergency.html">Emergency</a>
+          <a href="gallery.html" class="active">Gallery</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+        <div class="headerCta">
+          <a href="tel:7405343215" class="headerPhone"><i class="fas fa-phone-alt"></i> (740) 534-3215</a>
+          <a href="contact.html" class="btnPrimary">Free Estimate</a>
+        </div>
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Emergency Pull Tab -->
+
+  <div class="emergencyTabWrapper">
+
+    <button class="emergencyTab" id="emergencyTab">
+    EMERGENCY
+    </button>
+
+    <div class="emergencyPanel" id="emergencyPanel">
+
+    <button class="emergencyPanelClose" id="emergencyPanelClose" aria-label="Close emergency panel">
+    <i class="fas fa-times"></i>
+    </button>
+
+    <h4>24/7 Emergency Plumbing</h4>
+
+    <p>
+    Burst pipe? Major leak? Sewage backup?
+    Call now and we will respond immediately.
+    </p>
+
+    <a href="tel:7405343215" class="emergencyCallBtn">
+    <i class="fas fa-phone-alt"></i>
+    Call (740) 534-3215
+    </a>
+
+    </div>
+
+  </div>
+
+  <nav class="mobileNav" id="mobileNav">
+    <div class="mobileNavTop">
+      <img src="logos/mainLogo.png" alt="Ohio Valley Construction & Plumbing">
+    </div>
+    <button class="mobileNavClose" id="mobileNavClose" aria-label="Close mobile menu">
+      <i class="fas fa-times"></i>
+    </button>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="services.html">Services</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="contact.html">Contact</a>
+    <a class="mobileNavPhone" href="tel:7405343215">Call 740-534-3215</a>
+  </nav>
+
+  <main>
+
+    <!-- Page Hero -->
+    <section class="pageHero">
+      <div class="container">
+        <div class="pageHeroContent reveal">
+          <div class="breadcrumb"><a href="index.html">Home</a> <span>/</span> <span>Gallery</span></div>
+          <span class="sectionLabel">Our Work</span>
+          <h1>Projects We're<br />Proud Of</h1>
+          <div class="dividerPurple"></div>
+          <p>Real jobs completed for real homeowners across Lawrence County and the Ohio Valley. This is what we do — and we stand behind every one of them.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Filter Bar -->
+    <div class="galleryFilterBar">
+      <div class="container">
+        <div class="filterBtns">
+          <button class="filterBtn active" data-filter="all">All Projects</button>
+          <button class="filterBtn" data-filter="plumbing">Plumbing</button>
+          <button class="filterBtn" data-filter="decks">Decks & Porches</button>
+          <button class="filterBtn" data-filter="roofing">Roofing</button>
+          <button class="filterBtn" data-filter="remodeling">Remodeling</button>
+          <button class="filterBtn" data-filter="concrete">Concrete</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gallery Grid -->
+    <section class="galleryPage" aria-label="Project gallery">
+      <div class="container">
+        <div class="galleryMasonry" id="galleryMasonry">
+
+          <div class="galleryMasonryItem reveal" data-category="decks" tabindex="0">
+            <img src="images/porchAfter.jpg" alt="Completed deck - after stain and finishing" loading="lazy" />
+            <div class="galleryMasonryOverlay">
+              <span class="galleryMasonryCaption">Deck Build — After</span>
+            </div>
+          </div>
+
+          <div class="galleryMasonryItem reveal" data-category="plumbing">
+            <img src="images/pipeRepair.jpg" alt="Sewer line excavation and new pipe installation" loading="lazy" />
+            <div class="galleryMasonryOverlay">
+              <span class="galleryMasonryCaption">Sewer Line Work</span>
+            </div>
+          </div>
+
+          <div class="galleryMasonryItem reveal" data-category="roofing">
+            <img src="images/RoofAfter.jpg" alt="Finished metal roof installation" loading="lazy" />
+            <div class="galleryMasonryOverlay">
+              <span class="galleryMasonryCaption">Metal Roof — Complete</span>
+            </div>
+          </div>
+
+          <div class="galleryMasonryItem reveal" data-category="remodeling">
+            <img src="images/houseRemodel.jpg" alt="Home remodel framing in progress" loading="lazy" />
+            <div class="galleryMasonryOverlay">
+              <span class="galleryMasonryCaption">Home Remodel — Framing</span>
+            </div>
+          </div>
+
+          <div class="galleryMasonryItem reveal" data-category="concrete">
+            <img src="images/concrete.jpg" alt="Fresh concrete walkway installation" loading="lazy" />
+            <div class="galleryMasonryOverlay">
+              <span class="galleryMasonryCaption">Concrete Walkway</span>
+            </div>
+          </div>
+
+          <div class="galleryMasonryItem reveal" data-category="plumbing">
+            <img src="images/pipeRepair2.jpg" alt="Pipe repair crew at work" loading="lazy" />
+            <div class="galleryMasonryOverlay">
+              <span class="galleryMasonryCaption">Pipe Repair</span>
+            </div>
+          </div>
+
+          <div class="galleryMasonryItem reveal" data-category="remodeling">
+            <img src="images/houseRemodel2.jpg" alt="Interior remodel work in progress" loading="lazy" />
+            <div class="galleryMasonryOverlay">
+              <span class="galleryMasonryCaption">Interior Remodel</span>
+            </div>
+          </div>
+
+          <div class="galleryMasonryItem reveal" data-category="decks">
+            <img src="images/porchBuild2.jpg" alt="Deck construction in progress" loading="lazy" />
+            <div class="galleryMasonryOverlay">
+              <span class="galleryMasonryCaption">Deck Build — In Progress</span>
+            </div>
+          </div>
+
+          <div class="galleryMasonryItem reveal" data-category="remodeling">
+            <img src="images/houseSiding2.jpg" alt="New siding installation on home" loading="lazy" />
+            <div class="galleryMasonryOverlay">
+              <span class="galleryMasonryCaption">Siding Installation</span>
+            </div>
+          </div>
+
+          <div class="galleryMasonryItem reveal" data-category="roofing">
+            <img src="images/RoofB4.jpg" alt="Roof work - shingles being installed" loading="lazy" />
+            <div class="galleryMasonryOverlay">
+              <span class="galleryMasonryCaption">Shingle Roof Install</span>
+            </div>
+          </div>
+
+          <div class="galleryMasonryItem reveal" data-category="plumbing">
+            <img src="images/septic.jpg" alt="Septic system pump and lines" loading="lazy" />
+            <div class="galleryMasonryOverlay">
+              <span class="galleryMasonryCaption">Septic System Work</span>
+            </div>
+          </div>
+
+          <div class="galleryMasonryItem reveal" data-category="plumbing">
+            <img src="images/pipeRepair4.jpg" alt="Commercial plumbing repair" loading="lazy" />
+            <div class="galleryMasonryOverlay">
+              <span class="galleryMasonryCaption">Pipe Repair</span>
+            </div>
+          </div>
+
+          <div class="galleryMasonryItem reveal" data-category="decks">
+            <img src="images/porchBuild2-2.jpg" alt="Large deck construction project" loading="lazy" />
+            <div class="galleryMasonryOverlay">
+              <span class="galleryMasonryCaption">Large Deck Build</span>
+            </div>
+          </div>
+
+          <div class="galleryMasonryItem reveal" data-category="remodeling">
+            <img src="images/houseSiding3.jpg" alt="Home under construction with new siding" loading="lazy" />
+            <div class="galleryMasonryOverlay">
+              <span class="galleryMasonryCaption">New Construction Siding</span>
+            </div>
+          </div>
+
+          <div class="galleryMasonryItem reveal" data-category="plumbing">
+            <img src="images/septicAfter.jpg" alt="Completed septic system" loading="lazy" />
+            <div class="galleryMasonryOverlay">
+              <span class="galleryMasonryCaption">Septic — Complete</span>
+            </div>
+          </div>
+
+          <div class="galleryMasonryItem reveal" data-category="plumbing">
+            <img src="images/lowes.jpg" alt="Emergency commercial plumbing repair" loading="lazy" />
+            <div class="galleryMasonryOverlay">
+              <span class="galleryMasonryCaption">Commercial Plumbing</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Before / After -->
+    <section class="beforeAfterSection" aria-labelledby="baHeading">
+      <div class="container">
+        <div class="sectionHeaderCenter reveal">
+          <span class="sectionLabel" style="justify-content:center">Results</span>
+          <h2 id="baHeading" style="color:var(--white)">Before & After</h2>
+          <div class="dividerPurpleCenter"></div>
+          <p>See the difference quality work makes.</p>
+        </div>
+        <div class="beforeAfterGrid">
+          <div class="beforeAfterCard reveal">
+            <div class="beforeAfterImages">
+              <figure>
+                <img src="images/porchB4.jpg" alt="Deck before renovation" loading="lazy" />
+                <span class="baLabel before">Before</span>
+              </figure>
+              <figure>
+                <img src="images/porchAfter.jpg" alt="Deck after renovation" loading="lazy" />
+                <span class="baLabel after">After</span>
+              </figure>
+            </div>
+            <div class="beforeAfterMeta">
+              <h4>Deck Rebuild & Stain</h4>
+              <p>Replaced rotted decking and framing, stained and finished to last.</p>
+            </div>
+          </div>
+          <div class="beforeAfterCard reveal" style="transition-delay:0.15s">
+            <div class="beforeAfterImages">
+              <figure>
+                <img src="images/RoofB4.jpg" alt="Roof before installation" loading="lazy" />
+                <span class="baLabel before">Before</span>
+              </figure>
+              <figure>
+                <img src="images/RoofAfter.jpg" alt="Roof after metal installation" loading="lazy" />
+                <span class="baLabel after">After</span>
+              </figure>
+            </div>
+            <div class="beforeAfterMeta">
+              <h4>Metal Roof Installation</h4>
+              <p>Replaced aging shingles with a durable standing seam metal roof.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Band -->
+    <div class="ctaBand">
+      <div class="container">
+        <div class="ctaBandInner">
+          <div class="ctaBandText">
+            <h3>Ready to Start Your Project?</h3>
+            <p>Call or request a free estimate today.</p>
+          </div>
+          <div class="ctaBandActions">
+            <a href="tel:7405343215" class="btnWhite"><i class="fas fa-phone-alt"></i> (740) 534-3215</a>
+            <a href="contact.html" class="btnWhiteOutline"><i class="fas fa-clipboard-list"></i> Free Estimate</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="siteFooter">
+    <div class="container">
+      <div class="footerTop">
+        <div class="footerBrand">
+          <div class="footerLogo"><img src="logos/mainLogo.png" alt="OVC Logo" loading="lazy" /></div>
+          <p>Locally owned plumbing and construction in Proctorville, OH. 20+ years serving Lawrence County.</p>
+          <a href="tel:7405343215" class="btnCall" style="font-size:0.9rem; padding:0.7rem 1.4rem"><i class="fas fa-phone-alt"></i> (740) 534-3215</a>
+        </div>
+        <div>
+          <h6 class="footerColTitle">Pages</h6>
+          <nav class="footerLinks">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="services.html">Services</a>
+            <a href="emergency.html">Emergency</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="contact.html">Contact</a>
+          </nav>
+        </div>
+        <div>
+          <h6 class="footerColTitle">Services</h6>
+          <nav class="footerLinks">
+            <a href="services.html">Plumbing Repairs</a>
+            <a href="services.html">Drain & Sewer</a>
+            <a href="services.html">Deck Building</a>
+            <a href="services.html">Roofing</a>
+            <a href="services.html">Remodeling</a>
+          </nav>
+        </div>
+        <div>
+          <h6 class="footerColTitle">Contact</h6>
+          <address class="footerContact" style="font-style:normal">
+            <p><i class="fas fa-phone-alt" style="color:var(--purple)"></i> <a href="tel:7405343215" style="color:var(--white)">(740) 534-3215</a></p>
+            <p><i class="fas fa-map-marker-alt" style="color:var(--purple)"></i> Proctorville, OH 45669</p>
+            <p><i class="fas fa-clock" style="color:var(--purple)"></i> <strong style="color:var(--white)">Open 24 Hours</strong></p>
+          </address>
+        </div>
+      </div>
+      <div class="footerBottom">
+        <p>© 2025 Ohio Valley Construction & Plumbing LLC. All rights reserved.</p>
+        <div class="footerBottomLogo">
+          <span>Site by</span>
+          <img src="logos/nuloLogoWhite.png" alt="Nulo Studio" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/galleryJS.js"></script>
+</body>
+</html>
+

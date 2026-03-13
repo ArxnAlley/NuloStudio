@@ -1,0 +1,207 @@
+/* =============================================
+   OHIO VALLEY CONSTRUCTION & PLUMBING LLC
+   About Page Styles — styleAbout.css
+   ============================================= */
+
+/* ---- Story Section ---- */
+.aboutStory {
+  background: var(--darkBg);
+  padding: 5.5rem 0;
+}
+
+.aboutStoryInner {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 5rem;
+  align-items: center;
+}
+
+.aboutStoryText h2 {
+  color: var(--white);
+  margin-bottom: 1rem;
+}
+
+.aboutStoryText p {
+  margin-bottom: 1rem;
+}
+
+.aboutStoryText p:last-of-type {
+  margin-bottom: 1.5rem;
+}
+
+.aboutImgWrap {
+  position: relative;
+}
+
+.aboutImgMain {
+  border-radius: var(--radiusLg);
+  overflow: hidden;
+  height: 500px;
+}
+
+.aboutImgMain img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.aboutImgAccent {
+  position: absolute;
+  bottom: -2rem;
+  left: -2rem;
+  width: 180px;
+  height: 140px;
+  border-radius: var(--radiusLg);
+  overflow: hidden;
+  border: 4px solid var(--darkBg);
+  box-shadow: var(--shadow);
+}
+
+.aboutImgAccent img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.aboutStatRow {
+  display: flex;
+  gap: 2rem;
+  margin: 1.5rem 0 2rem;
+  padding: 1.5rem;
+  background: var(--charcoal);
+  border-radius: var(--radiusLg);
+  border: 1px solid var(--border);
+}
+
+.aboutStat {
+  text-align: center;
+  flex: 1;
+}
+
+.aboutStatNum {
+  font-family: var(--fontDisplay);
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--purple);
+  line-height: 1;
+  display: block;
+}
+
+.aboutStatLabel {
+  font-family: var(--fontCondensed);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--midGray);
+  display: block;
+  margin-top: 0.3rem;
+}
+
+/* ---- Values Section ---- */
+.valuesSection {
+  background: var(--lightBg);
+  padding: 5.5rem 0;
+}
+
+.valuesSection .sectionLabel { color: var(--purple); }
+.valuesSection h2 { color: var(--black); }
+
+.valuesGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.valueCard {
+  background: var(--white);
+  border-radius: var(--radiusLg);
+  padding: 2rem;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+  border: 1px solid rgba(0,0,0,0.06);
+  transition: all var(--transition);
+  text-align: center;
+}
+
+.valueCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(90,31,166,0.12);
+  border-color: rgba(90,31,166,0.15);
+}
+
+.valueIcon {
+  width: 60px;
+  height: 60px;
+  background: rgba(90,31,166,0.08);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--purple);
+  font-size: 1.4rem;
+  margin: 0 auto 1.2rem;
+}
+
+.valueCard h4 {
+  color: var(--charcoal);
+  margin-bottom: 0.6rem;
+  font-size: 1.1rem;
+}
+
+.valueCard p {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0;
+  line-height: 1.65;
+}
+
+/* ---- Team / Local Section ---- */
+.localSection {
+  background: var(--charcoal);
+  padding: 5.5rem 0;
+}
+
+.localInner {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+}
+
+.localText h2 { color: var(--white); }
+
+.localImgGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.localImgGrid img {
+  border-radius: var(--radiusLg);
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.localImgGrid img:hover { transform: scale(1.03); }
+
+.localImgGrid img:first-child {
+  grid-column: 1 / 3;
+  height: 260px;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 1024px) {
+  .aboutStoryInner { gap: 3rem; }
+  .localInner { gap: 3rem; }
+  .valuesGrid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .aboutStoryInner { grid-template-columns: 1fr; }
+  .localInner { grid-template-columns: 1fr; }
+  .aboutImgAccent { display: none; }
+  .valuesGrid { grid-template-columns: 1fr; }
+  .aboutStatRow { flex-wrap: wrap; }
+}

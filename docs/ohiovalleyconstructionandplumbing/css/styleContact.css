@@ -1,0 +1,270 @@
+/* =============================================
+   OHIO VALLEY CONSTRUCTION & PLUMBING LLC
+   Contact Page Styles — styleContact.css
+   ============================================= */
+
+/* ---- Contact Layout ---- */
+.contactPage {
+  background: var(--darkBg);
+  padding: 5.5rem 0;
+}
+
+.contactInner {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 5rem;
+  align-items: start;
+}
+
+/* ---- Contact Info ---- */
+.contactInfoCard {
+  background: var(--charcoal);
+  border-radius: var(--radiusLg);
+  padding: 2.5rem;
+  border: 1px solid var(--border);
+}
+
+.contactInfoCard h3 {
+  color: var(--white);
+  font-size: 1.6rem;
+  margin-bottom: 0.5rem;
+}
+
+.contactInfoCard > p {
+  margin-bottom: 2rem;
+}
+
+.contactInfoList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.contactInfoItem {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.contactInfoIcon {
+  width: 44px;
+  height: 44px;
+  background: rgba(90,31,166,0.15);
+  border: 1px solid rgba(90,31,166,0.25);
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--purpleLight);
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.contactInfoText h5 {
+  font-family: var(--fontCondensed);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--midGray);
+  margin-bottom: 0.2rem;
+}
+
+.contactInfoText a,
+.contactInfoText p {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--white);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.contactInfoText a:hover {
+  color: var(--purpleLight);
+}
+
+.emergencyCallout {
+  background: var(--purple);
+  border-radius: var(--radiusLg);
+  padding: 1.5rem;
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.emergencyCallout p {
+  font-family: var(--fontCondensed);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.75);
+  margin-bottom: 0.5rem;
+}
+
+.emergencyCallout a {
+  font-family: var(--fontDisplay);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--white);
+  display: block;
+  letter-spacing: 0.03em;
+}
+
+.emergencyCallout a:hover {
+  opacity: 0.9;
+}
+
+/* ---- Contact Form ---- */
+.contactFormCard {
+  background: var(--charcoal);
+  border-radius: var(--radiusLg);
+  padding: 2.5rem;
+  border: 1px solid var(--border);
+}
+
+.contactFormCard h3 {
+  color: var(--white);
+  font-size: 1.6rem;
+  margin-bottom: 0.5rem;
+}
+
+.contactFormCard > p {
+  margin-bottom: 2rem;
+}
+
+/* ---- Form Styles ---- */
+.contactForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.1rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.formGroup label {
+  font-family: var(--fontCondensed);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--midGray);
+}
+
+.formGroup input,
+.formGroup select,
+.formGroup textarea {
+  background: var(--midDark);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--white);
+  font-family: var(--fontBody);
+  font-size: 0.95rem;
+  padding: 0.75rem 1rem;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  outline: none;
+  width: 100%;
+}
+
+.formGroup input::placeholder,
+.formGroup textarea::placeholder {
+  color: rgba(255,255,255,0.2);
+}
+
+.formGroup input:focus,
+.formGroup select:focus,
+.formGroup textarea:focus {
+  border-color: var(--purple);
+  box-shadow: 0 0 0 3px rgba(90,31,166,0.15);
+}
+
+.formGroup select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23999' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  cursor: pointer;
+}
+
+.formGroup select option {
+  background: var(--midDark);
+  color: var(--white);
+}
+
+.formGroup textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.formNote {
+  font-size: 0.8rem;
+  color: var(--midGray);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.formSubmitBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  background: var(--purple);
+  color: var(--white);
+  font-family: var(--fontCondensed);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 1rem 2rem;
+  border-radius: var(--radius);
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition);
+  width: 100%;
+}
+
+.formSubmitBtn:hover {
+  background: var(--purpleLight);
+  transform: translateY(-2px);
+  box-shadow: var(--shadowPurple);
+}
+
+/* ---- Map Section ---- */
+.contactMap {
+  background: var(--charcoal);
+  padding: 0 0 5.5rem;
+}
+
+.contactMapInner {
+  border-radius: var(--radiusLg);
+  overflow: hidden;
+  height: 400px;
+  border: 1px solid var(--border);
+}
+
+.contactMapInner iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  filter: invert(0.9) hue-rotate(180deg) saturate(0.6);
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 1024px) {
+  .contactInner { gap: 3rem; }
+}
+
+@media (max-width: 768px) {
+  .contactInner { grid-template-columns: 1fr; }
+  .formRow { grid-template-columns: 1fr; }
+}
