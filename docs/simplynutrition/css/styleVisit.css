@@ -1,0 +1,500 @@
+/* ============================================================
+   SIMPLY NUTRITION v2 — Visit Page Styles
+   ============================================================ */
+
+/* ── Visit Info Section ── */
+
+.visitInfoSection
+{
+  background: var(--lightGray);
+
+  padding: 0 40px 100px;
+
+
+}
+
+
+.visitInfoInner
+{
+  max-width: 1320px;
+
+  margin: 0 auto;
+
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 80px;
+
+  padding-top: 60px;
+
+
+}
+
+
+/* ── Hours List ── */
+
+.hoursList
+{
+  list-style: none;
+
+  display: flex;
+
+  flex-direction: column;
+
+
+}
+
+
+.hoursRow
+{
+  display: flex;
+
+  justify-content: space-between;
+
+  padding: 14px 0;
+
+  border-bottom: 1px solid var(--midGray);
+
+  font-size: 0.88rem;
+
+
+}
+
+
+.hoursDay
+{
+  color: var(--textMuted);
+
+
+}
+
+
+.hoursTime
+{
+  font-weight: 500;
+
+  color: var(--darkText);
+
+
+}
+
+
+.hoursRow.today .hoursDay
+{
+  color: var(--primaryPink);
+
+  font-weight: 600;
+
+
+}
+
+
+.hoursRow.today .hoursTime
+{
+  color: var(--primaryPink);
+
+
+}
+
+
+/* ── Info Labels ── */
+
+.infoLabel
+{
+  font-size: 0.65rem;
+
+  letter-spacing: 0.2em;
+
+  text-transform: uppercase;
+
+  color: var(--primaryPink);
+
+  margin-bottom: 8px;
+
+  font-weight: 600;
+
+
+}
+
+
+.infoValue
+{
+  font-size: 1rem;
+
+  color: var(--darkText);
+
+  margin-bottom: 28px;
+
+  line-height: 1.6;
+
+
+}
+
+
+.infoValue a
+{
+  color: var(--primaryPink);
+
+
+}
+
+
+/* ── Map ── */
+
+.mapLight
+{
+  border-radius: var(--radius);
+
+  overflow: hidden;
+
+  height: 380px;
+
+  border: 1.5px solid var(--midGray);
+
+
+}
+
+
+.mapLight iframe
+{
+  width: 100%;
+
+  height: 100%;
+
+  border: none;
+
+  display: block;
+
+
+}
+
+
+/* ── Storefront Photos ── */
+
+.storefrontPhotos
+{
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 14px;
+
+  margin-top: 14px;
+
+
+}
+
+
+.storefrontPhoto
+{
+  border-radius: var(--radiusSm);
+
+  overflow: hidden;
+
+  height: 180px;
+
+
+}
+
+
+.storefrontPhoto img
+{
+  width: 100%;
+
+  height: 100%;
+
+  object-fit: cover;
+
+
+}
+
+
+/* ── Quick Info Cards ── */
+
+.quickInfoGrid
+{
+  max-width: 1320px;
+
+  margin: 48px auto 0;
+
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 20px;
+
+  padding: 0 40px;
+
+
+}
+
+
+.quickInfoCard
+{
+  background: var(--white);
+
+  border: 1.5px solid var(--midGray);
+
+  border-radius: var(--radiusSm);
+
+  padding: 24px 20px;
+
+  transition: all 0.3s var(--ease);
+
+
+}
+
+
+.quickInfoCard:hover
+{
+  border-color: var(--primaryPink);
+
+  transform: translateY(-3px);
+
+
+}
+
+
+.quickInfoTitle
+{
+  font-size: 0.85rem;
+
+  font-weight: 600;
+
+  color: var(--darkText);
+
+  letter-spacing: 0.02em;
+
+  margin-bottom: 6px;
+
+
+}
+
+
+.quickInfoDesc
+{
+  font-size: 0.78rem;
+
+  color: var(--textMuted);
+
+  line-height: 1.65;
+
+
+}
+
+
+/* ── Visit CTA ── */
+
+.visitCtaFull
+{
+  background: var(--black);
+
+  padding: 110px 40px;
+
+
+}
+
+
+.visitCtaFullInner
+{
+  max-width: 1320px;
+
+  margin: 0 auto;
+
+  text-align: center;
+
+
+}
+
+
+.visitCtaFullHeadline
+{
+  font-family: "Cormorant Garamond", serif;
+
+  font-size: clamp(52px, 7vw, 100px);
+
+  font-weight: 600;
+
+  line-height: 0.95;
+
+  color: var(--white);
+
+  margin-bottom: 24px;
+
+  letter-spacing: -0.01em;
+
+
+}
+
+
+.visitCtaFullHeadline .italic
+{
+  font-style: italic;
+
+  color: var(--primaryPink);
+
+
+}
+
+
+.visitCtaFullSub
+{
+  font-size: 1rem;
+
+  color: rgba(255, 255, 255, 0.45);
+
+  max-width: 420px;
+
+  margin: 0 auto 52px;
+
+  font-weight: 300;
+
+  line-height: 1.75;
+
+
+}
+
+
+.visitCtaDetails
+{
+  display: flex;
+
+  justify-content: center;
+
+  gap: 48px;
+
+  margin-top: 60px;
+
+  flex-wrap: wrap;
+
+
+}
+
+
+.visitCtaDetail
+{
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  font-size: 0.88rem;
+
+  color: rgba(255, 255, 255, 0.45);
+
+
+}
+
+
+.visitCtaDetailIcon
+{
+  width: 40px;
+
+  height: 40px;
+
+  border-radius: 50%;
+
+  background: rgba(244, 143, 177, 0.12);
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-size: 1rem;
+
+  flex-shrink: 0;
+
+
+}
+
+
+.visitCtaDetailLabel
+{
+  font-size: 0.65rem;
+
+  letter-spacing: 0.15em;
+
+  text-transform: uppercase;
+
+  color: var(--primaryPink);
+
+  margin-bottom: 3px;
+
+
+}
+
+
+.visitCtaDetailValue
+{
+  color: rgba(255, 255, 255, 0.7);
+
+  font-weight: 400;
+
+
+}
+
+
+/* ── Responsive ── */
+
+@media (max-width: 1100px)
+{
+  .visitInfoInner
+{
+    grid-template-columns: 1fr;
+
+  }
+
+
+  .quickInfoGrid
+{
+    grid-template-columns: 1fr 1fr;
+
+  }
+
+
+}
+
+
+@media (max-width: 768px)
+{
+  .visitInfoSection
+{
+    padding: 0 24px 70px;
+
+  }
+
+
+  .quickInfoGrid
+{
+    grid-template-columns: 1fr;
+
+    padding: 0 24px;
+
+  }
+
+
+  .visitCtaFull
+{
+    padding: 70px 24px;
+
+  }
+
+
+  .visitCtaDetails
+{
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 24px;
+
+  }
+
+
+}
+
+

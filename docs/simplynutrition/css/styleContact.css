@@ -1,0 +1,374 @@
+/* ============================================================
+   SIMPLY NUTRITION v2 — Contact & Application Page Styles
+   ============================================================ */
+
+/* ── Form Section ── */
+
+.formSection
+{
+  padding: 0 40px 100px;
+
+
+}
+
+
+.formInner
+{
+  max-width: 800px;
+
+  margin: 0 auto;
+
+
+}
+
+
+/* ── Form Card ── */
+
+.formCard
+{
+  background: var(--white);
+
+  border: 1.5px solid var(--midGray);
+
+  border-radius: var(--radius);
+
+  padding: 52px 56px;
+
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.06);
+
+
+}
+
+
+/* ── Form Group ── */
+
+.formGroup
+{
+  margin-bottom: 28px;
+
+
+}
+
+
+.formLabel
+{
+  display: block;
+
+  font-size: 0.72rem;
+
+  font-weight: 600;
+
+  letter-spacing: 0.15em;
+
+  text-transform: uppercase;
+
+  color: var(--darkText);
+
+  margin-bottom: 10px;
+
+
+}
+
+
+.formInput,
+.formTextarea,
+.formSelect
+{
+  width: 100%;
+
+  padding: 14px 18px;
+
+  border: 1.5px solid var(--midGray);
+
+  border-radius: var(--radiusSm);
+
+  font-family: "DM Sans", sans-serif;
+
+  font-size: 0.9rem;
+
+  color: var(--darkText);
+
+  background: var(--white);
+
+  transition:
+    border-color 0.25s var(--ease),
+    box-shadow 0.25s var(--ease);
+
+  outline: none;
+
+  appearance: none;
+
+
+}
+
+
+.formInput:focus,
+.formTextarea:focus,
+.formSelect:focus
+{
+  border-color: var(--primaryPink);
+
+  box-shadow: 0 0 0 3px rgba(244, 143, 177, 0.15);
+
+
+}
+
+
+.formTextarea
+{
+  resize: vertical;
+
+  min-height: 140px;
+
+  line-height: 1.7;
+
+
+}
+
+
+.formSelect
+{
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+
+  background-repeat: no-repeat;
+
+  background-position: right 16px center;
+
+  padding-right: 40px;
+
+  cursor: pointer;
+
+
+}
+
+
+/* ── Form Row (two columns) ── */
+
+.formRow
+{
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 20px;
+
+
+}
+
+
+/* ── Submit Button ── */
+
+.formSubmit
+{
+  width: 100%;
+
+  padding: 16px;
+
+  background: var(--primaryPink);
+
+  color: var(--white);
+
+  border-radius: 50px;
+
+  font-size: 0.85rem;
+
+  font-weight: 600;
+
+  letter-spacing: 0.12em;
+
+  text-transform: uppercase;
+
+  transition: all 0.25s var(--ease);
+
+  box-shadow: 0 4px 20px rgba(244, 143, 177, 0.35);
+
+  cursor: pointer;
+
+  border: none;
+
+  font-family: "DM Sans", sans-serif;
+
+
+}
+
+
+.formSubmit:hover
+{
+  transform: translateY(-2px);
+
+  box-shadow: 0 8px 30px rgba(244, 143, 177, 0.45);
+
+  background: #ec7fa3;
+
+
+}
+
+
+/* ── Success Message ── */
+
+.formSuccess
+{
+  display: none;
+
+  text-align: center;
+
+  padding: 40px;
+
+
+}
+
+
+.formSuccess.visible
+{
+  display: block;
+
+
+}
+
+
+.formSuccessTitle
+{
+  font-family: "Cormorant Garamond", serif;
+
+  font-size: 2rem;
+
+  font-weight: 600;
+
+  color: var(--darkText);
+
+  margin-bottom: 12px;
+
+
+}
+
+
+.formSuccessDesc
+{
+  font-size: 0.9rem;
+
+  color: var(--textMuted);
+
+  line-height: 1.7;
+
+
+}
+
+
+/* ── Contact Info Side (contact page) ── */
+
+.contactLayout
+{
+  max-width: 1320px;
+
+  margin: 0 auto;
+
+  display: grid;
+
+  grid-template-columns: 1fr 440px;
+
+  gap: 80px;
+
+  align-items: start;
+
+
+}
+
+
+.contactInfoBlock
+{
+  margin-bottom: 40px;
+
+
+}
+
+
+.contactInfoLabel
+{
+  font-size: 0.65rem;
+
+  letter-spacing: 0.2em;
+
+  text-transform: uppercase;
+
+  color: var(--primaryPink);
+
+  margin-bottom: 8px;
+
+  font-weight: 600;
+
+
+}
+
+
+.contactInfoValue
+{
+  font-size: 1rem;
+
+  color: var(--darkText);
+
+  line-height: 1.6;
+
+
+}
+
+
+.contactInfoValue a
+{
+  color: var(--primaryPink);
+
+  transition: opacity 0.2s;
+
+
+}
+
+
+.contactInfoValue a:hover
+{
+  opacity: 0.75;
+
+
+}
+
+
+/* ── Responsive ── */
+
+@media (max-width: 1100px)
+{
+  .contactLayout
+{
+    grid-template-columns: 1fr;
+
+    gap: 60px;
+
+  }
+
+
+}
+
+
+@media (max-width: 768px)
+{
+  .formSection
+{
+    padding: 0 24px 70px;
+
+  }
+
+
+  .formCard
+{
+    padding: 36px 28px;
+
+  }
+
+
+  .formRow
+{
+    grid-template-columns: 1fr;
+
+  }
+
+
+}
+
+
