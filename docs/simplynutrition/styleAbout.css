@@ -1,0 +1,577 @@
+/* ============================================================
+   SIMPLY NUTRITION v2 — About Page Styles
+   ============================================================ */
+
+/* ── About Story ── */
+
+.aboutStorySection
+{
+  padding: 0 40px 100px;
+
+
+}
+
+
+.aboutStoryInner
+{
+  max-width: 1320px;
+
+  margin: 0 auto;
+
+
+}
+
+
+.aboutStoryGrid
+{
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 80px;
+
+  align-items: start;
+
+  margin-bottom: 80px;
+
+
+}
+
+
+.aboutStoryImg
+{
+  border-radius: var(--radius);
+
+  overflow: hidden;
+
+  position: sticky;
+
+  top: 100px;
+
+
+}
+
+
+.aboutStoryImg img
+{
+  width: 100%;
+
+  height: auto;
+
+  object-fit: contain;
+
+  object-position: center top;
+
+
+}
+
+
+.aboutStoryText h2
+{
+  font-family: "Cormorant Garamond", serif;
+
+  font-size: clamp(36px, 4vw, 56px);
+
+  font-weight: 600;
+
+  line-height: 1.05;
+
+  color: var(--darkText);
+
+  margin-bottom: 24px;
+
+
+}
+
+
+.aboutStoryText h2 .italic
+{
+  font-style: italic;
+
+  color: var(--primaryPink);
+
+
+}
+
+
+.aboutStoryText p
+{
+  font-size: 0.95rem;
+
+  color: var(--textMuted);
+
+  line-height: 1.85;
+
+  font-weight: 300;
+
+  margin-bottom: 18px;
+
+
+}
+
+
+/* ── Values ── */
+
+.valuesGrid
+{
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 20px;
+
+  margin-top: 36px;
+
+
+}
+
+
+.valueCard
+{
+  background: var(--lightPink);
+
+  border-radius: var(--radius);
+
+  padding: 32px 26px;
+
+  text-align: center;
+
+  transition: all 0.3s var(--ease);
+
+
+}
+
+
+.valueCard:hover
+{
+  transform: translateY(-4px);
+
+  box-shadow: 0 12px 32px rgba(244, 143, 177, 0.2);
+
+
+}
+
+
+.valueTitle
+{
+  font-family: "Cormorant Garamond", serif;
+
+  font-size: 1.3rem;
+
+  font-weight: 600;
+
+  color: var(--darkText);
+
+  margin-bottom: 10px;
+
+
+}
+
+
+.valueDesc
+{
+  font-size: 0.8rem;
+
+  color: var(--textMuted);
+
+  line-height: 1.65;
+
+
+}
+
+
+/* ── Storefront Dark Section ── */
+
+.storefrontSection
+{
+  background: var(--darkText);
+
+  padding: 100px 40px;
+
+
+}
+
+
+.storefrontInner
+{
+  max-width: 1320px;
+
+  margin: 0 auto;
+
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 80px;
+
+  align-items: center;
+
+
+}
+
+
+.storefrontImgWrap
+{
+  position: relative;
+
+  border-radius: var(--radius);
+
+  overflow: hidden;
+
+
+}
+
+
+.storefrontImgWrap img
+{
+  width: 100%;
+
+  height: 560px;
+
+  object-fit: cover;
+
+  object-position: center;
+
+  display: block;
+
+  border-radius: var(--radius);
+
+  transition: transform 0.6s var(--ease);
+
+
+}
+
+
+.storefrontImgWrap:hover img
+{
+  transform: scale(1.03);
+
+
+}
+
+
+.storefrontBadge
+{
+  position: absolute;
+
+  bottom: 24px;
+
+  left: 24px;
+
+  background: rgba(255, 255, 255, 0.1);
+
+  backdrop-filter: blur(16px);
+
+  -webkit-backdrop-filter: blur(16px);
+
+  border: 1px solid rgba(255, 255, 255, 0.15);
+
+  border-radius: var(--radiusSm);
+
+  padding: 14px 20px;
+
+  color: var(--white);
+
+
+}
+
+
+.storefrontBadgeName
+{
+  font-size: 0.75rem;
+
+  font-weight: 600;
+
+  letter-spacing: 0.1em;
+
+  text-transform: uppercase;
+
+
+}
+
+
+.storefrontBadgeSub
+{
+  font-size: 0.68rem;
+
+  color: rgba(255, 255, 255, 0.6);
+
+  margin-top: 3px;
+
+  letter-spacing: 0.05em;
+
+
+}
+
+
+.storefrontDesc
+{
+  font-size: 1rem;
+
+  color: rgba(255, 255, 255, 0.55);
+
+  line-height: 1.85;
+
+  font-weight: 300;
+
+  margin-bottom: 20px;
+
+  max-width: 440px;
+
+
+}
+
+
+/* ── Game Day Section ── */
+
+.gameDaySection
+{
+  background: var(--white);
+
+  padding: 100px 40px;
+
+
+}
+
+
+.gameDayInner
+{
+  max-width: 1320px;
+
+  margin: 0 auto;
+
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 80px;
+
+  align-items: center;
+
+
+}
+
+
+.gameDayDesc
+{
+  font-size: 1rem;
+
+  color: var(--textMuted);
+
+  line-height: 1.85;
+
+  font-weight: 300;
+
+  margin-bottom: 36px;
+
+  max-width: 440px;
+
+
+}
+
+
+.gameDayImgs
+{
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 16px;
+
+  height: 420px;
+
+
+}
+
+
+.gameDayImg
+{
+  border-radius: var(--radiusSm);
+
+  overflow: hidden;
+
+  position: relative;
+
+
+}
+
+
+.gameDayImg img
+{
+  width: 100%;
+
+  height: 100%;
+
+  object-fit: cover;
+
+  transition: transform 0.5s var(--ease);
+
+
+}
+
+
+.gameDayImg:hover img
+{
+  transform: scale(1.06);
+
+
+}
+
+
+.gameDayImg:first-child
+{
+  grid-row: span 2;
+
+
+}
+
+
+.gameDayImgAccent
+{
+  background: var(--lightPink);
+
+
+}
+
+
+/* ── Community Pills (shared with index) ── */
+
+.communityPills
+{
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 10px;
+
+  margin-bottom: 40px;
+
+
+}
+
+
+.pill
+{
+  padding: 8px 18px;
+
+  border-radius: 50px;
+
+  background: var(--lightPink);
+
+  color: var(--primaryPink);
+
+  font-size: 0.75rem;
+
+  font-weight: 600;
+
+  letter-spacing: 0.06em;
+
+  transition: all 0.25s;
+
+
+}
+
+
+.pill:hover
+{
+  background: var(--primaryPink);
+
+  color: var(--white);
+
+
+}
+
+
+/* ── Responsive ── */
+
+@media (max-width: 1100px)
+{
+  .aboutStoryGrid
+{
+    grid-template-columns: 1fr;
+
+  }
+
+
+  .aboutStoryImg
+{
+    position: static;
+
+  }
+
+
+  .valuesGrid
+{
+    grid-template-columns: 1fr 1fr;
+
+  }
+
+
+  .storefrontInner
+{
+    grid-template-columns: 1fr;
+
+    gap: 60px;
+
+  }
+
+
+  .gameDayInner
+{
+    grid-template-columns: 1fr;
+
+    gap: 60px;
+
+  }
+
+
+}
+
+
+@media (max-width: 768px)
+{
+  .aboutStorySection
+{
+    padding: 0 24px 70px;
+
+  }
+
+
+  .storefrontSection
+{
+    padding: 70px 24px;
+
+  }
+
+
+  .gameDaySection
+{
+    padding: 70px 24px;
+
+  }
+
+
+  .valuesGrid
+{
+    grid-template-columns: 1fr;
+
+  }
+
+
+  .gameDayImgs
+{
+    height: 280px;
+
+  }
+
+
+  .gameDayImgAccent img
+{
+    object-fit: contain;
+
+    object-position: center;
+
+  }
+
+
+}

@@ -1,0 +1,290 @@
+/* ============================================================
+   SIMPLY NUTRITION v2 — Community Page Styles
+   ============================================================ */
+
+/* ── Community Blocks ── */
+
+.communityBlocks
+{
+  max-width: 1320px;
+
+  margin: 0 auto;
+
+  padding: 0 40px 100px;
+
+
+}
+
+
+.commBlock
+{
+  padding: 60px 0;
+
+  border-top: 1px solid var(--midGray);
+
+
+}
+
+
+.commBlockHeader
+{
+  display: flex;
+
+  align-items: center;
+
+  gap: 14px;
+
+  margin-bottom: 24px;
+
+
+}
+
+
+.commBlockTitle
+{
+  font-family: "Cormorant Garamond", serif;
+
+  font-size: 1.8rem;
+
+  font-weight: 600;
+
+  color: var(--darkText);
+
+
+}
+
+
+.commBlockDesc
+{
+  font-size: 0.95rem;
+
+  color: var(--textMuted);
+
+  line-height: 1.8;
+
+  max-width: 680px;
+
+  font-weight: 300;
+
+  margin-bottom: 32px;
+
+
+}
+
+
+/* ── Image Row ── */
+
+.commImgRow
+{
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 14px;
+
+
+}
+
+
+.commImgBox
+{
+  border-radius: var(--radiusSm);
+
+  overflow: hidden;
+
+  aspect-ratio: 1;
+
+  background: var(--lightPink);
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  transition: transform 0.3s var(--ease);
+
+  cursor: pointer;
+
+
+}
+
+
+.commImgBox img
+{
+  width: 100%;
+
+  height: 100%;
+
+  object-fit: cover;
+
+
+}
+
+
+.commImgBox:hover
+{
+  transform: scale(1.04);
+
+
+}
+
+
+/* ── Dark Block ── */
+
+.commBlockDark
+{
+  background: var(--darkText);
+
+  margin: 0 -40px;
+
+  padding: 60px 40px;
+
+  border-radius: var(--radius);
+
+  border-top: none;
+
+
+}
+
+
+.commBlockDark .commBlockTitle
+{
+  color: var(--white);
+
+
+}
+
+
+.commBlockDark .commBlockDesc
+{
+  color: rgba(255, 255, 255, 0.5);
+
+
+}
+
+
+/* ── Gym Cards ── */
+
+.gymCardsGrid
+{
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 16px;
+
+
+}
+
+
+.gymCard
+{
+  background: var(--lightPink);
+
+  border: none;
+
+  border-radius: var(--radiusSm);
+
+  padding: 24px 20px;
+
+  transition: all 0.3s var(--ease);
+
+
+}
+
+
+.gymCard:hover
+{
+  transform: translateY(-3px);
+
+  box-shadow: 0 10px 28px rgba(244, 143, 177, 0.2);
+
+
+}
+
+
+.gymCardTitle
+{
+  font-size: 0.85rem;
+
+  font-weight: 600;
+
+  color: var(--darkText);
+
+  letter-spacing: 0.02em;
+
+  margin-bottom: 6px;
+
+
+}
+
+
+.gymCardDesc
+{
+  font-size: 0.78rem;
+
+  color: var(--textMuted);
+
+  line-height: 1.65;
+
+
+}
+
+
+/* ── Responsive ── */
+
+@media (max-width: 1100px)
+{
+  .gymCardsGrid
+{
+    grid-template-columns: 1fr 1fr;
+
+  }
+
+
+}
+
+
+@media (max-width: 768px)
+{
+  .communityBlocks
+{
+    padding: 0 24px 70px;
+
+  }
+
+
+  .commBlockDark
+{
+    margin: 0 -24px;
+
+    padding: 60px 24px;
+
+  }
+
+
+  .commImgRow
+{
+    grid-template-columns: 1fr 1fr;
+
+  }
+
+
+  .commBlockDesc
+{
+    max-width: 100%;
+
+  }
+
+
+  .gymCardsGrid
+{
+    grid-template-columns: 1fr;
+
+  }
+
+
+}
+
+
