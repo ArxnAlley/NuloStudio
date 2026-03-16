@@ -1,465 +1,877 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Emergency Plumbing 24/7 | Ohio Valley Construction & Plumbing LLC | (740) 534-3215</title>
-  <meta name="description" content="24/7 emergency plumbing in Proctorville and Lawrence County, Ohio. Burst pipes, flooding, sewage backup — call (740) 534-3215 right now." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <link rel="stylesheet" href="css/styleGlobal.css" />
-  <style>
-    /* Emergency page specific */
-    .emergencyHero {
-      min-height: 90vh;
-      display: flex;
-      align-items: center;
-      background: var(--black);
-      position: relative;
-      overflow: hidden;
-      padding: 8rem 0 5rem;
-    }
-    .emergencyHero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image: url('images/pipeRepair4.jpg');
-      background-size: cover;
-      background-position: center;
-      filter: brightness(0.2) saturate(0.5);
-    }
-    .emergencyHero::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(90,31,166,0.1) 60%, rgba(0,0,0,0.85) 100%);
-    }
-    .emergencyHeroContent {
-      position: relative;
-      z-index: 2;
-      text-align: center;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-    .emergencyHeroBadge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: rgba(200,30,30,0.15);
-      border: 1px solid rgba(200,30,30,0.4);
-      color: #f87171;
-      font-family: var(--fontCondensed);
-      font-size: 0.85rem;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      padding: 0.4rem 1rem;
-      border-radius: 100px;
-      margin-bottom: 1.5rem;
-      animation: pulseRed 2s ease infinite;
-    }
-    @keyframes pulseRed {
-      0%,100% { box-shadow: 0 0 0 0 rgba(200,30,30,0.3); }
-      50% { box-shadow: 0 0 0 8px rgba(200,30,30,0); }
-    }
-    .emergencyHeroContent h1 {
-      color: var(--white);
-      font-size: clamp(2.8rem, 6vw, 5rem);
-      margin-bottom: 1rem;
-    }
-    .emergencyHeroContent h1 span { color: #f87171; }
-    .emergencyHeroContent p {
-      font-size: 1.2rem;
-      color: rgba(255,255,255,0.75);
-      margin-bottom: 2.5rem;
-      max-width: 580px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .emergencyHeroCta {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    .btnEmergency {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      background: #dc2626;
-      color: var(--white);
-      font-family: var(--fontCondensed);
-      font-size: 1.1rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 1rem 2.5rem;
-      border-radius: var(--radius);
-      border: 2px solid #dc2626;
-      transition: all var(--transition);
-      animation: pulseBtn 2.5s ease infinite;
-    }
-    @keyframes pulseBtn {
-      0%,100% { box-shadow: 0 0 0 0 rgba(220,38,38,0.4); }
-      50% { box-shadow: 0 0 0 10px rgba(220,38,38,0); }
-    }
-    .btnEmergency:hover {
-      background: #b91c1c;
-      transform: translateY(-2px);
-    }
 
-    .emergencyTypes {
-      background: var(--charcoal);
-      padding: 5rem 0;
-    }
-    .emergencyTypesGrid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-      margin-top: 3rem;
-    }
-    .emergencyTypeCard {
-      background: var(--darkCard);
-      border-radius: var(--radiusLg);
-      padding: 2rem;
-      border: 1px solid var(--border);
-      transition: all var(--transition);
-      text-align: center;
-    }
-    .emergencyTypeCard:hover {
-      border-color: rgba(220,38,38,0.3);
-      transform: translateY(-3px);
-    }
-    .emergencyTypeIcon {
-      width: 56px;
-      height: 56px;
-      background: rgba(220,38,38,0.1);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.4rem;
-      color: #f87171;
-      margin: 0 auto 1.2rem;
-    }
-    .emergencyTypeCard h4 { color: var(--white); margin-bottom: 0.5rem; }
-    .emergencyTypeCard p { font-size: 0.9rem; margin: 0; }
+  <head>
 
-    .responseProcess {
-      background: var(--darkBg);
-      padding: 5.5rem 0;
-    }
-    .processSteps {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1.5rem;
-      margin-top: 3rem;
-      position: relative;
-    }
-    .processSteps::before {
-      content: '';
-      position: absolute;
-      top: 28px;
-      left: calc(12.5% + 0.75rem);
-      right: calc(12.5% + 0.75rem);
-      height: 2px;
-      background: linear-gradient(to right, var(--purple), transparent);
-    }
-    .processStep {
-      text-align: center;
-      position: relative;
-    }
-    .processNum {
-      width: 56px;
-      height: 56px;
-      background: var(--purple);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--fontDisplay);
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: var(--white);
-      margin: 0 auto 1.2rem;
-      position: relative;
-      z-index: 1;
-    }
-    .processStep h4 { color: var(--white); margin-bottom: 0.4rem; font-size: 1rem; }
-    .processStep p { font-size: 0.85rem; }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
 
-    .bigCallBand {
-      background: #1a0a2e;
-      border: 1px solid rgba(90,31,166,0.3);
-      padding: 4rem 0;
-      text-align: center;
-    }
-    .bigCallBand h2 { color: var(--white); margin-bottom: 0.75rem; }
-    .bigCallBand p { font-size: 1.1rem; color: var(--midGray); margin-bottom: 2rem; }
-    .bigPhoneNum {
-      font-family: var(--fontDisplay);
-      font-size: clamp(2.5rem, 6vw, 4.5rem);
-      font-weight: 700;
-      color: var(--white);
-      letter-spacing: 0.03em;
-      display: block;
-      margin-bottom: 1.5rem;
-    }
-    .bigPhoneNum:hover { color: var(--purpleLight); }
+      Emergency Plumbing 24/7 | Ohio Valley Construction & Plumbing LLC | (740)
+      534-3215
+    </title>
+    <meta
 
-    @media (max-width: 768px) {
-      .emergencyTypesGrid { grid-template-columns: 1fr 1fr; }
-      .processSteps { grid-template-columns: 1fr 1fr; }
-      .processSteps::before { display: none; }
-    }
-    @media (max-width: 480px) {
-      .emergencyTypesGrid { grid-template-columns: 1fr; }
-      .processSteps { grid-template-columns: 1fr; }
-    }
-  </style>
-</head>
-<body>
+      name="description"
+      content="24/7 emergency plumbing in Proctorville and Lawrence County, Ohio. Burst pipes, flooding, sewage backup — call (740) 534-3215 right now."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
 
-  <header class="siteHeader scrolled" id="siteHeader" style="background:rgba(0,0,0,0.98); padding:0.75rem 0;">
-    <div class="container">
-      <div class="headerInner">
-        <a href="index.html" class="headerLogo">
-          <img src="logos/mainLogo.png" alt="OVC Logo" />
-          <div class="logoText">
-            <span class="logoName">Ohio Valley C&P</span>
-            <span class="logoSub">Construction & Plumbing LLC</span>
-          </div>
-        </a>
-        <nav class="mainNav">
-          <a href="index.html">Home</a>
-          <a href="about.html">About</a>
-          <a href="services.html">Services</a>
-          <a href="emergency.html" class="active">Emergency</a>
-          <a href="gallery.html">Gallery</a>
-          <a href="contact.html">Contact</a>
-        </nav>
-        <div class="headerCta">
-          <a href="tel:7405343215" class="headerPhone"><i class="fas fa-phone-alt"></i> (740) 534-3215</a>
-          <a href="tel:7405343215" class="btnPrimary" style="background:#dc2626; border-color:#dc2626">Call Now</a>
-        </div>
-        <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
-          <span></span><span></span><span></span>
-        </button>
-      </div>
-    </div>
-  </header>
+      href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Barlow+Condensed:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
 
-  <nav class="mobileNav" id="mobileNav">
-    <div class="mobileNavTop">
-      <img src="logos/mainLogo.png" alt="Ohio Valley Construction & Plumbing">
-    </div>
-    <button class="mobileNavClose" id="mobileNavClose" aria-label="Close mobile menu">
-      <i class="fas fa-times"></i>
-    </button>
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="services.html">Services</a>
-    <a href="gallery.html">Gallery</a>
-    <a href="contact.html">Contact</a>
-    <a class="mobileNavPhone" href="tel:7405343215">Call 740-534-3215</a>
-  </nav>
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/styleGlobal.css" />
+    <style>
 
-  <main>
+      /* Emergency page specific */
+      .emergencyHero {
+        min-height: 90vh;
+        display: flex;
+        align-items: center;
+        background: var(--black);
+        position: relative;
+        overflow: hidden;
+        padding: 8rem 0 5rem;
+      }
+      .emergencyHero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: url("images/pipeRepair4.jpg");
+        background-size: cover;
+        background-position: center;
+        filter: brightness(0.2) saturate(0.5);
+      }
+      .emergencyHero::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          135deg,
+          rgba(0, 0, 0, 0.9) 0%,
+          rgba(90, 31, 166, 0.1) 60%,
+          rgba(0, 0, 0, 0.85) 100%
+        );
+      }
+      .emergencyHeroContent {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      .emergencyHeroBadge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: rgba(200, 30, 30, 0.15);
+        border: 1px solid rgba(200, 30, 30, 0.4);
+        color: #f87171;
+        font-family: var(--fontCondensed);
+        font-size: 0.85rem;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        padding: 0.4rem 1rem;
+        border-radius: 100px;
+        margin-bottom: 1.5rem;
+        animation: pulseRed 2s ease infinite;
+      }
+      @keyframes pulseRed {
+        0%,
+        100% {
+          box-shadow: 0 0 0 0 rgba(200, 30, 30, 0.3);
+        }
+        50% {
+          box-shadow: 0 0 0 8px rgba(200, 30, 30, 0);
+        }
+      }
+      .emergencyHeroContent h1 {
+        color: var(--white);
+        font-size: clamp(2.8rem, 6vw, 5rem);
+        margin-bottom: 1rem;
+      }
+      .emergencyHeroContent h1 span {
+        color: #f87171;
+      }
+      .emergencyHeroContent p {
+        font-size: 1.2rem;
+        color: rgba(255, 255, 255, 0.75);
+        margin-bottom: 2.5rem;
+        max-width: 580px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .emergencyHeroCta {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .btnEmergency {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        background: #dc2626;
+        color: var(--white);
+        font-family: var(--fontCondensed);
+        font-size: 1.1rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        padding: 1rem 2.5rem;
+        border-radius: var(--radius);
+        border: 2px solid #dc2626;
+        transition: all var(--transition);
+        animation: pulseBtn 2.5s ease infinite;
+      }
+      @keyframes pulseBtn {
+        0%,
+        100% {
+          box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4);
+        }
+        50% {
+          box-shadow: 0 0 0 10px rgba(220, 38, 38, 0);
+        }
+      }
+      .btnEmergency:hover {
+        background: #b91c1c;
+        transform: translateY(-2px);
+      }
 
-    <!-- Emergency Hero -->
-    <section class="emergencyHero" aria-label="Emergency plumbing service">
+      .emergencyTypes {
+        background: var(--charcoal);
+        padding: 5rem 0;
+      }
+      .emergencyTypesGrid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+        margin-top: 3rem;
+      }
+      .emergencyTypeCard {
+        background: var(--darkCard);
+        border-radius: var(--radiusLg);
+        padding: 2rem;
+        border: 1px solid var(--border);
+        transition: all var(--transition);
+        text-align: center;
+      }
+      .emergencyTypeCard:hover {
+        border-color: rgba(220, 38, 38, 0.3);
+        transform: translateY(-3px);
+      }
+      .emergencyTypeIcon {
+        width: 56px;
+        height: 56px;
+        background: rgba(220, 38, 38, 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.4rem;
+        color: #f87171;
+        margin: 0 auto 1.2rem;
+      }
+      .emergencyTypeCard h4 {
+        color: var(--white);
+        margin-bottom: 0.5rem;
+      }
+      .emergencyTypeCard p {
+        font-size: 0.9rem;
+        margin: 0;
+      }
+
+      .responseProcess {
+        background: var(--darkBg);
+        padding: 5.5rem 0;
+      }
+      .processSteps {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.5rem;
+        margin-top: 3rem;
+        position: relative;
+      }
+      .processSteps::before {
+        content: "";
+        position: absolute;
+        top: 28px;
+        left: calc(12.5% + 0.75rem);
+        right: calc(12.5% + 0.75rem);
+        height: 2px;
+        background: linear-gradient(to right, var(--purple), transparent);
+      }
+      .processStep {
+        text-align: center;
+        position: relative;
+      }
+      .processNum {
+        width: 56px;
+        height: 56px;
+        background: var(--purple);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--fontDisplay);
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: var(--white);
+        margin: 0 auto 1.2rem;
+        position: relative;
+        z-index: 1;
+      }
+      .processStep h4 {
+        color: var(--white);
+        margin-bottom: 0.4rem;
+        font-size: 1rem;
+      }
+      .processStep p {
+        font-size: 0.85rem;
+      }
+
+      .bigCallBand {
+        background: #1a0a2e;
+        border: 1px solid rgba(90, 31, 166, 0.3);
+        padding: 4rem 0;
+        text-align: center;
+      }
+      .bigCallBand h2 {
+        color: var(--white);
+        margin-bottom: 0.75rem;
+      }
+      .bigCallBand p {
+        font-size: 1.1rem;
+        color: var(--midGray);
+        margin-bottom: 2rem;
+      }
+      .bigPhoneNum {
+        font-family: var(--fontDisplay);
+        font-size: clamp(2.5rem, 6vw, 4.5rem);
+        font-weight: 700;
+        color: var(--white);
+        letter-spacing: 0.03em;
+        display: block;
+        margin-bottom: 1.5rem;
+      }
+      .bigPhoneNum:hover {
+        color: var(--purpleLight);
+      }
+
+      @media (max-width: 768px) {
+        .emergencyTypesGrid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .processSteps {
+          grid-template-columns: 1fr 1fr;
+        }
+        .processSteps::before {
+          display: none;
+        }
+      }
+      @media (max-width: 480px) {
+        .emergencyTypesGrid {
+          grid-template-columns: 1fr;
+        }
+        .processSteps {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+
+    <header
+
+      class="siteHeader scrolled"
+      id="siteHeader"
+      style="background: rgba(0, 0, 0, 0.98); padding: 0.75rem 0"
+    >
       <div class="container">
-        <div class="emergencyHeroContent reveal">
-          <div class="emergencyHeroBadge">
-            <i class="fas fa-circle" style="font-size:0.5rem; animation:pulse 1.5s ease infinite"></i>
-            Live — We Answer Right Now
-          </div>
-          <h1>Plumbing Emergency?<br /><span>Call Us Right Now.</span></h1>
-          <p>We're available 24 hours a day, 7 days a week. When water is where it shouldn't be, every minute counts — and we get there fast.</p>
-          <div class="emergencyHeroCta">
-            <a href="tel:7405343215" class="btnEmergency">
-              <i class="fas fa-phone-alt"></i> (740) 534-3215 — Call Now
-            </a>
-            <a href="contact.html" class="btnOutline">Request Service Online</a>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <!-- Emergency Types -->
-    <section class="emergencyTypes" aria-labelledby="emergencyTypesHeading">
-      <div class="container">
-        <div class="sectionHeaderCenter reveal">
-          <span class="sectionLabel" style="justify-content:center">We Handle It All</span>
-          <h2 id="emergencyTypesHeading" style="color:var(--white)">Common Plumbing Emergencies</h2>
-          <div class="dividerPurpleCenter"></div>
-          <p>Whatever the problem, we've handled it before. Call us and we'll tell you what to do until we arrive.</p>
-        </div>
-        <div class="emergencyTypesGrid">
-          <div class="emergencyTypeCard reveal">
-            <div class="emergencyTypeIcon"><i class="fas fa-tint-slash"></i></div>
-            <h4>Burst Pipe</h4>
-            <p>Shut off your water main and call us immediately. We'll be there fast to minimize damage.</p>
-          </div>
-          <div class="emergencyTypeCard reveal" style="transition-delay:0.1s">
-            <div class="emergencyTypeIcon"><i class="fas fa-water"></i></div>
-            <h4>Sewage Backup</h4>
-            <p>Sewage backing up into your home is a health hazard. Don't wait — call us right away.</p>
-          </div>
-          <div class="emergencyTypeCard reveal" style="transition-delay:0.2s">
-            <div class="emergencyTypeIcon"><i class="fas fa-fire-alt"></i></div>
-            <h4>Water Heater Failure</h4>
-            <p>No hot water or water heater leaking? We can often get there the same day.</p>
-          </div>
-          <div class="emergencyTypeCard reveal">
-            <div class="emergencyTypeIcon"><i class="fas fa-search"></i></div>
-            <h4>Hidden Leak</h4>
-            <p>Wet walls, soft floors, or a sky-high water bill? You may have a leak you can't see.</p>
-          </div>
-          <div class="emergencyTypeCard reveal" style="transition-delay:0.1s">
-            <div class="emergencyTypeIcon"><i class="fas fa-toilet"></i></div>
-            <h4>Overflowing Toilet</h4>
-            <p>Shut off the valve at the base and call us. We'll get it resolved quickly and cleanly.</p>
-          </div>
-          <div class="emergencyTypeCard reveal" style="transition-delay:0.2s">
-            <div class="emergencyTypeIcon"><i class="fas fa-home"></i></div>
-            <h4>Flooding</h4>
-            <p>Active flooding from a plumbing failure? We respond immediately to stop the damage.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+        <div class="headerInner">
 
-    <!-- Response Process -->
-    <section class="responseProcess" aria-labelledby="processHeading">
-      <div class="container">
-        <div class="sectionHeaderCenter reveal">
-          <span class="sectionLabel" style="justify-content:center">What Happens Next</span>
-          <h2 id="processHeading" style="color:var(--white)">Our Emergency Response Process</h2>
-          <div class="dividerPurpleCenter"></div>
-          <p>From your call to the fix — here's what to expect.</p>
-        </div>
-        <div class="processSteps">
-          <div class="processStep reveal">
-            <div class="processNum">1</div>
-            <h4>You Call</h4>
-            <p>We pick up the phone. Tell us what's happening and your location.</p>
-          </div>
-          <div class="processStep reveal" style="transition-delay:0.1s">
-            <div class="processNum">2</div>
-            <h4>We Respond</h4>
-            <p>We head your way immediately with the right tools for the job.</p>
-          </div>
-          <div class="processStep reveal" style="transition-delay:0.2s">
-            <div class="processNum">3</div>
-            <h4>We Diagnose</h4>
-            <p>We find the root cause fast and walk you through what needs to be done.</p>
-          </div>
-          <div class="processStep reveal" style="transition-delay:0.3s">
-            <div class="processNum">4</div>
-            <h4>We Fix It</h4>
-            <p>We get the problem solved properly and leave your home clean.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+          <a href="index.html" class="headerLogo">
 
-    <!-- Big Call Band -->
-    <div class="bigCallBand">
-      <div class="container">
-        <h2>Don't Wait. Call Right Now.</h2>
-        <p>Every minute of active water damage is money and structural integrity you're losing.</p>
-        <a href="tel:7405343215" class="bigPhoneNum">
-          <i class="fas fa-phone-alt" style="color:var(--purple); font-size:0.7em"></i> (740) 534-3215
-        </a>
-        <p style="color:rgba(255,255,255,0.4); font-size:0.85rem">We answer 24 hours a day · 7 days a week · No overtime fees</p>
-      </div>
-    </div>
+            <img src="logos/mainLogo.png" alt="OVC Logo" />
+            <div class="logoText">
 
-  </main>
+              <span class="logoName">Ohio Valley C&P</span>
 
-  <footer class="siteFooter">
-    <div class="container">
-      <div class="footerTop">
-        <div class="footerBrand">
-          <div class="footerLogo"><img src="logos/mainLogo.png" alt="OVC Logo" loading="lazy" /></div>
-          <p>Locally owned plumbing and construction in Proctorville, OH. 24/7 emergency service.</p>
-          <a href="tel:7405343215" class="btnCall" style="font-size:0.9rem; padding:0.7rem 1.4rem"><i class="fas fa-phone-alt"></i> (740) 534-3215</a>
-        </div>
-        <div>
-          <h6 class="footerColTitle">Pages</h6>
-          <nav class="footerLinks">
+
+              <span class="logoSub">Construction & Plumbing LLC</span>
+
+            </div>
+          </a>
+          <nav class="mainNav">
+
             <a href="index.html">Home</a>
+
+
             <a href="about.html">About</a>
+
+
             <a href="services.html">Services</a>
+
+
+            <a href="emergency.html" class="active">Emergency</a>
+
+
             <a href="gallery.html">Gallery</a>
+
+
             <a href="contact.html">Contact</a>
+
           </nav>
-        </div>
-        <div>
-          <h6 class="footerColTitle">Services</h6>
-          <nav class="footerLinks">
-            <a href="services.html">Emergency Plumbing</a>
-            <a href="services.html">Plumbing Repairs</a>
-            <a href="services.html">Drain & Sewer</a>
-            <a href="services.html">Deck Building</a>
-            <a href="services.html">Roofing</a>
-          </nav>
-        </div>
-        <div>
-          <h6 class="footerColTitle">Contact</h6>
-          <address class="footerContact" style="font-style:normal">
-            <p><i class="fas fa-phone-alt" style="color:var(--purple)"></i> <a href="tel:7405343215" style="color:var(--white)">(740) 534-3215</a></p>
-            <p><i class="fas fa-map-marker-alt" style="color:var(--purple)"></i> Proctorville, OH 45669</p>
-            <p><i class="fas fa-clock" style="color:var(--purple)"></i> <strong style="color:var(--white)">Open 24 Hours</strong></p>
-          </address>
+          <div class="headerCta">
+
+            <a href="tel:7405343215" class="headerPhone">
+
+              <i class="fas fa-phone-alt"></i>
+
+
+              (740) 534-3215
+            </a>
+            <a
+
+              href="tel:7405343215"
+              class="btnPrimary"
+              style="background: #dc2626; border-color: #dc2626"
+            >
+              Call Now
+            </a>
+          </div>
+          <button
+
+            class="hamburger"
+            id="hamburger"
+            aria-label="Toggle menu"
+            aria-expanded="false"
+          >
+            <span></span>
+
+
+            <span></span>
+
+
+            <span></span>
+
+          </button>
         </div>
       </div>
-      <div class="footerBottom">
-        <p>© 2025 Ohio Valley Construction & Plumbing LLC. All rights reserved.</p>
-        <div class="footerBottomLogo">
-          <span>Site by</span>
-          <img src="logos/nuloLogoWhite.png" alt="Nulo Studio" loading="lazy" />
+    </header>
+
+    <nav class="mobileNav" id="mobileNav">
+
+      <div class="mobileNavTop">
+
+        <img
+
+          src="logos/mainLogo.png"
+          alt="Ohio Valley Construction & Plumbing"
+        />
+      </div>
+      <button
+
+        class="mobileNavClose"
+        id="mobileNavClose"
+        aria-label="Close mobile menu"
+      >
+        <i class="fas fa-times"></i>
+
+      </button>
+      <a href="index.html">Home</a>
+
+
+      <a href="about.html">About</a>
+
+
+      <a href="services.html">Services</a>
+
+
+      <a href="gallery.html">Gallery</a>
+
+
+      <a href="contact.html">Contact</a>
+
+
+      <a class="mobileNavPhone" href="tel:7405343215">Call 740-534-3215</a>
+
+    </nav>
+
+    <main>
+
+      <!-- Emergency Hero -->
+      <section class="emergencyHero" aria-label="Emergency plumbing service">
+
+        <div class="container">
+
+          <div class="emergencyHeroContent reveal">
+
+            <div class="emergencyHeroBadge">
+
+              <i
+
+                class="fas fa-circle"
+                style="font-size: 0.5rem; animation: pulse 1.5s ease infinite"
+              ></i>
+              Live — We Answer Right Now
+            </div>
+            <h1>
+
+              Plumbing Emergency?
+              <br />
+              <span>Call Us Right Now.</span>
+
+            </h1>
+            <p>
+
+              We're available 24 hours a day, 7 days a week. When water is where
+              it shouldn't be, every minute counts — and we get there fast.
+            </p>
+            <div class="emergencyHeroCta">
+
+              <a href="tel:7405343215" class="btnEmergency">
+
+                <i class="fas fa-phone-alt"></i>
+
+
+                (740) 534-3215 — Call Now
+              </a>
+              <a href="contact.html" class="btnOutline">
+
+                Request Service Online
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Emergency Types -->
+      <section class="emergencyTypes" aria-labelledby="emergencyTypesHeading">
+
+        <div class="container">
+
+          <div class="sectionHeaderCenter reveal">
+
+            <span class="sectionLabel" style="justify-content: center">
+
+              We Handle It All
+            </span>
+            <h2 id="emergencyTypesHeading" style="color: var(--white)">
+
+              Common Plumbing Emergencies
+            </h2>
+            <div class="dividerPurpleCenter"></div>
+
+
+            <p>
+
+              Whatever the problem, we've handled it before. Call us and we'll
+              tell you what to do until we arrive.
+            </p>
+          </div>
+          <div class="emergencyTypesGrid">
+
+            <div class="emergencyTypeCard reveal">
+
+              <div class="emergencyTypeIcon">
+
+                <i class="fas fa-tint-slash"></i>
+
+              </div>
+              <h4>Burst Pipe</h4>
+
+
+              <p>
+
+                Shut off your water main and call us immediately. We'll be there
+                fast to minimize damage.
+              </p>
+            </div>
+            <div
+
+              class="emergencyTypeCard reveal"
+              style="transition-delay: 0.1s"
+            >
+              <div class="emergencyTypeIcon"><i class="fas fa-water"></i></div>
+
+
+              <h4>Sewage Backup</h4>
+
+
+              <p>
+
+                Sewage backing up into your home is a health hazard. Don't wait
+                — call us right away.
+              </p>
+            </div>
+            <div
+
+              class="emergencyTypeCard reveal"
+              style="transition-delay: 0.2s"
+            >
+              <div class="emergencyTypeIcon">
+
+                <i class="fas fa-fire-alt"></i>
+
+              </div>
+              <h4>Water Heater Failure</h4>
+
+
+              <p>
+
+                No hot water or water heater leaking? We can often get there the
+                same day.
+              </p>
+            </div>
+            <div class="emergencyTypeCard reveal">
+
+              <div class="emergencyTypeIcon"><i class="fas fa-search"></i></div>
+
+
+              <h4>Hidden Leak</h4>
+
+
+              <p>
+
+                Wet walls, soft floors, or a sky-high water bill? You may have a
+                leak you can't see.
+              </p>
+            </div>
+            <div
+
+              class="emergencyTypeCard reveal"
+              style="transition-delay: 0.1s"
+            >
+              <div class="emergencyTypeIcon"><i class="fas fa-toilet"></i></div>
+
+
+              <h4>Overflowing Toilet</h4>
+
+
+              <p>
+
+                Shut off the valve at the base and call us. We'll get it
+                resolved quickly and cleanly.
+              </p>
+            </div>
+            <div
+
+              class="emergencyTypeCard reveal"
+              style="transition-delay: 0.2s"
+            >
+              <div class="emergencyTypeIcon"><i class="fas fa-home"></i></div>
+
+
+              <h4>Flooding</h4>
+
+
+              <p>
+
+                Active flooding from a plumbing failure? We respond immediately
+                to stop the damage.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Response Process -->
+      <section class="responseProcess" aria-labelledby="processHeading">
+
+        <div class="container">
+
+          <div class="sectionHeaderCenter reveal">
+
+            <span class="sectionLabel" style="justify-content: center">
+
+              What Happens Next
+            </span>
+            <h2 id="processHeading" style="color: var(--white)">
+
+              Our Emergency Response Process
+            </h2>
+            <div class="dividerPurpleCenter"></div>
+
+
+            <p>From your call to the fix — here's what to expect.</p>
+
+          </div>
+          <div class="processSteps">
+
+            <div class="processStep reveal">
+
+              <div class="processNum">1</div>
+
+
+              <h4>You Call</h4>
+
+
+              <p>
+
+                We pick up the phone. Tell us what's happening and your
+                location.
+              </p>
+            </div>
+            <div class="processStep reveal" style="transition-delay: 0.1s">
+
+              <div class="processNum">2</div>
+
+
+              <h4>We Respond</h4>
+
+
+              <p>
+
+                We head your way immediately with the right tools for the job.
+              </p>
+            </div>
+            <div class="processStep reveal" style="transition-delay: 0.2s">
+
+              <div class="processNum">3</div>
+
+
+              <h4>We Diagnose</h4>
+
+
+              <p>
+
+                We find the root cause fast and walk you through what needs to
+                be done.
+              </p>
+            </div>
+            <div class="processStep reveal" style="transition-delay: 0.3s">
+
+              <div class="processNum">4</div>
+
+
+              <h4>We Fix It</h4>
+
+
+              <p>
+
+                We get the problem solved properly and leave your home clean.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Big Call Band -->
+      <div class="bigCallBand">
+
+        <div class="container">
+
+          <h2>Don't Wait. Call Right Now.</h2>
+
+
+          <p>
+
+            Every minute of active water damage is money and structural
+            integrity you're losing.
+          </p>
+          <a href="tel:7405343215" class="bigPhoneNum">
+
+            <i
+
+              class="fas fa-phone-alt"
+              style="color: var(--purple); font-size: 0.7em"
+            ></i>
+            (740) 534-3215
+          </a>
+          <p style="color: rgba(255, 255, 255, 0.4); font-size: 0.85rem">
+
+            We answer 24 hours a day · 7 days a week · No overtime fees
+          </p>
         </div>
       </div>
-    </div>
-  </footer>
+    </main>
 
-  <script>
-    const hamburger = document.getElementById('hamburger');
-    const mobileNav = document.getElementById('mobileNav');
-    const mobileNavClose = document.getElementById('mobileNavClose');
-    const closeMobileMenu = () => {
-      hamburger.classList.remove('open');
-      mobileNav.classList.remove('open');
-      document.body.classList.remove('menuOpen');
-      hamburger.setAttribute('aria-expanded', 'false');
-      document.body.style.overflow = '';
-    };
-    hamburger.addEventListener('click', () => {
-      const isOpen = hamburger.classList.toggle('open');
-      mobileNav.classList.toggle('open');
-      document.body.classList.toggle('menuOpen', isOpen);
-      hamburger.setAttribute('aria-expanded', isOpen);
-      document.body.style.overflow = isOpen ? 'hidden' : '';
-    });
-    mobileNav.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        closeMobileMenu();
-      });
-    });
-    if (mobileNavClose) {
-      mobileNavClose.addEventListener('click', closeMobileMenu);
-    }
+    <footer class="siteFooter">
 
-    const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) { entry.target.classList.add('visible'); revealObserver.unobserve(entry.target); }
+      <div class="container">
+
+        <div class="footerTop">
+
+          <div class="footerBrand">
+
+            <div class="footerLogo">
+
+              <img src="logos/mainLogo.png" alt="OVC Logo" loading="lazy" />
+            </div>
+            <p>
+
+              Locally owned plumbing and construction in Proctorville, OH. 24/7
+              emergency service.
+            </p>
+            <a
+
+              href="tel:7405343215"
+              class="btnCall"
+              style="font-size: 0.9rem; padding: 0.7rem 1.4rem"
+            >
+              <i class="fas fa-phone-alt"></i>
+
+
+              (740) 534-3215
+            </a>
+          </div>
+          <div>
+
+            <h6 class="footerColTitle">Pages</h6>
+
+
+            <nav class="footerLinks">
+
+              <a href="index.html">Home</a>
+
+
+              <a href="about.html">About</a>
+
+
+              <a href="services.html">Services</a>
+
+
+              <a href="gallery.html">Gallery</a>
+
+
+              <a href="contact.html">Contact</a>
+
+            </nav>
+          </div>
+          <div>
+
+            <h6 class="footerColTitle">Services</h6>
+
+
+            <nav class="footerLinks">
+
+              <a href="services.html">Emergency Plumbing</a>
+
+
+              <a href="services.html">Plumbing Repairs</a>
+
+
+              <a href="services.html">Drain & Sewer</a>
+
+
+              <a href="services.html">Deck Building</a>
+
+
+              <a href="services.html">Roofing</a>
+
+            </nav>
+          </div>
+          <div>
+
+            <h6 class="footerColTitle">Contact</h6>
+
+
+            <address class="footerContact" style="font-style: normal">
+
+              <p>
+
+                <i class="fas fa-phone-alt" style="color: var(--purple)"></i>
+
+
+                <a href="tel:7405343215" style="color: var(--white)">
+
+                  (740) 534-3215
+                </a>
+              </p>
+              <p>
+
+                <i
+
+                  class="fas fa-map-marker-alt"
+                  style="color: var(--purple)"
+                ></i>
+                Proctorville, OH 45669
+              </p>
+              <p>
+
+                <i class="fas fa-clock" style="color: var(--purple)"></i>
+
+
+                <strong style="color: var(--white)">Open 24 Hours</strong>
+
+              </p>
+            </address>
+          </div>
+        </div>
+        <div class="footerBottom">
+
+          <p>
+
+            © 2025 Ohio Valley Construction & Plumbing LLC. All rights reserved.
+          </p>
+          <div class="footerBottomLogo">
+
+            <span>Site by</span>
+
+
+            <img
+
+              src="logos/nuloLogoWhite.png"
+              alt="Nulo Studio"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+
+      const hamburger = document.getElementById("hamburger");
+      const mobileNav = document.getElementById("mobileNav");
+      const mobileNavClose = document.getElementById("mobileNavClose");
+      const closeMobileMenu = () => {
+        hamburger.classList.remove("open");
+        mobileNav.classList.remove("open");
+        document.body.classList.remove("menuOpen");
+        hamburger.setAttribute("aria-expanded", "false");
+        document.body.style.overflow = "";
+      };
+      hamburger.addEventListener("click", () => {
+        const isOpen = hamburger.classList.toggle("open");
+        mobileNav.classList.toggle("open");
+        document.body.classList.toggle("menuOpen", isOpen);
+        hamburger.setAttribute("aria-expanded", isOpen);
+        document.body.style.overflow = isOpen ? "hidden" : "";
       });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-  </script>
-</body>
+      mobileNav.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+          closeMobileMenu();
+        });
+      });
+      if (mobileNavClose) {
+        mobileNavClose.addEventListener("click", closeMobileMenu);
+      }
+
+      const revealObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+              revealObserver.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.1 },
+      );
+      document
+        .querySelectorAll(".reveal")
+        .forEach((el) => revealObserver.observe(el));
+    </script>
+  </body>
 </html>
