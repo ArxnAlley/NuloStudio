@@ -4,26 +4,17 @@
 
 /* ── About Story ── */
 
-.aboutStorySection
-{
+.aboutStorySection {
   padding: 0 40px 100px;
-
-
 }
 
-
-.aboutStoryInner
-{
+.aboutStoryInner {
   max-width: 1320px;
 
   margin: 0 auto;
-
-
 }
 
-
-.aboutStoryGrid
-{
+.aboutStoryGrid {
   display: grid;
 
   grid-template-columns: 1fr 1fr;
@@ -33,13 +24,9 @@
   align-items: start;
 
   margin-bottom: 80px;
-
-
 }
 
-
-.aboutStoryImg
-{
+.aboutStoryImg {
   border-radius: var(--radius);
 
   overflow: hidden;
@@ -47,13 +34,9 @@
   position: sticky;
 
   top: 100px;
-
-
 }
 
-
-.aboutStoryImg img
-{
+.aboutStoryImg img {
   width: 100%;
 
   height: auto;
@@ -61,13 +44,9 @@
   object-fit: contain;
 
   object-position: center top;
-
-
 }
 
-
-.aboutStoryText h2
-{
+.aboutStoryText h2 {
   font-family: "Cormorant Garamond", serif;
 
   font-size: clamp(36px, 4vw, 56px);
@@ -79,23 +58,15 @@
   color: var(--darkText);
 
   margin-bottom: 24px;
-
-
 }
 
-
-.aboutStoryText h2 .italic
-{
+.aboutStoryText h2 .italic {
   font-style: italic;
 
   color: var(--primaryPink);
-
-
 }
 
-
-.aboutStoryText p
-{
+.aboutStoryText p {
   font-size: 0.95rem;
 
   color: var(--textMuted);
@@ -105,15 +76,11 @@
   font-weight: 300;
 
   margin-bottom: 18px;
-
-
 }
-
 
 /* ── Values ── */
 
-.valuesGrid
-{
+.valuesGrid {
   display: grid;
 
   grid-template-columns: repeat(3, 1fr);
@@ -121,13 +88,9 @@
   gap: 20px;
 
   margin-top: 36px;
-
-
 }
 
-
-.valueCard
-{
+.valueCard {
   background: var(--lightPink);
 
   border-radius: var(--radius);
@@ -137,23 +100,15 @@
   text-align: center;
 
   transition: all 0.3s var(--ease);
-
-
 }
 
-
-.valueCard:hover
-{
+.valueCard:hover {
   transform: translateY(-4px);
 
   box-shadow: 0 12px 32px rgba(244, 143, 177, 0.2);
-
-
 }
 
-
-.valueTitle
-{
+.valueTitle {
   font-family: "Cormorant Garamond", serif;
 
   font-size: 1.3rem;
@@ -163,37 +118,25 @@
   color: var(--darkText);
 
   margin-bottom: 10px;
-
-
 }
 
-
-.valueDesc
-{
+.valueDesc {
   font-size: 0.8rem;
 
   color: var(--textMuted);
 
   line-height: 1.65;
-
-
 }
-
 
 /* ── Storefront Dark Section ── */
 
-.storefrontSection
-{
+.storefrontSection {
   background: var(--darkText);
 
   padding: 100px 40px;
-
-
 }
 
-
-.storefrontInner
-{
+.storefrontInner {
   max-width: 1320px;
 
   margin: 0 auto;
@@ -205,25 +148,17 @@
   gap: 80px;
 
   align-items: center;
-
-
 }
 
-
-.storefrontImgWrap
-{
+.storefrontImgWrap {
   position: relative;
 
   border-radius: var(--radius);
 
   overflow: hidden;
-
-
 }
 
-
-.storefrontImgWrap img
-{
+.storefrontImgWrap img {
   width: 100%;
 
   height: 560px;
@@ -237,21 +172,13 @@
   border-radius: var(--radius);
 
   transition: transform 0.6s var(--ease);
-
-
 }
 
-
-.storefrontImgWrap:hover img
-{
+.storefrontImgWrap:hover img {
   transform: scale(1.03);
-
-
 }
 
-
-.storefrontBadge
-{
+.storefrontBadge {
   position: absolute;
 
   bottom: 24px;
@@ -271,13 +198,9 @@
   padding: 14px 20px;
 
   color: var(--white);
-
-
 }
 
-
-.storefrontBadgeName
-{
+.storefrontBadgeName {
   font-size: 0.75rem;
 
   font-weight: 600;
@@ -285,13 +208,9 @@
   letter-spacing: 0.1em;
 
   text-transform: uppercase;
-
-
 }
 
-
-.storefrontBadgeSub
-{
+.storefrontBadgeSub {
   font-size: 0.68rem;
 
   color: rgba(255, 255, 255, 0.6);
@@ -299,13 +218,9 @@
   margin-top: 3px;
 
   letter-spacing: 0.05em;
-
-
 }
 
-
-.storefrontDesc
-{
+.storefrontDesc {
   font-size: 1rem;
 
   color: rgba(255, 255, 255, 0.55);
@@ -317,25 +232,17 @@
   margin-bottom: 20px;
 
   max-width: 440px;
-
-
 }
-
 
 /* ── Game Day Section ── */
 
-.gameDaySection
-{
+.gameDaySection {
   background: var(--white);
 
   padding: 100px 40px;
-
-
 }
 
-
-.gameDayInner
-{
+.gameDayInner {
   max-width: 1320px;
 
   margin: 0 auto;
@@ -347,13 +254,9 @@
   gap: 80px;
 
   align-items: center;
-
-
 }
 
-
-.gameDayDesc
-{
+.gameDayDesc {
   font-size: 1rem;
 
   color: var(--textMuted);
@@ -365,13 +268,9 @@
   margin-bottom: 36px;
 
   max-width: 440px;
-
-
 }
 
-
-.gameDayImgs
-{
+.gameDayImgs {
   display: grid;
 
   grid-template-columns: 1fr 1fr;
@@ -379,25 +278,17 @@
   gap: 16px;
 
   height: 420px;
-
-
 }
 
-
-.gameDayImg
-{
+.gameDayImg {
   border-radius: var(--radiusSm);
 
   overflow: hidden;
 
   position: relative;
-
-
 }
 
-
-.gameDayImg img
-{
+.gameDayImg img {
   width: 100%;
 
   height: 100%;
@@ -405,39 +296,23 @@
   object-fit: cover;
 
   transition: transform 0.5s var(--ease);
-
-
 }
 
-
-.gameDayImg:hover img
-{
+.gameDayImg:hover img {
   transform: scale(1.06);
-
-
 }
 
-
-.gameDayImg:first-child
-{
+.gameDayImg:first-child {
   grid-row: span 2;
-
-
 }
 
-
-.gameDayImgAccent
-{
+.gameDayImgAccent {
   background: var(--lightPink);
-
-
 }
-
 
 /* ── Community Pills (shared with index) ── */
 
-.communityPills
-{
+.communityPills {
   display: flex;
 
   flex-wrap: wrap;
@@ -445,13 +320,9 @@
   gap: 10px;
 
   margin-bottom: 40px;
-
-
 }
 
-
-.pill
-{
+.pill {
   padding: 8px 18px;
 
   border-radius: 50px;
@@ -467,111 +338,74 @@
   letter-spacing: 0.06em;
 
   transition: all 0.25s;
-
-
 }
 
-
-.pill:hover
-{
+.pill:hover {
   background: var(--primaryPink);
 
   color: var(--white);
-
-
 }
 
+.sectionLabelDarkSpaced {
+  margin-top: 20px;
+}
+
+.storyActions {
+  margin-top: 36px;
+}
 
 /* ── Responsive ── */
 
-@media (max-width: 1100px)
-{
-  .aboutStoryGrid
-{
+@media (max-width: 1100px) {
+  .aboutStoryGrid {
     grid-template-columns: 1fr;
-
   }
 
-
-  .aboutStoryImg
-{
+  .aboutStoryImg {
     position: static;
-
   }
 
-
-  .valuesGrid
-{
+  .valuesGrid {
     grid-template-columns: 1fr 1fr;
-
   }
 
-
-  .storefrontInner
-{
+  .storefrontInner {
     grid-template-columns: 1fr;
 
     gap: 60px;
-
   }
 
-
-  .gameDayInner
-{
+  .gameDayInner {
     grid-template-columns: 1fr;
 
     gap: 60px;
-
   }
-
-
 }
 
-
-@media (max-width: 768px)
-{
-  .aboutStorySection
-{
+@media (max-width: 768px) {
+  .aboutStorySection {
     padding: 0 24px 70px;
-
   }
 
-
-  .storefrontSection
-{
+  .storefrontSection {
     padding: 70px 24px;
-
   }
 
-
-  .gameDaySection
-{
+  .gameDaySection {
     padding: 70px 24px;
-
   }
 
-
-  .valuesGrid
-{
+  .valuesGrid {
     grid-template-columns: 1fr;
-
   }
 
-
-  .gameDayImgs
-{
+  .gameDayImgs {
     height: 280px;
-
   }
 
-
-  .gameDayImgAccent img
-{
+  .gameDayImgAccent img {
     object-fit: contain;
 
     object-position: center;
-
   }
-
-
 }

@@ -4,18 +4,13 @@
 
 /* ── Visit Info Section ── */
 
-.visitInfoSection
-{
+.visitInfoSection {
   background: var(--lightGray);
 
   padding: 0 40px 100px;
-
-
 }
 
-
-.visitInfoInner
-{
+.visitInfoInner {
   max-width: 1320px;
 
   margin: 0 auto;
@@ -27,27 +22,19 @@
   gap: 80px;
 
   padding-top: 60px;
-
-
 }
-
 
 /* ── Hours List ── */
 
-.hoursList
-{
+.hoursList {
   list-style: none;
 
   display: flex;
 
   flex-direction: column;
-
-
 }
 
-
-.hoursRow
-{
+.hoursRow {
   display: flex;
 
   justify-content: space-between;
@@ -57,51 +44,31 @@
   border-bottom: 1px solid var(--midGray);
 
   font-size: 0.88rem;
-
-
 }
 
-
-.hoursDay
-{
+.hoursDay {
   color: var(--textMuted);
-
-
 }
 
-
-.hoursTime
-{
+.hoursTime {
   font-weight: 500;
 
   color: var(--darkText);
-
-
 }
 
-
-.hoursRow.today .hoursDay
-{
+.hoursRow.today .hoursDay {
   color: var(--primaryPink);
 
   font-weight: 600;
-
-
 }
 
-
-.hoursRow.today .hoursTime
-{
+.hoursRow.today .hoursTime {
   color: var(--primaryPink);
-
-
 }
-
 
 /* ── Info Labels ── */
 
-.infoLabel
-{
+.infoLabel {
   font-size: 0.65rem;
 
   letter-spacing: 0.2em;
@@ -113,13 +80,9 @@
   margin-bottom: 8px;
 
   font-weight: 600;
-
-
 }
 
-
-.infoValue
-{
+.infoValue {
   font-size: 1rem;
 
   color: var(--darkText);
@@ -127,23 +90,43 @@
   margin-bottom: 28px;
 
   line-height: 1.6;
-
-
 }
 
-
-.infoValue a
-{
+.infoValue a {
   color: var(--primaryPink);
-
-
 }
 
+.infoLabelSpaced {
+  margin-bottom: 16px;
+}
+
+.visitButtonRow {
+  display: flex;
+
+  gap: 12px;
+
+  flex-wrap: wrap;
+
+  margin-top: 36px;
+}
+
+.visitCenteredLabel {
+  justify-content: center;
+}
+
+.visitCenteredActions {
+  display: flex;
+
+  justify-content: center;
+
+  gap: 14px;
+
+  flex-wrap: wrap;
+}
 
 /* ── Map ── */
 
-.mapLight
-{
+.mapLight {
   border-radius: var(--radius);
 
   overflow: hidden;
@@ -151,13 +134,9 @@
   height: 380px;
 
   border: 1.5px solid var(--midGray);
-
-
 }
 
-
-.mapLight iframe
-{
+.mapLight iframe {
   width: 100%;
 
   height: 100%;
@@ -165,15 +144,11 @@
   border: none;
 
   display: block;
-
-
 }
-
 
 /* ── Storefront Photos ── */
 
-.storefrontPhotos
-{
+.storefrontPhotos {
   display: grid;
 
   grid-template-columns: 1fr 1fr;
@@ -181,39 +156,27 @@
   gap: 14px;
 
   margin-top: 14px;
-
-
 }
 
-
-.storefrontPhoto
-{
+.storefrontPhoto {
   border-radius: var(--radiusSm);
 
   overflow: hidden;
 
   height: 180px;
-
-
 }
 
-
-.storefrontPhoto img
-{
+.storefrontPhoto img {
   width: 100%;
 
   height: 100%;
 
   object-fit: cover;
-
-
 }
-
 
 /* ── Quick Info Cards ── */
 
-.quickInfoGrid
-{
+.quickInfoGrid {
   max-width: 1320px;
 
   margin: 48px auto 0;
@@ -225,13 +188,9 @@
   gap: 20px;
 
   padding: 0 40px;
-
-
 }
 
-
-.quickInfoCard
-{
+.quickInfoCard {
   background: var(--white);
 
   border: 1.5px solid var(--midGray);
@@ -241,23 +200,15 @@
   padding: 24px 20px;
 
   transition: all 0.3s var(--ease);
-
-
 }
 
-
-.quickInfoCard:hover
-{
+.quickInfoCard:hover {
   border-color: var(--primaryPink);
 
   transform: translateY(-3px);
-
-
 }
 
-
-.quickInfoTitle
-{
+.quickInfoTitle {
   font-size: 0.85rem;
 
   font-weight: 600;
@@ -267,49 +218,33 @@
   letter-spacing: 0.02em;
 
   margin-bottom: 6px;
-
-
 }
 
-
-.quickInfoDesc
-{
+.quickInfoDesc {
   font-size: 0.78rem;
 
   color: var(--textMuted);
 
   line-height: 1.65;
-
-
 }
-
 
 /* ── Visit CTA ── */
 
-.visitCtaFull
-{
+.visitCtaFull {
   background: var(--black);
 
   padding: 110px 40px;
-
-
 }
 
-
-.visitCtaFullInner
-{
+.visitCtaFullInner {
   max-width: 1320px;
 
   margin: 0 auto;
 
   text-align: center;
-
-
 }
 
-
-.visitCtaFullHeadline
-{
+.visitCtaFullHeadline {
   font-family: "Cormorant Garamond", serif;
 
   font-size: clamp(52px, 7vw, 100px);
@@ -323,23 +258,15 @@
   margin-bottom: 24px;
 
   letter-spacing: -0.01em;
-
-
 }
 
-
-.visitCtaFullHeadline .italic
-{
+.visitCtaFullHeadline .italic {
   font-style: italic;
 
   color: var(--primaryPink);
-
-
 }
 
-
-.visitCtaFullSub
-{
+.visitCtaFullSub {
   font-size: 1rem;
 
   color: rgba(255, 255, 255, 0.45);
@@ -351,13 +278,9 @@
   font-weight: 300;
 
   line-height: 1.75;
-
-
 }
 
-
-.visitCtaDetails
-{
+.visitCtaDetails {
   display: flex;
 
   justify-content: center;
@@ -367,13 +290,9 @@
   margin-top: 60px;
 
   flex-wrap: wrap;
-
-
 }
 
-
-.visitCtaDetail
-{
+.visitCtaDetail {
   display: flex;
 
   align-items: center;
@@ -383,13 +302,9 @@
   font-size: 0.88rem;
 
   color: rgba(255, 255, 255, 0.45);
-
-
 }
 
-
-.visitCtaDetailIcon
-{
+.visitCtaDetailIcon {
   width: 40px;
 
   height: 40px;
@@ -407,13 +322,9 @@
   font-size: 1rem;
 
   flex-shrink: 0;
-
-
 }
 
-
-.visitCtaDetailLabel
-{
+.visitCtaDetailLabel {
   font-size: 0.65rem;
 
   letter-spacing: 0.15em;
@@ -423,78 +334,46 @@
   color: var(--primaryPink);
 
   margin-bottom: 3px;
-
-
 }
 
-
-.visitCtaDetailValue
-{
+.visitCtaDetailValue {
   color: rgba(255, 255, 255, 0.7);
 
   font-weight: 400;
-
-
 }
-
 
 /* ── Responsive ── */
 
-@media (max-width: 1100px)
-{
-  .visitInfoInner
-{
+@media (max-width: 1100px) {
+  .visitInfoInner {
     grid-template-columns: 1fr;
-
   }
 
-
-  .quickInfoGrid
-{
+  .quickInfoGrid {
     grid-template-columns: 1fr 1fr;
-
   }
-
-
 }
 
-
-@media (max-width: 768px)
-{
-  .visitInfoSection
-{
+@media (max-width: 768px) {
+  .visitInfoSection {
     padding: 0 24px 70px;
-
   }
 
-
-  .quickInfoGrid
-{
+  .quickInfoGrid {
     grid-template-columns: 1fr;
 
     padding: 0 24px;
-
   }
 
-
-  .visitCtaFull
-{
+  .visitCtaFull {
     padding: 70px 24px;
-
   }
 
-
-  .visitCtaDetails
-{
+  .visitCtaDetails {
     flex-direction: column;
 
     align-items: center;
 
     gap: 24px;
-
   }
-
-
 }
-
-

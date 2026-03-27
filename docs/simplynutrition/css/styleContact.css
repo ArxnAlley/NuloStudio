@@ -4,28 +4,19 @@
 
 /* ── Form Section ── */
 
-.formSection
-{
+.formSection {
   padding: 0 40px 100px;
-
-
 }
 
-
-.formInner
-{
+.formInner {
   max-width: 800px;
 
   margin: 0 auto;
-
-
 }
-
 
 /* ── Form Card ── */
 
-.formCard
-{
+.formCard {
   background: var(--white);
 
   border: 1.5px solid var(--midGray);
@@ -35,23 +26,15 @@
   padding: 52px 56px;
 
   box-shadow: 0 4px 32px rgba(0, 0, 0, 0.06);
-
-
 }
-
 
 /* ── Form Group ── */
 
-.formGroup
-{
+.formGroup {
   margin-bottom: 28px;
-
-
 }
 
-
-.formLabel
-{
+.formLabel {
   display: block;
 
   font-size: 0.72rem;
@@ -65,15 +48,11 @@
   color: var(--darkText);
 
   margin-bottom: 10px;
-
-
 }
-
 
 .formInput,
 .formTextarea,
-.formSelect
-{
+.formSelect {
   width: 100%;
 
   padding: 14px 18px;
@@ -97,37 +76,25 @@
   outline: none;
 
   appearance: none;
-
-
 }
-
 
 .formInput:focus,
 .formTextarea:focus,
-.formSelect:focus
-{
+.formSelect:focus {
   border-color: var(--primaryPink);
 
   box-shadow: 0 0 0 3px rgba(244, 143, 177, 0.15);
-
-
 }
 
-
-.formTextarea
-{
+.formTextarea {
   resize: vertical;
 
   min-height: 140px;
 
   line-height: 1.7;
-
-
 }
 
-
-.formSelect
-{
+.formSelect {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
 
   background-repeat: no-repeat;
@@ -137,29 +104,21 @@
   padding-right: 40px;
 
   cursor: pointer;
-
-
 }
-
 
 /* ── Form Row (two columns) ── */
 
-.formRow
-{
+.formRow {
   display: grid;
 
   grid-template-columns: 1fr 1fr;
 
   gap: 20px;
-
-
 }
-
 
 /* ── Submit Button ── */
 
-.formSubmit
-{
+.formSubmit {
   width: 100%;
 
   padding: 16px;
@@ -187,47 +146,31 @@
   border: none;
 
   font-family: "DM Sans", sans-serif;
-
-
 }
 
-
-.formSubmit:hover
-{
+.formSubmit:hover {
   transform: translateY(-2px);
 
   box-shadow: 0 8px 30px rgba(244, 143, 177, 0.45);
 
   background: #ec7fa3;
-
-
 }
-
 
 /* ── Success Message ── */
 
-.formSuccess
-{
+.formSuccess {
   display: none;
 
   text-align: center;
 
   padding: 40px;
-
-
 }
 
-
-.formSuccess.visible
-{
+.formSuccess.visible {
   display: block;
-
-
 }
 
-
-.formSuccessTitle
-{
+.formSuccessTitle {
   font-family: "Cormorant Garamond", serif;
 
   font-size: 2rem;
@@ -237,27 +180,19 @@
   color: var(--darkText);
 
   margin-bottom: 12px;
-
-
 }
 
-
-.formSuccessDesc
-{
+.formSuccessDesc {
   font-size: 0.9rem;
 
   color: var(--textMuted);
 
   line-height: 1.7;
-
-
 }
-
 
 /* ── Contact Info Side (contact page) ── */
 
-.contactLayout
-{
+.contactLayout {
   max-width: 1320px;
 
   margin: 0 auto;
@@ -269,21 +204,13 @@
   gap: 80px;
 
   align-items: start;
-
-
 }
 
-
-.contactInfoBlock
-{
+.contactInfoBlock {
   margin-bottom: 40px;
-
-
 }
 
-
-.contactInfoLabel
-{
+.contactInfoLabel {
   font-size: 0.65rem;
 
   letter-spacing: 0.2em;
@@ -295,80 +222,58 @@
   margin-bottom: 8px;
 
   font-weight: 600;
-
-
 }
 
-
-.contactInfoValue
-{
+.contactInfoValue {
   font-size: 1rem;
 
   color: var(--darkText);
 
   line-height: 1.6;
-
-
 }
 
-
-.contactInfoValue a
-{
+.contactInfoValue a {
   color: var(--primaryPink);
 
   transition: opacity 0.2s;
-
-
 }
 
-
-.contactInfoValue a:hover
-{
+.contactInfoValue a:hover {
   opacity: 0.75;
-
-
 }
 
+.contactInfoTextMuted {
+  font-size: 0.88rem;
+
+  color: var(--textMuted);
+
+  line-height: 1.75;
+}
+
+.contactInfoCta {
+  margin-top: 40px;
+}
 
 /* ── Responsive ── */
 
-@media (max-width: 1100px)
-{
-  .contactLayout
-{
+@media (max-width: 1100px) {
+  .contactLayout {
     grid-template-columns: 1fr;
 
     gap: 60px;
-
   }
-
-
 }
 
-
-@media (max-width: 768px)
-{
-  .formSection
-{
+@media (max-width: 768px) {
+  .formSection {
     padding: 0 24px 70px;
-
   }
 
-
-  .formCard
-{
+  .formCard {
     padding: 36px 28px;
-
   }
 
-
-  .formRow
-{
+  .formRow {
     grid-template-columns: 1fr;
-
   }
-
-
 }
-
-

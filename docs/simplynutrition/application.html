@@ -1,116 +1,95 @@
-﻿<!DOCTYPE html>
+﻿<!doctype html>
 <html lang="en">
-
   <head>
-
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Join The Team - Simply Nutrition | Wheelersburg, OH</title>
 
-
     <meta
-
       name="description"
       content="Interested in working at Simply Nutrition in Wheelersburg? Apply to join our team today."
     />
     <link rel="stylesheet" href="css/styleBase.css" />
     <link rel="stylesheet" href="css/styleContact.css" />
-    <link
-
-      rel="icon"
-      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
-<text y='.9em' font-size='90'>&#129360;</text>
-
-
-
-</svg>"
-    />
+    <link rel="shortcut icon" href="simplyFavicon.png" type="image/png" />
+    <link rel="icon" href="simplyFavicon.png" type="image/png" />
+    <link rel="apple-touch-icon" href="simplyFavicon.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="simplyFavicon.png" />
   </head>
   <body>
-
     <!-- NAVIGATION -->
 
     <nav>
-
       <div class="navInner">
-
         <a href="index.html" class="navLogo">
-
           <img src="logos/mainLogoThumbnail.jpg" alt="Simply Nutrition Logo" />
         </a>
         <ul class="navLinks">
-
           <li>
-
             <a href="index.html">Home</a>
-
           </li>
           <li>
-
             <a href="menu.html">Menu</a>
-
           </li>
           <li>
-
             <a href="about.html">About</a>
-
           </li>
           <li>
-
-            <a href="https://simplymboutique.com/" target="_blank">Boutique</a>
-
+            <a
+              href="https://simplymboutique.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Boutique</a
+            >
           </li>
           <li>
-
             <a href="visit.html">Visit Us</a>
-
           </li>
           <li>
-
             <a href="tel:7407270900" class="navCtaBtn">Order Now</a>
-
           </li>
         </ul>
-        <button class="navToggle" aria-label="Toggle menu">
+        <div class="navActions">
+          <a href="tel:7407270900" class="navPhone" aria-label="Call us">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path
+                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.9a16 16 0 0 0 6.29 6.29l.94-.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+              />
+            </svg>
+          </a>
+          <button class="navToggle" aria-label="Toggle menu">
+            <span></span>
 
-          <span></span>
+            <span></span>
 
-
-          <span></span>
-
-
-          <span></span>
-
-        </button>
+            <span></span>
+          </button>
+        </div>
       </div>
     </nav>
     <!-- PAGE HERO -->
 
-    <div
-
-      class="pageHero"
-      style="
-        background: linear-gradient(
-          160deg,
-          var(--white) 50%,
-          var(--lightPink) 100%
-        );
-      "
-    >
+    <div class="pageHero pageHeroPinkFade">
       <div class="pageHeroInner">
-
         <div class="pageHeroLabel">Now Hiring</div>
 
-
         <h1 class="pageHeroTitle reveal">
-
           Join The
           <br />
           <span class="italic">Team</span>
-
         </h1>
         <p class="pageHeroDesc reveal revealDelay1">
-
           Love great drinks, good energy, and serving your community? We'd love
           to have you on the Simply Nutrition team. Fill out the form below to
           get started.
@@ -120,108 +99,92 @@
     <!-- APPLICATION FORM -->
 
     <div class="formSection">
-
       <div class="contactLayout">
-
         <!-- Left: Form -->
 
         <div class="reveal">
-
           <div class="formCard">
-
-            <form id="contactForm">
-
+            <form
+              id="contactForm"
+              action="https://formspree.io/f/mvzvzpgn"
+              method="POST"
+              novalidate
+            >
               <div class="formRow">
-
                 <div class="formGroup">
-
                   <label class="formLabel" for="firstName">First Name</label>
 
-
                   <input
-
                     class="formInput"
                     type="text"
                     id="firstName"
                     name="firstName"
                     placeholder="Jane"
+                    autocomplete="given-name"
+                    minlength="2"
                     required
                   />
                 </div>
                 <div class="formGroup">
-
                   <label class="formLabel" for="lastName">Last Name</label>
 
-
                   <input
-
                     class="formInput"
                     type="text"
                     id="lastName"
                     name="lastName"
                     placeholder="Smith"
+                    autocomplete="family-name"
+                    minlength="2"
                     required
                   />
                 </div>
               </div>
               <div class="formGroup">
-
                 <label class="formLabel" for="email">Email Address</label>
 
-
                 <input
-
                   class="formInput"
                   type="email"
                   id="email"
                   name="email"
                   placeholder="jane@example.com"
+                  autocomplete="email"
+                  pattern="^[^\s@]+@[^\s@]+\.[^\s@]{2,}$"
                   required
                 />
               </div>
               <div class="formGroup">
-
                 <label class="formLabel" for="phone">Phone Number</label>
 
-
                 <input
-
                   class="formInput"
                   type="tel"
                   id="phone"
                   name="phone"
                   placeholder="(740) 000-0000"
+                  autocomplete="tel"
                   required
                 />
               </div>
               <div class="formRow">
-
                 <div class="formGroup">
-
                   <label class="formLabel" for="age">Are You 18+?</label>
 
-
                   <select class="formSelect" id="age" name="age" required>
-
                     <option value="">Select...</option>
-
 
                     <option value="yes">Yes</option>
 
-
                     <option value="no">No</option>
-
                   </select>
                 </div>
                 <div class="formGroup">
-
                   <label class="formLabel" for="availability">
-
                     Availability
                   </label>
 
                   <select
-
                     class="formSelect"
                     id="availability"
                     name="availability"
@@ -229,79 +192,59 @@
                   >
                     <option value="">Select...</option>
 
-
                     <option value="full-time">Full-Time</option>
-
 
                     <option value="part-time">Part-Time</option>
 
-
                     <option value="weekends">Weekends Only</option>
 
-
                     <option value="flexible">Flexible</option>
-
                   </select>
                 </div>
               </div>
               <div class="formGroup">
-
                 <label class="formLabel" for="experience">
-
                   Relevant Experience
                 </label>
 
                 <select class="formSelect" id="experience" name="experience">
-
                   <option value="">Select...</option>
-
 
                   <option value="none">No Experience</option>
 
-
                   <option value="food-service">Food Service</option>
-
 
                   <option value="retail">Retail</option>
 
-
                   <option value="nutrition">Nutrition / Health</option>
-
 
                   <option value="customer-service">Customer Service</option>
 
-
                   <option value="other">Other</option>
-
                 </select>
               </div>
               <div class="formGroup">
-
                 <label class="formLabel" for="message">
-
                   Tell Us About Yourself
                 </label>
 
                 <textarea
-
                   class="formTextarea"
                   id="message"
                   name="message"
                   placeholder="Why do you want to join Simply Nutrition? What makes you a great fit for our team?"
+                  minlength="10"
+                  required
                 ></textarea>
               </div>
               <button type="submit" class="formSubmit">
-
                 Submit Application
               </button>
             </form>
             <div id="formSuccess" class="formSuccess">
-
               <div class="formSuccessTitle">Application Received!</div>
 
-
               <div class="formSuccessDesc">
-
                 Thanks for applying. We'll review your application and reach out
                 to you soon.
               </div>
@@ -311,53 +254,33 @@
         <!-- Right: Info -->
 
         <div class="reveal revealDelay1">
-
           <div class="contactInfoBlock">
-
             <div class="contactInfoLabel">Location</div>
 
-
             <div class="contactInfoValue">
-
               8734 Ohio River Rd
               <br />
               Wheelersburg, OH 45694
             </div>
           </div>
           <div class="contactInfoBlock">
-
             <div class="contactInfoLabel">Questions?</div>
 
-
             <div class="contactInfoValue">
-
               <a href="tel:7407270900">(740) 727-0900</a>
-
             </div>
           </div>
           <div class="contactInfoBlock">
-
             <div class="contactInfoLabel">What We Offer</div>
 
-
-            <div
-
-              class="contactInfoValue"
-              style="
-                font-size: 0.88rem;
-                color: var(--textMuted);
-                line-height: 1.75;
-              "
-            >
+            <div class="contactInfoValue contactInfoTextMuted">
               A fun, positive work environment in the heart of Wheelersburg.
               Join a team that cares about the community, quality, and good
               vibes every single day.
             </div>
           </div>
-          <div style="margin-top: 40px">
-
+          <div class="contactInfoCta">
             <a href="about.html" class="btnOutline">Learn About Us &rarr;</a>
-
           </div>
         </div>
       </div>
@@ -365,143 +288,105 @@
     <!-- FOOTER -->
 
     <footer>
-
       <div class="footerInner">
-
         <div>
-
           <div class="footerLogo">
-
-            <img src="logos/mainLogoThumbnail2.jpg" alt="Simply Nutrition" />
+            <img
+              src="logos/mainLogoThumbnail2.jpg"
+              alt="Simply Nutrition"
+              loading="lazy"
+            />
           </div>
           <p class="footerBrandDesc">
-
             Premium energy teas, protein shakes, smoothies &amp; acai bowls.
             Fueling Wheelersburg one delicious cup at a time.
           </p>
         </div>
         <div>
-
           <div class="footerColTitle">Pages</div>
 
-
           <ul class="footerLinks">
-
             <li>
-
               <a href="index.html">Home</a>
-
             </li>
             <li>
-
               <a href="menu.html">Menu</a>
-
             </li>
             <li>
-
               <a href="about.html">About</a>
-
             </li>
             <li>
-
-              <a href="https://simplymboutique.com/" target="_blank">
-
+              <a
+                href="https://simplymboutique.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 Boutique
               </a>
             </li>
             <li>
-
               <a href="visit.html">Visit Us</a>
-
             </li>
           </ul>
         </div>
         <div>
-
           <div class="footerColTitle">Menu</div>
 
-
           <ul class="footerLinks">
-
             <li>
-
               <a href="menu.html">Loaded Teas</a>
-
             </li>
             <li>
-
               <a href="menu.html">Protein Shakes</a>
-
             </li>
             <li>
-
               <a href="menu.html">Smoothies</a>
-
             </li>
             <li>
-
               <a href="menu.html">Acai Bowls</a>
-
             </li>
           </ul>
         </div>
         <div>
-
           <div class="footerColTitle">Contact</div>
 
-
           <ul class="footerLinks">
-
             <li>
-
               <a href="tel:7407270900">(740) 727-0900</a>
-
             </li>
             <li>
-
               <a href="visit.html">8734 Ohio River Rd</a>
-
             </li>
             <li>
-
               <a href="contact.html">Send a Message</a>
-
             </li>
             <li>
-
               <a href="application.html">Join The Team</a>
-
             </li>
             <li>
-
               <a href="#" id="vipFooterLink">Join Simply VIP Club</a>
-
             </li>
           </ul>
         </div>
       </div>
       <div class="footerBottom">
-
         <span class="footerCopy">
-
           &copy; 2025 Simply Nutrition &middot; Wheelersburg, Ohio
         </span>
 
-        <a href="#" class="footerDev" title="Website by Nulo Studio">
-
+        <a href="https://www.nulostudio.com" class="footerDev" title="Website by Nulo Studio" target="_blank" rel="noopener noreferrer">
           <span class="footerDevLabel">Created by</span>
 
-
           <img
-
             src="logos/nuloLogoPink.png"
             alt="Nulo Studio"
             class="footerDevLogo"
+            loading="lazy"
           />
         </a>
       </div>
     </footer>
-    <script src="js/contactJS.js"></script>
-
+    <script src="js/formUtils.js"></script>
+    <script src="js/contactFormPage.js"></script>
   </body>
 </html>

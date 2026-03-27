@@ -4,79 +4,75 @@
 
 /* ── Hero ── */
 
-#hero 
-{
+#hero {
   min-height: 100svh;
-  
+
   background: var(--white);
-  
+
   display: flex;
-  
+
   flex-direction: column;
-  
+
   justify-content: center;
-  
+
   padding-top: var(--navH);
-  
+
   position: relative;
-  
+
   overflow: hidden;
-  
+
   transition: background 0.7s var(--ease);
 }
 
-#heroBgOverlay 
-{
+#heroBgOverlay {
   position: absolute;
-  
+
   inset: 0;
-  
+
   transition: background 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  
+
   pointer-events: none;
-  
+
   z-index: 0;
 }
 
-#heroBlob 
-{
+#heroBlob {
   position: absolute;
-  
+
   width: 700px;
-  
+
   height: 700px;
-  
+
   border-radius: 50%;
-  
+
   top: -100px;
-  
+
   right: -200px;
-  
+
   opacity: 0.12;
-  
+
   transition: background 0.8s var(--ease);
-  
+
   pointer-events: none;
-  
+
   filter: blur(80px);
 }
 
-.heroInner 
-{
+.heroInner {
   max-width: 1320px;
-  
+
   margin: 0 auto;
-  
+
   padding: 60px 40px 80px;
-  
+
   display: grid;
-  
+
   grid-template-columns: 1fr 1fr;
-  
+
   gap: 60px;
-  
+
   align-items: center;
-  
+
   width: 100%;
 }
 
@@ -84,11 +80,17 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: var(--lightPink);
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.08),
+    0 1px 4px rgba(0, 0, 0, 0.05);
   color: var(--primaryPink);
   font-size: 0.7rem;
   font-weight: 600;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   padding: 7px 16px;
   border-radius: 50px;
@@ -97,22 +99,26 @@
 }
 
 .heroBadgeDot {
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background: var(--primaryPink);
+  flex-shrink: 0;
+  transition: background 0.4s ease;
 }
 
 .heroHeadline {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: "Cormorant Garamond", serif;
   font-size: clamp(52px, 6.5vw, 96px);
   font-weight: 600;
-  line-height: 1.0;
+  line-height: 1;
   letter-spacing: -0.01em;
   color: var(--darkText);
   margin-bottom: 24px;
   animation: fadeUp 0.7s 0.2s both;
-  transition: opacity 0.35s ease, transform 0.35s var(--easeOut);
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s var(--easeOut);
 }
 
 .heroHeadline .italic {
@@ -144,8 +150,14 @@
 }
 
 @keyframes ctaSlideIn {
-  from { opacity: 0; transform: translateY(16px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ── Drink Cards ── */
@@ -173,7 +185,7 @@
 }
 
 .drinkCard::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   opacity: 0;
@@ -186,38 +198,105 @@
 }
 
 .drinkCard.active {
-  border-color: transparent;
-  transform: translateX(10px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+  transform: scale(1.1);
+  background: rgba(255, 255, 255, 0.18);
+  box-shadow:
+    0 0 25px rgba(255, 255, 255, 0.25),
+    0 0 50px rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.4s ease;
+  overflow: visible;
 }
 
 .drinkCard.active::before {
   opacity: 1;
+  border-radius: inherit;
 }
 
-.drinkCard[data-drink="pinkSugar"]::before { background: linear-gradient(135deg, rgba(244, 143, 177, 0.08), rgba(252, 228, 236, 0.6)); }
+.drinkCard.active::after {
+  content: "";
+  position: absolute;
+  right: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 70%;
+  border-radius: 4px;
+  background: white;
+  opacity: 0.8;
+}
 
-.drinkCard[data-drink="tropical"]::before  { background: linear-gradient(135deg, rgba(255, 112, 67, 0.08), rgba(255, 236, 225, 0.6)); }
+.drinkCard[data-drink="pinkSugar"]::before {
+  background: linear-gradient(
+    135deg,
+    rgba(244, 143, 177, 0.08),
+    rgba(252, 228, 236, 0.6)
+  );
+}
 
-.drinkCard[data-drink="berry"]::before     { background: linear-gradient(135deg, rgba(123, 31, 162, 0.08), rgba(237, 222, 247, 0.6)); }
+.drinkCard[data-drink="tropical"]::before {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 112, 67, 0.08),
+    rgba(255, 236, 225, 0.6)
+  );
+}
 
-.drinkCard[data-drink="lemon"]::before     { background: linear-gradient(135deg, rgba(139, 195, 74, 0.08), rgba(236, 247, 219, 0.6)); }
+.drinkCard[data-drink="berry"]::before {
+  background: linear-gradient(
+    135deg,
+    rgba(123, 31, 162, 0.08),
+    rgba(237, 222, 247, 0.6)
+  );
+}
 
-.drinkCard[data-drink="heart"]::before     { background: linear-gradient(135deg, rgba(233, 30, 99, 0.08), rgba(252, 228, 236, 0.6)); }
+.drinkCard[data-drink="lemon"]::before {
+  background: linear-gradient(
+    135deg,
+    rgba(139, 195, 74, 0.08),
+    rgba(236, 247, 219, 0.6)
+  );
+}
 
-.drinkCard[data-drink="coffee"]::before    { background: linear-gradient(135deg, rgba(121, 85, 72, 0.08), rgba(245, 236, 231, 0.6)); }
+.drinkCard[data-drink="heart"]::before {
+  background: linear-gradient(
+    135deg,
+    rgba(233, 30, 99, 0.08),
+    rgba(252, 228, 236, 0.6)
+  );
+}
 
-.drinkCard[data-drink="pinkSugar"].active { border-color: rgba(244, 143, 177, 0.3); }
+.drinkCard[data-drink="coffee"]::before {
+  background: linear-gradient(
+    135deg,
+    rgba(121, 85, 72, 0.08),
+    rgba(245, 236, 231, 0.6)
+  );
+}
 
-.drinkCard[data-drink="tropical"].active  { border-color: rgba(255, 112, 67, 0.3); }
+.drinkCard[data-drink="pinkSugar"].active {
+  border-color: rgba(244, 143, 177, 0.3);
+}
 
-.drinkCard[data-drink="berry"].active     { border-color: rgba(123, 31, 162, 0.3); }
+.drinkCard[data-drink="tropical"].active {
+  border-color: rgba(255, 112, 67, 0.3);
+}
 
-.drinkCard[data-drink="lemon"].active     { border-color: rgba(139, 195, 74, 0.3); }
+.drinkCard[data-drink="berry"].active {
+  border-color: rgba(123, 31, 162, 0.3);
+}
 
-.drinkCard[data-drink="heart"].active     { border-color: rgba(233, 30, 99, 0.3); }
+.drinkCard[data-drink="lemon"].active {
+  border-color: rgba(139, 195, 74, 0.3);
+}
 
-.drinkCard[data-drink="coffee"].active    { border-color: rgba(121, 85, 72, 0.3); }
+.drinkCard[data-drink="heart"].active {
+  border-color: rgba(233, 30, 99, 0.3);
+}
+
+.drinkCard[data-drink="coffee"].active {
+  border-color: rgba(121, 85, 72, 0.3);
+}
 
 .drinkThumb {
   width: 68px;
@@ -242,7 +321,7 @@
 }
 
 .drinkCardName {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: "Cormorant Garamond", serif;
   font-size: 1.25rem;
   font-weight: 600;
   letter-spacing: 0.01em;
@@ -363,6 +442,17 @@
   margin: 0 auto;
 }
 
+.menuPreviewHeader {
+  margin-bottom: 48px;
+}
+
+.menuPreviewActions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
 /* Featured label above fan favorites */
 
 .featuredLabel {
@@ -394,6 +484,10 @@
   gap: 22px;
 }
 
+.popularGridSpaced {
+  margin-bottom: 64px;
+}
+
 .popCard {
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.07);
@@ -416,6 +510,18 @@
   justify-content: center;
   overflow: hidden;
   position: relative;
+}
+
+.popCardImgPink {
+  background: linear-gradient(160deg, #fce4ec 0%, #f8bbd9 100%);
+}
+
+.popCardImgBerry {
+  background: linear-gradient(160deg, #fce4ec 0%, #ede7f6 100%);
+}
+
+.popCardImgGold {
+  background: linear-gradient(160deg, #fff8e1 0%, #ffe0b2 100%);
 }
 
 .popCardImg img {
@@ -444,7 +550,7 @@
 }
 
 .popCardName {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: "Cormorant Garamond", serif;
   font-size: 1.4rem;
   font-weight: 600;
   color: var(--white);
@@ -526,8 +632,39 @@
   margin-bottom: 16px;
 }
 
+.menuItemDotPink {
+  background: #f48fb1;
+}
+.menuItemDotBerry {
+  background: #7b1fa2;
+}
+.menuItemDotTropical {
+  background: #ff7043;
+}
+.menuItemDotLemon {
+  background: #8bc34a;
+}
+.menuItemDotCoffee {
+  background: #795548;
+}
+.menuItemDotBanana {
+  background: #f7c948;
+}
+.menuItemDotChocolate {
+  background: #8d5524;
+}
+.menuItemDotGreen {
+  background: #43e97b;
+}
+.menuItemDotMagenta {
+  background: #e91e63;
+}
+.menuItemDotSun {
+  background: #ffca28;
+}
+
 .menuItemName {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: "Cormorant Garamond", serif;
   font-size: 1.15rem;
   font-weight: 600;
   color: var(--white);
@@ -622,7 +759,7 @@
 }
 
 .visitHeadline {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: "Cormorant Garamond", serif;
   font-size: clamp(52px, 7vw, 100px);
   font-weight: 600;
   line-height: 0.95;
@@ -724,39 +861,45 @@
   font-weight: 300;
 }
 
-.findUsGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  max-width: 860px;
-  margin: 0 auto 56px;
+.findUsOptions {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  max-width: 760px;
+  margin: 0 auto 40px;
 }
 
 .findUsOption {
-  padding: 14px 20px;
+  padding: 12px 20px;
   border: 1.5px solid var(--midGray);
-  border-radius: 50px;
+  border-radius: 999px;
+  background: var(--white);
+  color: var(--darkText);
   font-size: 0.82rem;
   font-weight: 500;
-  color: var(--textMuted);
-  background: var(--white);
-  cursor: pointer;
-  transition: all 0.25s var(--ease);
   letter-spacing: 0.04em;
+  transition:
+    border-color 0.25s var(--ease),
+    background 0.25s var(--ease),
+    color 0.25s var(--ease),
+    transform 0.25s var(--ease),
+    box-shadow 0.25s var(--ease);
 }
 
 .findUsOption:hover,
-.findUsOption.selected {
+.findUsOption:focus-visible,
+.findUsOption.isActive {
   border-color: var(--primaryPink);
-  color: var(--primaryPink);
   background: var(--lightPink);
+  color: var(--darkText);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(244, 143, 177, 0.16);
 }
 
-.findUsDivider {
-  width: 1px;
-  height: 60px;
-  background: var(--midGray);
-  margin: 0 auto 56px;
+.findUsOption:disabled {
+  cursor: default;
+  opacity: 0.72;
 }
 
 .findUsCtaRow {
@@ -764,6 +907,33 @@
   justify-content: center;
   gap: 20px;
   flex-wrap: wrap;
+}
+
+.whyActions {
+  margin-top: 40px;
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.aboutAction {
+  margin-top: 40px;
+}
+
+.visitCenteredRow {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.sectionLabelCentered {
+  justify-content: center;
+}
+
+.sectionTitleCenteredCompact {
+  text-align: center;
+  margin-bottom: 16px;
 }
 
 .findUsCtaCard {
@@ -784,7 +954,7 @@
 }
 
 .findUsCtaTitle {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: "Cormorant Garamond", serif;
   font-size: 1.4rem;
   font-weight: 600;
   color: var(--darkText);
@@ -975,7 +1145,7 @@
 }
 
 .vipHeadline {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: "Cormorant Garamond", serif;
   font-size: clamp(32px, 5vw, 48px);
   font-weight: 600;
   line-height: 1.05;
@@ -1073,35 +1243,156 @@
   box-shadow: 0 8px 24px rgba(244, 143, 177, 0.35);
 }
 
-.vipSuccess {
-  padding: 20px 0 12px;
-  text-align: center;
-}
-
-.vipSuccessIcon {
-  font-size: 2.5rem;
-  margin-bottom: 14px;
-}
-
-.vipSuccessTitle {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.6rem;
-  font-weight: 600;
-  color: var(--darkText);
-  margin-bottom: 10px;
-}
-
-.vipSuccessDesc {
-  font-size: 0.88rem;
-  color: var(--textMuted);
-  line-height: 1.7;
-}
-
 .vipDisclaimer {
   font-size: 0.7rem;
   color: var(--textMuted);
   margin-top: 18px;
   opacity: 0.65;
+}
+
+/* ===== VIP PULL TAB + PANEL ===== */
+
+.vipPullTab {
+  position: fixed;
+  right: 16px;
+  bottom: 90px;
+  z-index: 950;
+  display: flex;
+  align-items: center;
+  padding: 11px 18px;
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 50px;
+  box-shadow:
+    0 4px 24px rgba(244, 143, 177, 0.28),
+    0 2px 8px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  user-select: none;
+}
+
+.vipPullTab:hover {
+  transform: scale(1.06) translateY(-2px);
+  box-shadow:
+    0 8px 32px rgba(244, 143, 177, 0.38),
+    0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.vipPullTab:active {
+  transform: scale(0.96);
+}
+
+.vipPullTabText {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--primaryPink);
+  white-space: nowrap;
+}
+
+/* ── VIP Panel ── */
+
+.vipPanel {
+  position: fixed;
+  right: -360px;
+  bottom: 90px;
+  z-index: 951;
+  width: 300px;
+  max-width: calc(100vw - 32px);
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 20px;
+  padding: 34px 28px 28px;
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.13),
+    0 4px 16px rgba(244, 143, 177, 0.14);
+  transition: right 0.38s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.vipPanel.open {
+  right: 16px;
+}
+
+.vipPanelClose {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: transparent;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--textMuted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.vipPanelClose:hover {
+  background: var(--lightPink);
+  color: var(--primaryPink);
+}
+
+.vipPanelHeadline {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.45rem;
+  font-weight: 600;
+  color: var(--darkText);
+  line-height: 1.25;
+  margin-bottom: 10px;
+}
+
+.vipPanelSub {
+  font-size: 0.85rem;
+  color: var(--textMuted);
+  line-height: 1.65;
+  margin-bottom: 22px;
+}
+
+.vipPanelCta {
+  width: 100%;
+  padding: 14px 20px;
+  background: var(--primaryPink);
+  color: var(--white);
+  border: none;
+  border-radius: 50px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-family: var(--fontBody);
+  transition: all 0.25s var(--ease);
+}
+
+.vipPanelCta:hover {
+  background: var(--darkPink);
+  color: var(--primaryPink);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(244, 143, 177, 0.4);
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  .vipPullTab {
+    bottom: 76px;
+  }
+  .vipPanel {
+    bottom: 76px;
+  }
 }
 
 /* ── Responsive Index ── */
@@ -1112,8 +1403,12 @@
     gap: 40px;
     padding: 40px 24px 60px;
   }
-  .heroText { max-width: 100%; }
-  .heroSub { max-width: 100%; }
+  .heroText {
+    max-width: 100%;
+  }
+  .heroSub {
+    max-width: 100%;
+  }
   .heroDrinks {
     width: 100%;
     max-width: 520px;
@@ -1121,21 +1416,13 @@
     overflow-x: auto;
     gap: 14px;
     margin-top: 10px;
-    padding-bottom: 10px;
+    padding-bottom: 4px;
     scroll-snap-type: x mandatory;
-    scrollbar-width: auto;
-    scrollbar-color: var(--primaryPink) rgba(0,0,0,0.08);
+    scrollbar-width: none;
   }
-  .heroDrinks::-webkit-scrollbar { height: 10px; }
-  .heroDrinks::-webkit-scrollbar-track {
-    background: rgba(0,0,0,0.06);
-    border-radius: 20px;
+  .heroDrinks::-webkit-scrollbar {
+    display: none;
   }
-  .heroDrinks::-webkit-scrollbar-thumb {
-    background: var(--primaryPink);
-    border-radius: 20px;
-  }
-  .heroDrinks::-webkit-scrollbar-thumb:hover { background: #e57399; }
   .drinkCard {
     min-width: 260px;
     flex-shrink: 0;
@@ -1147,46 +1434,167 @@
     width: 56px;
     height: 56px;
   }
-  .drinkCardName { font-size: 1.1rem; }
-  .drinkCardTag { font-size: 0.65rem; }
-  .whyInner { grid-template-columns: 1fr; gap: 60px; }
-  .popularGrid { grid-template-columns: 1fr 1fr; }
-  .aboutInner { grid-template-columns: 1fr; gap: 60px; }
-  .findUsGrid { grid-template-columns: repeat(2, 1fr); }
+  .drinkCardName {
+    font-size: 1.1rem;
+  }
+  .drinkCardTag {
+    font-size: 0.65rem;
+  }
+  .whyInner {
+    grid-template-columns: 1fr;
+    gap: 60px;
+  }
+  .popularGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .aboutInner {
+    grid-template-columns: 1fr;
+    gap: 60px;
+  }
 }
 
 @media (max-width: 768px) {
-  #hero,
+  #hero {
+    padding: 80px 20px 60px;
+  }
   #why,
   #menuPreview,
   #about,
   #visit,
-  #findUs { padding: 70px 24px; }
-  .heroHeadline { font-size: clamp(44px, 11vw, 72px); }
-  .heroCtas { flex-direction: column; align-items: flex-start; }
-  .popularGrid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
-  .menuItemsGrid { grid-template-columns: 1fr 1fr; }
-  .whyCards { grid-template-columns: 1fr; }
-  .visitDetails { flex-direction: column; align-items: center; gap: 24px; }
-  .findUsGrid { grid-template-columns: 1fr 1fr; }
-  .findUsCtaRow { flex-direction: column; align-items: center; }
-  .findUsCtaCard { max-width: 100%; }
-  .vipModal { padding: 40px 28px; }
+  #findUs {
+    padding: 70px 24px;
+  }
+
+  /* ── Hero: row layout — text left, drink icons right ── */
+  .heroInner {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 0;
+  }
+  .heroText {
+    width: 58%;
+    max-width: none;
+  }
+  .heroSub {
+    max-width: 100%;
+  }
+  .heroDrinks {
+    width: 42%;
+    flex-direction: column;
+    overflow: visible;
+    gap: 8px;
+    max-width: none;
+    margin-top: 0;
+    padding-bottom: 0;
+    scroll-snap-type: none;
+  }
+  .heroDrinks::-webkit-scrollbar {
+    display: none;
+  }
+  .drinkCard {
+    min-width: 0;
+    width: 100%;
+    flex-shrink: 1;
+    scroll-snap-align: none;
+    padding: 8px 10px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.08);
+    border-color: transparent;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    justify-content: center;
+    gap: 0;
+    transform: none;
+  }
+  .drinkCard:hover {
+    transform: none;
+    box-shadow: none;
+  }
+  .drinkCard.active {
+    transform: scale(1.06);
+    background: rgba(255, 255, 255, 0.18);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    border-color: transparent;
+    overflow: hidden;
+  }
+  .drinkCard.active::after {
+    display: none;
+  }
+  .drinkThumb {
+    width: 36px;
+    height: 36px;
+  }
+  .drinkCardInfo {
+    display: none;
+  }
+  .drinkCardArrow {
+    display: none;
+  }
+
+  .heroHeadline {
+    font-size: clamp(36px, 9vw, 56px);
+  }
+  .heroCtas {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .popularGrid {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  .menuItemsGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .whyCards {
+    grid-template-columns: 1fr;
+  }
+  .visitDetails {
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+  .findUsCtaRow {
+    flex-direction: column;
+    align-items: center;
+  }
+  .findUsOptions {
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+  .findUsCtaCard {
+    max-width: 100%;
+  }
+  .vipModal {
+    padding: 40px 28px;
+  }
 }
 
 @media (max-width: 480px) {
-  .menuItemsGrid { grid-template-columns: 1fr; }
-  .heroHeadline { font-size: 42px; }
-  .findUsGrid { grid-template-columns: 1fr; }
+  .menuItemsGrid {
+    grid-template-columns: 1fr;
+  }
+  .heroHeadline {
+    font-size: 42px;
+  }
 }
 
 /* ===== REVIEWS SECTION - RESPONSIVE ===== */
 
 @media (max-width: 900px) {
-  .reviewsGrid { grid-template-columns: repeat(2, 1fr); }
+  .reviewsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 600px) {
-  .reviewsGrid { grid-template-columns: 1fr; }
-  #reviews { padding: 72px 20px; }
+  .reviewsGrid {
+    grid-template-columns: 1fr;
+  }
+  #reviews {
+    padding: 72px 20px;
+  }
 }
