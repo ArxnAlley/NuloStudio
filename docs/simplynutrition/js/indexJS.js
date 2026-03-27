@@ -1,55 +1,9 @@
 /* ============================================================
    SIMPLY NUTRITION v2 — Index Page JavaScript
+   Page-specific logic only. Shared behavior is in globalJS.js
    ============================================================ */
 
-// ── Navigation ──
-
-const nav = document.querySelector("nav");
-
-const navToggle = document.querySelector(".navToggle");
-
-const navLinks = document.querySelector(".navLinks");
-
-if (nav) {
-  window.addEventListener("scroll", () => {
-    nav.classList.toggle("scrolled", window.scrollY > 30);
-  });
-
-  if (window.scrollY > 30) {
-    nav.classList.add("scrolled");
-  }
-}
-
-if (navToggle && navLinks) {
-  navToggle.addEventListener("click", () => {
-    const isOpen = navLinks.classList.toggle("open");
-
-    const spans = navToggle.querySelectorAll("span");
-
-    spans[0].style.transform = isOpen
-      ? "rotate(45deg) translate(5px, 5px)"
-      : "";
-
-    spans[1].style.opacity = isOpen ? "0" : "1";
-
-    spans[2].style.transform = isOpen
-      ? "rotate(-45deg) translate(5px, -5px)"
-      : "";
-  });
-
-  navLinks.querySelectorAll("a").forEach((link) => {
-    link.addEventListener("click", () => {
-      navLinks.classList.remove("open");
-
-      navToggle.querySelectorAll("span").forEach((span) => {
-        span.style.transform = "";
-        span.style.opacity = "";
-      });
-    });
-  });
-}
-
-// ── Drink Selector ──
+// ── Drink Selector: Data ──
 
 const drinkData = {
   pinkSugar: {
@@ -107,30 +61,23 @@ const drinkData = {
   },
 };
 
+// ── Drink Selector: DOM Refs (module-level — shared across init functions) ──
+
 const heroBgOverlay = document.getElementById("heroBgOverlay");
-
 const heroBlob = document.getElementById("heroBlob");
-
 const heroHeadline = document.getElementById("heroHeadline");
-
 const heroSub = document.getElementById("heroSub");
-
 const heroCtas = document.getElementById("heroCtas");
-
 const drinkCards = document.querySelectorAll(".drinkCard");
+
+// ── Drink Selector: Activate ──
 
 function activateDrink(key, animate = true) {
   const d = drinkData[key];
-
   if (!d) return;
 
-  if (heroBgOverlay) {
-    heroBgOverlay.style.background = d.bgTint;
-  }
-
-  if (heroBlob) {
-    heroBlob.style.background = d.blobColor;
-  }
+  if (heroBgOverlay) heroBgOverlay.style.background = d.bgTint;
+  if (heroBlob) heroBlob.style.background = d.blobColor;
 
   if (heroHeadline) {
     if (animate) {
@@ -151,9 +98,7 @@ function activateDrink(key, animate = true) {
   }
 
   if (heroSub) {
-    if (animate) {
-      heroSub.style.opacity = "0";
-    }
+    if (animate) heroSub.style.opacity = "0";
 
     setTimeout(
       () => {
@@ -171,122 +116,50 @@ function activateDrink(key, animate = true) {
     heroCtas.classList.add("slideIn");
   }
 
-  drinkCards.forEach((card) =>
-    card.classList.remove("active", "drinkSelected"),
-  );
+  drinkCards.forEach((card) => card.classList.remove("active", "drinkSelected"));
 
   const activeCard = document.querySelector(`.drinkCard[data-drink="${key}"]`);
-
-  if (activeCard) {
-    activeCard.classList.add("active", "drinkSelected");
-  }
+  if (activeCard) activeCard.classList.add("active", "drinkSelected");
 }
 
-drinkCards.forEach((card) => {
-  card.addEventListener("click", () => activateDrink(card.dataset.drink, true));
-});
+// ── Init: Drink Selector ──
 
-activateDrink("pinkSugar", false);
+function initDrinkSelector() {
+  if (!drinkCards.length) return;
 
-// ── Hero Badge: Dynamic Open / Closed Status ──
+  drinkCards.forEach((card) => {
+    card.addEventListener("click", () => activateDrink(card.dataset.drink, true));
+  });
 
-function checkBusinessHours() {
-  const now = new Date();
-  const day = now.getDay(); // 0 Sun … 6 Sat
-  const time = now.getHours() * 60 + now.getMinutes(); // minutes since midnight
+  activateDrink("pinkSugar", false);
+}
 
-  const isWeekend = day === 0 || day === 6;
-  const openTime = isWeekend ? 8 * 60 : 7 * 60; // 8:00 or 7:00 AM
-  const closeTime = isWeekend ? 16 * 60 : 18 * 60; // 4:00 or 6:00 PM
-  const isOpen = time >= openTime && time < closeTime;
+// ── Init: Business Hours Badge ──
 
+function initBusinessHours() {
   const dot = document.querySelector(".heroBadgeDot");
   const badgeText = document.getElementById("heroBadgeText");
-
   if (!dot || !badgeText) return;
+
+  const now = new Date();
+  const day = now.getDay();
+  const time = now.getHours() * 60 + now.getMinutes();
+  const isWeekend = day === 0 || day === 6;
+  const openTime = isWeekend ? 8 * 60 : 7 * 60;
+  const closeTime = isWeekend ? 16 * 60 : 18 * 60;
+  const isOpen = time >= openTime && time < closeTime;
 
   dot.style.background = isOpen ? "#4CAF50" : "#F44336";
   badgeText.textContent = isOpen
     ? "Now Open in Wheelersburg, OH"
-    : "We are closed in store — Be back in the morning";
+    : "We are closed in store \u2014 Be back in the morning";
 }
 
-checkBusinessHours();
+// ── Init: Guided Drink Intro ──
 
-// ── Guided Drink Intro (runs once on load) ──
+function initDrinkIntro() {
+  if (!drinkCards.length) return;
 
-// ── How Did You Find Us Tracking ──
-
-(function () {
-  const findUsOptions = document.querySelectorAll(".findUsOption");
-  const endpoint = "https://formspree.io/f/xojpjavp";
-  let isSubmitting = false;
-
-  if (findUsOptions.length) {
-    const showTrackingMessage = (message, type = "success") => {
-      if (window.SimplyForms?.showFloatingPill) {
-        window.SimplyForms.showFloatingPill(message, type);
-        return;
-      }
-
-      showFormPill(message, type);
-    };
-
-    const setDisabledState = (disabled) => {
-      findUsOptions.forEach((option) => {
-        option.disabled = disabled;
-      });
-    };
-
-    findUsOptions.forEach((option) => {
-      option.addEventListener("click", async () => {
-        if (isSubmitting) return;
-
-        const selectedSource = option.dataset.source;
-        if (!selectedSource) return;
-
-        isSubmitting = true;
-        setDisabledState(true);
-        option.classList.add("isActive");
-
-        try {
-          const response = await fetch(endpoint, {
-            method: "POST",
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              formType: "How did you find us",
-              source: selectedSource,
-            }),
-          });
-
-          if (!response.ok) {
-            throw new Error(
-              `Tracking request failed with status ${response.status}`,
-            );
-          }
-
-          showTrackingMessage("Thanks for letting us know!");
-        } catch (error) {
-          showTrackingMessage(
-            "We couldn't save that right now. Please try again in a moment.",
-            "error",
-          );
-        } finally {
-          setTimeout(() => {
-            option.classList.remove("isActive");
-            setDisabledState(false);
-            isSubmitting = false;
-          }, 900);
-        }
-      });
-    });
-  }
-})();
-
-(function () {
   let introPlayed = false;
   let introInterval = null;
   const sequence = ["pinkSugar", "tropical", "berry"];
@@ -301,15 +174,15 @@ checkBusinessHours();
     if (introPlayed) return;
     introPlayed = true;
 
-    setTimeout(function () {
+    setTimeout(() => {
       activateDrink(sequence[step++], true);
 
-      introInterval = setInterval(function () {
+      introInterval = setInterval(() => {
         activateDrink(sequence[step++], true);
 
         if (step >= sequence.length) {
           clearInterval(introInterval);
-          introInterval = setTimeout(function () {
+          introInterval = setTimeout(() => {
             activateDrink("pinkSugar", true);
             introInterval = null;
           }, 900);
@@ -318,19 +191,15 @@ checkBusinessHours();
     }, 800);
   }
 
-  document.querySelectorAll(".drinkCard").forEach(function (card) {
-    card.addEventListener("click", cancelIntro);
-  });
-
+  drinkCards.forEach((card) => card.addEventListener("click", cancelIntro));
   runDrinkIntro();
-})();
+}
 
-// ── Tablet Carousel: activate drink on scroll-snap ──
+// ── Init: Tablet Carousel ──
 
-(function () {
+function initTabletCarousel() {
   const drinksEl = document.querySelector(".heroDrinks");
   const cards = [...document.querySelectorAll(".drinkCard")];
-
   if (!drinksEl) return;
 
   let scrollTimer = null;
@@ -347,365 +216,230 @@ checkBusinessHours();
       if (key) activateDrink(key, true);
     }, 80);
   });
-})();
+}
 
-// ── Menu Tabs ──
+// ── Init: Menu Tabs ──
 
-const menuTabs = document.querySelectorAll(".menuTab");
+function initMenuTabs() {
+  const menuTabs = document.querySelectorAll(".menuTab");
+  const menuItems = document.querySelectorAll(".menuItem");
+  if (!menuTabs.length) return;
 
-const menuItems = document.querySelectorAll(".menuItem");
+  menuTabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      menuTabs.forEach((t) => t.classList.remove("active"));
+      tab.classList.add("active");
 
-menuTabs.forEach((tab) => {
-  tab.addEventListener("click", () => {
-    menuTabs.forEach((t) => t.classList.remove("active"));
-
-    tab.classList.add("active");
-
-    const cat = tab.dataset.cat;
-
-    menuItems.forEach((item) => {
-      item.classList.toggle("visible", item.dataset.cat === cat);
+      const cat = tab.dataset.cat;
+      menuItems.forEach((item) => {
+        item.classList.toggle("visible", item.dataset.cat === cat);
+      });
     });
   });
-});
+}
 
-// ── Scroll Reveal ──
+// ── Init: Today's Hours ──
 
-const revealEls = document.querySelectorAll(".reveal");
+function initTodaysHours() {
+  const days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
 
-const revealObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
-        revealObserver.unobserve(entry.target);
-      }
-    });
-  },
-  { threshold: 0.08, rootMargin: "0px 0px -50px 0px" },
-);
+  const todayName = days[new Date().getDay()];
 
-revealEls.forEach((el) => revealObserver.observe(el));
+  document.querySelectorAll(".hoursRow").forEach((row) => {
+    const dayEl = row.querySelector(".hoursDay");
+    if (dayEl && dayEl.textContent.trim() === todayName) {
+      row.classList.add("today");
+    }
+  });
+}
 
-// ── Today's Hours ──
-
-const days = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
-
-const todayName = days[new Date().getDay()];
-
-document.querySelectorAll(".hoursRow").forEach((row) => {
-  const dayEl = row.querySelector(".hoursDay");
-
-  if (dayEl && dayEl.textContent.trim() === todayName) {
-    row.classList.add("today");
-  }
-});
-
-// ── Simply VIP Club Popup ──
+// ── VIP System: Module-level state ──
 
 const vipOverlay = document.getElementById("vipOverlay");
-
-const vipClose = document.getElementById("vipClose");
-
-const vipForm = document.getElementById("vipForm");
-
-const vipFooterLink = document.getElementById("vipFooterLink");
-
 let vipShown = false;
 
-function showVipPopup() {
-  if (vipShown) return;
+// ── Init: VIP Popup + Pull Tab ──
 
-  if (sessionStorage.getItem("vipDismissed")) return;
+function initVipSystem() {
+  if (!vipOverlay) return;
 
-  vipShown = true;
+  const vipClose = document.getElementById("vipClose");
+  const vipForm = document.getElementById("vipForm");
+  const vipFooterLink = document.getElementById("vipFooterLink");
 
-  vipOverlay.classList.add("visible");
-
-  vipOverlay.setAttribute("aria-hidden", "false");
-}
-
-function hideVipPopup() {
-  vipOverlay.classList.remove("visible");
-
-  vipOverlay.classList.remove("active");
-
-  vipOverlay.setAttribute("aria-hidden", "true");
-
-  sessionStorage.setItem("vipDismissed", "1");
-}
-
-if (vipFooterLink && vipOverlay) {
-  vipFooterLink.addEventListener("click", function (e) {
-    e.preventDefault();
+  function showVipPopup() {
+    if (vipShown || sessionStorage.getItem("vipDismissed")) return;
     vipShown = true;
-    vipOverlay.classList.add("active");
     vipOverlay.classList.add("visible");
     vipOverlay.setAttribute("aria-hidden", "false");
-  });
-}
-
-// Trigger after scrolling 40% down the page
-
-window.addEventListener(
-  "scroll",
-  () => {
-    const scrollPct =
-      window.scrollY / (document.body.scrollHeight - window.innerHeight);
-
-    if (scrollPct > 0.4) {
-      showVipPopup();
-    }
-  },
-  { passive: true },
-);
-
-// Trigger after 12 seconds on page (fallback for users who don't scroll)
-
-setTimeout(showVipPopup, 12000);
-
-// Close on X button
-
-if (vipClose) {
-  vipClose.addEventListener("click", hideVipPopup);
-}
-
-// Close on overlay click (outside modal)
-
-if (vipOverlay) {
-  vipOverlay.addEventListener("click", (e) => {
-    if (e.target === vipOverlay) {
-      hideVipPopup();
-    }
-  });
-}
-
-// Close on Escape key
-
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape" && vipOverlay.classList.contains("visible")) {
-    hideVipPopup();
   }
-});
 
-// ── Shared Form Utilities ──
+  function hideVipPopup() {
+    vipOverlay.classList.remove("visible", "active");
+    vipOverlay.setAttribute("aria-hidden", "true");
+    sessionStorage.setItem("vipDismissed", "1");
+  }
 
-function showFormPill(message, type) {
-  const pill = document.createElement("div");
-  pill.className =
-    "formSuccessPill" + (type === "error" ? " formErrorPill" : "");
-  pill.textContent = message;
-  document.body.appendChild(pill);
-  requestAnimationFrame(() =>
-    requestAnimationFrame(() => pill.classList.add("visible")),
-  );
-  setTimeout(
-    () => {
-      pill.classList.remove("visible");
-      setTimeout(
-        () => pill.parentNode && pill.parentNode.removeChild(pill),
-        400,
-      );
-    },
-    type === "error" ? 3200 : 2800,
-  );
-}
-
-function clearFormStatus(form) {
-  const status = form.querySelector(".formStatusMessage");
-  if (status) status.remove();
-}
-
-function showFormStatus(form, message, type) {
-  clearFormStatus(form);
-  const status = document.createElement("div");
-  status.className = `formStatusMessage formStatus${type === "error" ? "Error" : "Success"}`;
-  status.setAttribute("role", type === "error" ? "alert" : "status");
-  status.textContent = message;
-  form.prepend(status);
-}
-
-function validateForm(form) {
-  let valid = true;
-  clearFormStatus(form);
-  form
-    .querySelectorAll(".formInput, .vipInput, .formSelect, .formTextarea")
-    .forEach((field) => {
-      field.classList.remove("error", "valid");
-      const prev = field.parentNode.querySelector(".formErrorText");
-      if (prev) prev.remove();
+  // Footer link bypasses auto-popup guards
+  if (vipFooterLink) {
+    vipFooterLink.addEventListener("click", (e) => {
+      e.preventDefault();
+      vipShown = true;
+      vipOverlay.classList.add("active", "visible");
+      vipOverlay.setAttribute("aria-hidden", "false");
     });
-  form.querySelectorAll("[required]").forEach((field) => {
-    const value = field.value.trim();
-    let err = "";
-    if (!value) {
-      err = "This field is required.";
-    } else if (
-      field.type === "email" &&
-      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
-    ) {
-      err = "Please enter a valid email address.";
-    }
-    if (err) {
-      valid = false;
-      field.classList.add("error");
-      const errEl = document.createElement("span");
-      errEl.className = "formErrorText";
-      errEl.textContent = err;
-      field.parentNode.appendChild(errEl);
-    } else if (value) {
-      field.classList.add("valid");
-    }
-  });
-  return valid;
-}
-
-// ── VIP Success Pill (rich layout with copyable code) ──
-
-function showVipSuccessPill() {
-  const pill = document.createElement("div");
-  pill.className = "formSuccessPill vipSuccessPill";
-
-  // Header: ✓ You're in
-  const header = document.createElement("div");
-  header.className = "vipSuccessPillHeader";
-  const check = document.createElement("span");
-  check.className = "vipSuccessCheck";
-  check.textContent = "✓";
-  const title = document.createElement("span");
-  title.className = "vipSuccessTitle";
-  title.textContent = "You're in";
-  header.append(check, title);
-
-  // Body text
-  const body = document.createElement("p");
-  body.className = "vipSuccessBody";
-  body.textContent = "Thanks for signing up for the VIP Club.";
-
-  // Code row
-  const codeRow = document.createElement("div");
-  codeRow.className = "vipSuccessCodeRow";
-  codeRow.appendChild(document.createTextNode("Use code: "));
-
-  const codeBadge = document.createElement("span");
-  codeBadge.className = "vipCodeBadge";
-  codeBadge.textContent = "VIP10";
-  codeBadge.title = "Tap to copy";
-
-  const copyButton = document.createElement("button");
-  copyButton.className = "vipCopyButton";
-  copyButton.type = "button";
-  copyButton.textContent = "Copy";
-
-  const copyHint = document.createElement("span");
-  copyHint.className = "vipCopyHint";
-  copyHint.textContent = "Tap to copy";
-
-  function fallbackCopy(code) {
-    const textArea = document.createElement("textarea");
-    textArea.value = code;
-
-    textArea.style.position = "fixed";
-    textArea.style.opacity = "0";
-
-    document.body.appendChild(textArea);
-
-    textArea.focus();
-    textArea.select();
-    textArea.setSelectionRange(0, 999999);
-
-    try {
-      document.execCommand("copy");
-      handleCopySuccess();
-    } catch {
-      copyHint.textContent = "Tap and hold to copy";
-    }
-
-    document.body.removeChild(textArea);
   }
 
-  function handleCopySuccess() {
-    copyHint.textContent = "Copied!";
-    copyHint.classList.add("copied");
-    copyButton.textContent = "Copied";
+  // Scroll trigger: show after 40% scroll depth
+  window.addEventListener(
+    "scroll",
+    () => {
+      const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+      if (pct > 0.4) showVipPopup();
+    },
+    { passive: true },
+  );
+
+  // Fallback timer: 12 seconds
+  setTimeout(showVipPopup, 12000);
+
+  // Close triggers
+  if (vipClose) vipClose.addEventListener("click", hideVipPopup);
+
+  vipOverlay.addEventListener("click", (e) => {
+    if (e.target === vipOverlay) hideVipPopup();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && vipOverlay.classList.contains("visible")) hideVipPopup();
+  });
+
+  // Restore body scroll when overlay finishes closing
+  vipOverlay.addEventListener("transitionend", (e) => {
+    if (e.propertyName === "opacity" && !vipOverlay.classList.contains("visible")) {
+      document.body.style.overflow = "";
+    }
+  });
+
+  // VIP success pill with copyable code
+  function showVipSuccessPill() {
+    const pill = document.createElement("div");
+    pill.className = "formSuccessPill vipSuccessPill";
+
+    const header = document.createElement("div");
+    header.className = "vipSuccessPillHeader";
+    const check = document.createElement("span");
+    check.className = "vipSuccessCheck";
+    check.textContent = "\u2713";
+    const title = document.createElement("span");
+    title.className = "vipSuccessTitle";
+    title.textContent = "You're in";
+    header.append(check, title);
+
+    const body = document.createElement("p");
+    body.className = "vipSuccessBody";
+    body.textContent = "Thanks for signing up for the VIP Club.";
+
+    const codeRow = document.createElement("div");
+    codeRow.className = "vipSuccessCodeRow";
+    codeRow.appendChild(document.createTextNode("Use code: "));
+
+    const codeBadge = document.createElement("span");
+    codeBadge.className = "vipCodeBadge";
+    codeBadge.textContent = "VIP10";
+    codeBadge.title = "Tap to copy";
+
+    const copyButton = document.createElement("button");
+    copyButton.className = "vipCopyButton";
+    copyButton.type = "button";
+    copyButton.textContent = "Copy";
+
+    const copyHint = document.createElement("span");
+    copyHint.className = "vipCopyHint";
+    copyHint.textContent = "Tap to copy";
+
+    function handleCopySuccess() {
+      copyHint.textContent = "Copied!";
+      copyHint.classList.add("copied");
+      copyButton.textContent = "Copied";
+      setTimeout(() => {
+        copyHint.textContent = "Tap to copy";
+        copyHint.classList.remove("copied");
+        copyButton.textContent = "Copy";
+      }, 1600);
+    }
+
+    function fallbackCopy(code) {
+      const ta = document.createElement("textarea");
+      ta.value = code;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      ta.setSelectionRange(0, 999999);
+      try {
+        document.execCommand("copy");
+        handleCopySuccess();
+      } catch {
+        copyHint.textContent = "Tap and hold to copy";
+      }
+      document.body.removeChild(ta);
+    }
+
+    const copyCode = () => {
+      const code = "VIP10";
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(code).then(handleCopySuccess).catch(() => fallbackCopy(code));
+      } else {
+        fallbackCopy(code);
+      }
+    };
+
+    codeBadge.addEventListener("click", copyCode);
+    copyButton.addEventListener("click", copyCode);
+
+    codeRow.append(codeBadge, copyButton);
+    pill.append(header, body, codeRow, copyHint);
+    document.body.appendChild(pill);
+
+    requestAnimationFrame(() =>
+      requestAnimationFrame(() => pill.classList.add("visible")),
+    );
 
     setTimeout(() => {
-      copyHint.textContent = "Tap to copy";
-      copyHint.classList.remove("copied");
-      copyButton.textContent = "Copy";
-    }, 1600);
+      pill.classList.remove("visible");
+      setTimeout(() => pill.parentNode && pill.parentNode.removeChild(pill), 400);
+    }, 6200);
   }
 
-  const copyCode = () => {
-    const code = "VIP10";
+  // VIP form via SimplyForms
+  if (vipForm && window.SimplyForms) {
+    SimplyForms.setupFormSubmission(vipForm, {
+      loadingText: "Joining...",
+      onSuccess: () => {
+        if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
+        hideVipPopup();
+        setTimeout(showVipSuccessPill, 700);
+      },
+    });
+  }
 
-    if (navigator.clipboard && window.isSecureContext) {
-      navigator.clipboard
-        .writeText(code)
-        .then(() => {
-          handleCopySuccess();
-        })
-        .catch(() => {
-          fallbackCopy(code);
-        });
-    } else {
-      fallbackCopy(code);
-    }
-  };
-
-  codeBadge.addEventListener("click", copyCode);
-  copyButton.addEventListener("click", copyCode);
-
-  codeRow.append(codeBadge, copyButton);
-  pill.append(header, body, codeRow, copyHint);
-  document.body.appendChild(pill);
-
-  requestAnimationFrame(() =>
-    requestAnimationFrame(() => pill.classList.add("visible")),
-  );
-
-  setTimeout(() => {
-    pill.classList.remove("visible");
-    setTimeout(() => pill.parentNode && pill.parentNode.removeChild(pill), 400);
-  }, 6200);
-}
-
-// ── VIP Form Submission ──
-
-if (vipForm && window.SimplyForms) {
-  SimplyForms.setupFormSubmission(vipForm, {
-    loadingText: "Joining...",
-    onSuccess: () => {
-      if (document.activeElement instanceof HTMLElement) {
-        document.activeElement.blur();
-      }
-      hideVipPopup();
-      setTimeout(() => {
-        showVipSuccessPill();
-      }, 700);
-    },
-  });
-}
-
-// ── VIP Pull Tab System ──
-
-(function () {
+  // VIP pull tab
   const pullTab = document.getElementById("vipPullTab");
   const panel = document.getElementById("vipPanel");
   const panelClose = document.getElementById("vipPanelClose");
   const panelCta = document.getElementById("vipPanelCta");
 
-  if (!pullTab || !panel || !vipOverlay) return;
-
-  // ── Panel helpers ──
+  if (!pullTab || !panel) return;
 
   function openPanel() {
     panel.classList.add("open");
@@ -717,11 +451,9 @@ if (vipForm && window.SimplyForms) {
     panel.setAttribute("aria-hidden", "true");
   }
 
-  // ── Open existing modal directly, bypassing auto-popup guards ──
-
   function openVipModal() {
     closePanel();
-    setTimeout(function () {
+    setTimeout(() => {
       vipShown = true;
       vipOverlay.classList.add("visible");
       vipOverlay.setAttribute("aria-hidden", "false");
@@ -729,27 +461,21 @@ if (vipForm && window.SimplyForms) {
     }, 220);
   }
 
-  // ── Pull tab: toggle panel ──
-
-  pullTab.addEventListener("click", function () {
+  pullTab.addEventListener("click", () => {
     panel.classList.contains("open") ? closePanel() : openPanel();
   });
 
-  pullTab.addEventListener("keydown", function (e) {
+  pullTab.addEventListener("keydown", (e) => {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
       panel.classList.contains("open") ? closePanel() : openPanel();
     }
   });
 
-  // ── Panel controls ──
+  if (panelClose) panelClose.addEventListener("click", closePanel);
+  if (panelCta) panelCta.addEventListener("click", openVipModal);
 
-  panelClose.addEventListener("click", closePanel);
-  panelCta.addEventListener("click", openVipModal);
-
-  // ── Close panel on outside click ──
-
-  document.addEventListener("click", function (e) {
+  document.addEventListener("click", (e) => {
     if (
       panel.classList.contains("open") &&
       !panel.contains(e.target) &&
@@ -759,41 +485,81 @@ if (vipForm && window.SimplyForms) {
     }
   });
 
-  // ── Close panel on Escape ──
-
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape" && panel.classList.contains("open")) {
-      closePanel();
-    }
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && panel.classList.contains("open")) closePanel();
   });
 
-  // ── Restore body scroll when modal closes ──
-
-  vipOverlay.addEventListener("transitionend", function (e) {
-    if (
-      e.propertyName === "opacity" &&
-      !vipOverlay.classList.contains("visible")
-    ) {
-      document.body.style.overflow = "";
-    }
-  });
-
-  // ── Hide pill when bottom of #findUs passes the viewport top ──
-
+  // Hide pull tab when #findUs bottom reaches 75% of viewport
   const findUsSection = document.getElementById("findUs");
 
   function updatePillVisibility() {
     if (!findUsSection) return;
     const bottom = findUsSection.getBoundingClientRect().bottom;
-    if (bottom <= window.innerHeight * 0.75) {
-      pullTab.style.opacity = "0";
-      pullTab.style.pointerEvents = "none";
-    } else {
-      pullTab.style.opacity = "";
-      pullTab.style.pointerEvents = "";
-    }
+    const hide = bottom <= window.innerHeight * 0.75;
+    pullTab.style.opacity = hide ? "0" : "";
+    pullTab.style.pointerEvents = hide ? "none" : "";
   }
 
   window.addEventListener("scroll", updatePillVisibility, { passive: true });
   updatePillVisibility();
-})();
+}
+
+// ── Init: How Did You Find Us Tracking ──
+
+function initTracking() {
+  const findUsOptions = document.querySelectorAll(".findUsOption");
+  if (!findUsOptions.length) return;
+
+  const endpoint = "https://formspree.io/f/xojpjavp";
+  let isSubmitting = false;
+
+  const setDisabledState = (disabled) =>
+    findUsOptions.forEach((opt) => { opt.disabled = disabled; });
+
+  findUsOptions.forEach((option) => {
+    option.addEventListener("click", async () => {
+      if (isSubmitting) return;
+
+      const selectedSource = option.dataset.source;
+      if (!selectedSource) return;
+
+      isSubmitting = true;
+      setDisabledState(true);
+      option.classList.add("isActive");
+
+      try {
+        const response = await fetch(endpoint, {
+          method: "POST",
+          headers: { Accept: "application/json", "Content-Type": "application/json" },
+          body: JSON.stringify({ formType: "How did you find us", source: selectedSource }),
+        });
+
+        if (!response.ok) throw new Error(`Status ${response.status}`);
+
+        SimplyForms.showFloatingPill("Thanks for letting us know!");
+      } catch {
+        SimplyForms.showFloatingPill(
+          "We couldn't save that right now. Please try again in a moment.",
+          "error",
+        );
+      } finally {
+        setTimeout(() => {
+          option.classList.remove("isActive");
+          setDisabledState(false);
+          isSubmitting = false;
+        }, 900);
+      }
+    });
+  });
+}
+
+// ── Run ──
+
+initDrinkSelector();
+initBusinessHours();
+initDrinkIntro();
+initTabletCarousel();
+initMenuTabs();
+initTodaysHours();
+initVipSystem();
+initTracking();

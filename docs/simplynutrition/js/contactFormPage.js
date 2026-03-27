@@ -1,72 +1,14 @@
 /* ============================================================
-   SIMPLY NUTRITION v2 - Contact & Application Page JavaScript
+   SIMPLY NUTRITION v2 — Contact & Application Form
+   Page-specific logic only. Shared behavior is in globalJS.js
    ============================================================ */
 
-// Navigation
+// ── Contact / Application Form Submission ──
 
-const nav = document.querySelector("nav");
-const navToggle = document.querySelector(".navToggle");
-const navLinks = document.querySelector(".navLinks");
+function initContactForm() {
+  const contactForm = document.getElementById("contactForm");
+  if (!contactForm || !window.SimplyForms) return;
 
-if (nav) {
-  window.addEventListener("scroll", () => {
-    nav.classList.toggle("scrolled", window.scrollY > 30);
-  });
-
-  if (window.scrollY > 30) {
-    nav.classList.add("scrolled");
-  }
-}
-
-if (navToggle && navLinks) {
-  navToggle.addEventListener("click", () => {
-    const isOpen = navLinks.classList.toggle("open");
-    const spans = navToggle.querySelectorAll("span");
-
-    spans[0].style.transform = isOpen
-      ? "rotate(45deg) translate(5px, 5px)"
-      : "";
-    spans[1].style.opacity = isOpen ? "0" : "1";
-    spans[2].style.transform = isOpen
-      ? "rotate(-45deg) translate(5px, -5px)"
-      : "";
-  });
-
-  navLinks.querySelectorAll("a").forEach((link) => {
-    link.addEventListener("click", () => {
-      navLinks.classList.remove("open");
-
-      navToggle.querySelectorAll("span").forEach((span) => {
-        span.style.transform = "";
-        span.style.opacity = "";
-      });
-    });
-  });
-}
-
-// Scroll Reveal
-
-const revealEls = document.querySelectorAll(".reveal");
-
-const revealObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
-        revealObserver.unobserve(entry.target);
-      }
-    });
-  },
-  { threshold: 0.08, rootMargin: "0px 0px -50px 0px" },
-);
-
-revealEls.forEach((el) => revealObserver.observe(el));
-
-// Contact / Application Form Submission
-
-const contactForm = document.getElementById("contactForm");
-
-if (contactForm && window.SimplyForms) {
   const isApplication = contactForm.action.includes("mvzvzpgn");
 
   SimplyForms.setupFormSubmission(contactForm, {
@@ -76,3 +18,5 @@ if (contactForm && window.SimplyForms) {
       : "Message sent! We'll be in touch soon.",
   });
 }
+
+initContactForm();
