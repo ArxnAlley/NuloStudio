@@ -1,39 +1,64 @@
 ﻿<!doctype html>
+
 <html lang="en">
+  
   <head>
+  
     <meta charset="UTF-8" />
+  
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
     <title>Contact - Simply Nutrition | Wheelersburg, OH</title>
 
     <meta
       name="description"
       content="Have a question for Simply Nutrition? Send us a message and we'll get back to you as soon as possible."
     />
+  
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" />
+
     <link rel="stylesheet" href="css/styleBase.css" />
+
     <link rel="stylesheet" href="css/styleContact.css" />
+  
     <link rel="shortcut icon" href="simplyFavicon.png" type="image/png" />
+  
     <link rel="icon" href="simplyFavicon.png" type="image/png" />
+  
     <link rel="apple-touch-icon" href="simplyFavicon.png" />
+  
     <link rel="apple-touch-icon" sizes="180x180" href="simplyFavicon.png" />
+  
   </head>
+  
   <body>
+  
     <!-- NAVIGATION -->
 
     <nav>
+  
       <div class="navInner">
+  
         <a href="index.html" class="navLogo">
           <img src="logos/mainLogoThumbnail.jpg" alt="Simply Nutrition Logo" />
         </a>
+  
         <ul class="navLinks">
+  
           <li>
             <a href="index.html">Home</a>
           </li>
+  
           <li>
             <a href="menu.html">Menu</a>
           </li>
+  
           <li>
             <a href="about.html">About</a>
           </li>
+  
           <li>
             <a
               href="https://simplymboutique.com/"
@@ -42,15 +67,21 @@
               >Boutique</a
             >
           </li>
+  
           <li>
             <a href="visit.html">Visit Us</a>
           </li>
+  
           <li>
             <a href="tel:7407270900" class="navCtaBtn">Order Now</a>
           </li>
+  
         </ul>
+  
         <div class="navActions">
+  
           <a href="tel:7407270900" class="navPhone" aria-label="Call us">
+  
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"
@@ -67,21 +98,31 @@
                 d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.9a16 16 0 0 0 6.29 6.29l.94-.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
               />
             </svg>
+  
           </a>
+  
           <button class="navToggle" aria-label="Toggle menu">
+  
             <span></span>
 
             <span></span>
 
             <span></span>
+  
           </button>
+  
         </div>
+  
       </div>
+  
     </nav>
+  
     <!-- PAGE HERO -->
 
     <div class="pageHero pageHeroPinkFade">
+  
       <div class="pageHeroInner">
+  
         <div class="pageHeroLabel">Get In Touch</div>
 
         <h1 class="pageHeroTitle reveal">
@@ -89,20 +130,28 @@
           <br />
           <span class="italic">Question?</span>
         </h1>
+
         <p class="pageHeroDesc reveal revealDelay1">
           We'd love to hear from you. Fill out the form below and we'll get back
           to you as soon as we can.
         </p>
+
       </div>
+
     </div>
+
     <!-- CONTACT FORM -->
 
     <div class="formSection">
+
       <div class="contactLayout">
+
         <!-- Left: Form -->
 
         <div class="reveal">
+
           <div class="formCard">
+
             <form
               id="contactForm"
               action="https://formspree.io/f/xojpjavp"
@@ -110,7 +159,9 @@
               novalidate
             >
               <div class="formRow">
+
                 <div class="formGroup">
+
                   <label class="formLabel" for="firstName">First Name</label>
 
                   <input
@@ -124,7 +175,9 @@
                     required
                   />
                 </div>
+
                 <div class="formGroup">
+
                   <label class="formLabel" for="lastName">Last Name</label>
 
                   <input
@@ -138,8 +191,11 @@
                     required
                   />
                 </div>
+
               </div>
+
               <div class="formGroup">
+
                 <label class="formLabel" for="email">Email Address</label>
 
                 <input
@@ -153,7 +209,9 @@
                   required
                 />
               </div>
+
               <div class="formGroup">
+
                 <label class="formLabel" for="phone">
                   Phone Number (Optional)
                 </label>
@@ -167,12 +225,15 @@
                   autocomplete="tel"
                 />
               </div>
+
               <div class="formGroup">
+
                 <label class="formLabel" for="subject">
                   What's This About?
                 </label>
 
                 <select class="formSelect" id="subject" name="subject">
+
                   <option value="">Select a topic...</option>
 
                   <option value="menu">Menu Question</option>
@@ -188,9 +249,13 @@
                   <option value="feedback">Feedback</option>
 
                   <option value="other">Other</option>
+
                 </select>
+
               </div>
+
               <div class="formGroup">
+
                 <label class="formLabel" for="message">Your Message</label>
 
                 <textarea
@@ -201,22 +266,33 @@
                   minlength="10"
                   required
                 ></textarea>
+
               </div>
+
               <button type="submit" class="formSubmit">Send Message</button>
+
             </form>
+
             <div id="formSuccess" class="formSuccess">
+
               <div class="formSuccessTitle">Message Sent!</div>
 
               <div class="formSuccessDesc">
                 Thanks for reaching out. We'll be in touch with you soon.
               </div>
+
             </div>
+
           </div>
+
         </div>
+
         <!-- Right: Info -->
 
         <div class="reveal revealDelay1">
+
           <div class="contactInfoBlock">
+
             <div class="contactInfoLabel">Address</div>
 
             <div class="contactInfoValue">
@@ -224,15 +300,21 @@
               <br />
               Wheelersburg, OH 45694
             </div>
+
           </div>
+
           <div class="contactInfoBlock">
+
             <div class="contactInfoLabel">Phone</div>
 
             <div class="contactInfoValue">
               <a href="tel:7407270900">(740) 727-0900</a>
             </div>
+
           </div>
+
           <div class="contactInfoBlock">
+
             <div class="contactInfoLabel">Hours</div>
 
             <div class="contactInfoValue">
@@ -240,43 +322,63 @@
               <br />
               Sat - Sun: 8:00 AM - 4:00 PM
             </div>
+
           </div>
+
           <div class="contactInfoCta">
+
             <a href="visit.html" class="btnOutline">Get Directions &rarr;</a>
+
           </div>
+
         </div>
+
       </div>
+
     </div>
+
     <!-- FOOTER -->
 
     <footer>
+
       <div class="footerInner">
+
         <div>
+
           <div class="footerLogo">
+
             <img
               src="logos/mainLogoThumbnail2.jpg"
               alt="Simply Nutrition"
               loading="lazy"
             />
           </div>
+
           <p class="footerBrandDesc">
             Premium energy teas, protein shakes, smoothies &amp; acai bowls.
             Fueling Wheelersburg one delicious cup at a time.
           </p>
+
         </div>
+
         <div>
+
           <div class="footerColTitle">Pages</div>
 
           <ul class="footerLinks">
+
             <li>
               <a href="index.html">Home</a>
             </li>
+
             <li>
               <a href="menu.html">Menu</a>
             </li>
+
             <li>
               <a href="about.html">About</a>
             </li>
+
             <li>
               <a
                 href="https://simplymboutique.com/"
@@ -286,55 +388,79 @@
                 Boutique
               </a>
             </li>
+
             <li>
               <a href="visit.html">Visit Us</a>
             </li>
+
           </ul>
+
         </div>
+
         <div>
+
           <div class="footerColTitle">Menu</div>
 
           <ul class="footerLinks">
+
             <li>
               <a href="menu.html">Loaded Teas</a>
             </li>
+
             <li>
               <a href="menu.html">Protein Shakes</a>
             </li>
+
             <li>
               <a href="menu.html">Smoothies</a>
             </li>
+
             <li>
               <a href="menu.html">Acai Bowls</a>
             </li>
+
           </ul>
+
         </div>
+
         <div>
+
           <div class="footerColTitle">Contact</div>
 
           <ul class="footerLinks">
+
             <li>
               <a href="tel:7407270900">(740) 727-0900</a>
             </li>
+
             <li>
               <a href="visit.html">8734 Ohio River Rd</a>
             </li>
+
             <li>
               <a href="visit.html">Wheelersburg, OH</a>
             </li>
+
             <li>
               <a href="contact.html">Send a Message</a>
             </li>
+
             <li>
               <a href="application.html">Join The Team</a>
             </li>
+
             <li>
               <a href="#" id="vipFooterLink">Join Simply VIP Club</a>
             </li>
+
           </ul>
+
         </div>
+
       </div>
+
       <div class="footerBottom">
+
         <span class="footerCopy">
           &copy; 2025 Simply Nutrition &middot; Wheelersburg, Ohio
         </span>
@@ -349,9 +475,15 @@
             loading="lazy"
           />
         </a>
+
       </div>
+
     </footer>
-    <script src="js/formUtils.js"></script>
-    <script src="js/contactFormPage.js"></script>
+
+    <script src="js/formUtils.js" defer></script>
+
+    <script src="js/contactFormPage.js" defer></script>
+
   </body>
+
 </html>

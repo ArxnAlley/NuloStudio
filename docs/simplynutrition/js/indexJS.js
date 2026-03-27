@@ -171,12 +171,14 @@ function activateDrink(key, animate = true) {
     heroCtas.classList.add("slideIn");
   }
 
-  drinkCards.forEach((card) => card.classList.remove("active"));
+  drinkCards.forEach((card) =>
+    card.classList.remove("active", "drinkSelected"),
+  );
 
   const activeCard = document.querySelector(`.drinkCard[data-drink="${key}"]`);
 
   if (activeCard) {
-    activeCard.classList.add("active");
+    activeCard.classList.add("active", "drinkSelected");
   }
 }
 
@@ -775,4 +777,23 @@ if (vipForm && window.SimplyForms) {
       document.body.style.overflow = "";
     }
   });
+
+  // ── Hide pill when bottom of #findUs passes the viewport top ──
+
+  const findUsSection = document.getElementById("findUs");
+
+  function updatePillVisibility() {
+    if (!findUsSection) return;
+    const bottom = findUsSection.getBoundingClientRect().bottom;
+    if (bottom <= window.innerHeight * 0.75) {
+      pullTab.style.opacity = "0";
+      pullTab.style.pointerEvents = "none";
+    } else {
+      pullTab.style.opacity = "";
+      pullTab.style.pointerEvents = "";
+    }
+  }
+
+  window.addEventListener("scroll", updatePillVisibility, { passive: true });
+  updatePillVisibility();
 })();

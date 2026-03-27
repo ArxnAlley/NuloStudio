@@ -17,6 +17,10 @@
       content="Loaded energy teas, protein shakes, smoothies &amp; acai bowls in Wheelersburg, Ohio. Now open at 8734 Ohio River Rd. Call (740) 727-0900."
     />
     
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" />
+
     <link rel="stylesheet" href="css/styleBase.css" />
 
     <link rel="stylesheet" href="css/styleIndex.css" />
@@ -28,6 +32,20 @@
     <link rel="apple-touch-icon" href="simplyFavicon.png" />
     
     <link rel="apple-touch-icon" sizes="180x180" href="simplyFavicon.png" />
+
+    <!-- SOCIAL PREVIEW (OPEN GRAPH) -->
+
+    <meta property="og:title" content="Simply Nutrition | Better Energy Starts Here" />
+
+    <meta property="og:description" content="Refreshing energy teas, protein shakes, smoothies & acai bowls in Wheelersburg, OH." />
+
+    <meta property="og:image" content="https://preview.nulostudio.com/simplynutrition/images/socialPreview.jpg" />
+
+    <meta property="og:url" content="https://preview.nulostudio.com/simplynutrition" />
+
+    <meta property="og:type" content="website" />
+
+    <meta name="twitter:card" content="summary_large_image" />
   
   </head>
 
@@ -40,7 +58,7 @@
       <div class="navInner">
         
         <a href="index.html" class="navLogo">
-          <img src="logos/mainLogoThumbnail.jpg" alt="Simply Nutrition Logo" />
+          <img src="logos/mainLogoThumbnail.jpg" alt="Simply Nutrition Logo" fetchpriority="high" decoding="sync" />
         </a>
 
         <ul class="navLinks">
@@ -189,12 +207,15 @@
 
         <div class="heroDrinks">
           
-          <div class="drinkCard active" data-drink="pinkSugar">
+          <div class="drinkCard active drinkSelected" data-drink="pinkSugar">
             
             <img
               class="drinkThumb"
               src="images/pinkSugarRush.png"
               alt="Pink Sugar Rush"
+              width="68"
+              height="68"
+              fetchpriority="high"
             />
             
             <div class="drinkCardInfo">
@@ -215,6 +236,9 @@
               class="drinkThumb"
               src="images/tropicalFusion.png"
               alt="Tropical Fusion"
+              width="68"
+              height="68"
+              decoding="async"
             />
             
             <div class="drinkCardInfo">
@@ -235,6 +259,9 @@
               class="drinkThumb"
               src="images/berryBlast.png"
               alt="Berry Blast"
+              width="68"
+              height="68"
+              decoding="async"
             />
             
             <div class="drinkCardInfo">
@@ -258,6 +285,9 @@
               class="drinkThumb"
               src="images/lemonLime.png"
               alt="Lemon Lime"
+              width="68"
+              height="68"
+              decoding="async"
             />
             
             <div class="drinkCardInfo">
@@ -280,6 +310,9 @@
               class="drinkThumb"
               src="images/heartHappyHydration.png"
               alt="Heart Happy Hydration"
+              width="68"
+              height="68"
+              decoding="async"
             />
             
             <div class="drinkCardInfo">
@@ -300,6 +333,9 @@
               class="drinkThumb"
               src="images/coffee.png"
               alt="Creamy Coffee Shake"
+              width="68"
+              height="68"
+              decoding="async"
             />
             
             <div class="drinkCardInfo">
@@ -547,6 +583,7 @@
                 src="images/pinkSugarRush.png"
                 alt="Pink Sugar Rush"
                 loading="lazy"
+                decoding="async"
               />
             </div>
             
@@ -573,6 +610,7 @@
                 src="images/berryBlast.png"
                 alt="Berry Blast"
                 loading="lazy"
+                decoding="async"
               />
             </div>
             
@@ -599,6 +637,7 @@
                 src="images/strawberryCream.png"
                 alt="Strawberry Cream Shake"
                 loading="lazy"
+                decoding="async"
               />
             </div>
             
@@ -988,6 +1027,7 @@
             src="images/storeFront2.jpg"
             alt="Simply Nutrition Store Front - Wheelersburg, OH"
             loading="lazy"
+            decoding="async"
           />
         
           <div class="whyImageBadge">
@@ -1182,6 +1222,7 @@
             src="images/meetTheOwners.png"
             alt="Meet the Simply Nutrition owners"
             loading="lazy"
+            decoding="async"
           />
         </div>
     
@@ -1412,6 +1453,7 @@
               src="logos/mainLogoThumbnail2.jpg"
               alt="Simply Nutrition"
               loading="lazy"
+              decoding="async"
             />
     
           </div>
@@ -1536,6 +1578,7 @@
             alt="Nulo Studio"
             class="footerDevLogo"
             loading="lazy"
+            decoding="async"
           />
     
         </a>
@@ -1670,9 +1713,9 @@
     
     </div>
     
-    <script src="js/formUtils.js"></script>
-    
-    <script src="js/indexJS.js"></script>
+    <script src="js/formUtils.js" defer></script>
+
+    <script src="js/indexJS.js" defer></script>
   
   </body>
 

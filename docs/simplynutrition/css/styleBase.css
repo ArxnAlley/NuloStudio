@@ -3,7 +3,7 @@
    Shared across all pages
    ============================================================ */
 
-@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap");
+/* Google Fonts loaded via <link> in HTML for faster parallel fetch */
 
 /* ── Variables ── */
 
