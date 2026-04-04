@@ -1,0 +1,793 @@
+/* ============================================================
+   SKYGRID WX — MAIN STYLESHEET
+   css/styleIndex.css
+   Dark weather command center · TV display optimized
+   ============================================================ */
+
+
+/* ────────────────────────────────────────────────────────────
+   RESET & CUSTOM PROPERTIES
+   ──────────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* Surface colors */
+  --clr-base:       #090909;
+  --clr-panel:      #111111;
+  --clr-panel-alt:  #151515;
+  --clr-header:     #0c0c0c;
+
+  /* Border colors */
+  --clr-border:     #1e1e1e;
+  --clr-border-mid: #2a2a2a;
+
+  /* Text colors */
+  --clr-text:       #eeeeee;
+  --clr-text-dim:   #787878;
+  --clr-text-muted: #424242;
+
+  /* Accent — red */
+  --clr-red:        #cc2000;
+  --clr-red-bright: #ff3300;
+  --clr-red-dim:    rgba(204, 32, 0, 0.13);
+
+  /* Accent — rain blue */
+  --clr-rain:       #4a8fc4;
+
+  /* Layout */
+  --header-h:       72px;
+  --gap:            3px;
+  --ctrl-bar-w:     74px;
+
+  /* Transitions */
+  --ease-expand:    0.42s cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-quick:     0.18s ease;
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   BASE
+   ──────────────────────────────────────────────────────────── */
+html {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: var(--clr-base);
+  color: var(--clr-text);
+  font-family: 'Arial Narrow', Arial, 'Helvetica Neue', Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   HEADER — glass control bar
+   Structure: [Logo | Location]  [Clock]  [SkyGrid Wx]
+   ──────────────────────────────────────────────────────────── */
+#mainHeader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--header-h);
+  /* Glass: gradient sheen over dark translucent base */
+  background:
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04), rgba(0, 0, 0, 0)),
+    rgba(10, 10, 10, 0.65);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255, 60, 0, 0.4);
+  box-shadow:
+    0 1px 0   rgba(255, 255, 255, 0.05),
+    0 6px 20px rgba(0, 0, 0, 0.60);
+  padding: 0 28px;
+  flex-shrink: 0;
+  z-index: 100;
+}
+
+/* ── LEFT: logo + separator + location ── */
+#headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 220px;
+}
+
+#siteLogo {
+  height: 42px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+  flex-shrink: 0;
+  opacity: 0.55;
+}
+
+/* Styled UI divider — not a text character */
+.navSep {
+  width: 1px;
+  height: 18px;
+  background: rgba(255, 255, 255, 0.20);
+  flex-shrink: 0;
+}
+
+#headerLocation {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: #ffffff;
+  opacity: 0.55;
+  white-space: nowrap;
+}
+
+/* ── CENTER: digital clock (absolute true-center) ── */
+#clockDisplay {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* Time digits + AM/PM row */
+#clockTimeWrap {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  line-height: 1;
+}
+
+#clockTime {
+  font-family: 'Orbitron', 'Courier New', monospace;
+  font-size: 42px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #ffffff;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  /* White digits with red glow — command center feel */
+  text-shadow:
+    0 0  6px rgba(255, 60, 0, 0.60),
+    0 0 18px rgba(255, 60, 0, 0.25);
+}
+
+/* AM/PM — smaller, dimmed, same glow family */
+#clockAmPm {
+  font-family: 'Orbitron', 'Courier New', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.50);
+  margin-top: 7px;
+  text-shadow: 0 0 8px rgba(255, 60, 0, 0.30);
+}
+
+/* Date line — low opacity, spaced */
+#clockDate {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.38);
+}
+
+/* ── RIGHT: brand title ── */
+#headerRight {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-width: 220px;
+}
+
+#brandName {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  white-space: nowrap;
+  /* Override any inherited text-transform */
+  text-transform: none;
+}
+
+.navLogoImage {
+  height: 120px;
+  width: auto;
+  display: block;
+  margin-top: 10px;
+}
+
+.skyGridText {
+  color: #ffffff;
+}
+
+.wxAccent {
+  color: #ff3c00;
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   MAIN DASHBOARD LAYOUT
+   ──────────────────────────────────────────────────────────── */
+
+/*
+  #dashContent fills the full viewport height.
+  padding-top pushes the flex rows below the fixed glass header.
+  box-sizing: border-box ensures height stays exactly 100vh.
+  The panel backgrounds extend behind the header so the glass
+  backdrop-filter has content to blur.
+  A 2px red bottom edge mirrors the header accent and visually
+  locks the dashboard to the screen — no "more content below" feel.
+*/
+#dashContent {
+  position: relative; /* establishes stacking context for ::after sentinel */
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding-top: var(--header-h);
+  gap: var(--gap);
+  background: var(--clr-base);
+  overflow: hidden;
+  /* Stronger bottom edge — mirrors and bookends the header accent */
+  border-bottom: 3px solid rgba(204, 32, 0, 0.65);
+}
+
+/* Bottom gradient sentinel — signals "end of screen" to the eye */
+#dashContent::after {
+  content: '';
+  position: absolute;
+  bottom: 3px; /* sits above the border */
+  left: 0;
+  right: 0;
+  height: 52px;
+  background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.45));
+  pointer-events: none;
+  z-index: 5;
+}
+
+#topRow,
+#bottomRow {
+  display: flex;
+  flex: 1;
+  gap: var(--gap);
+  overflow: hidden;
+  min-height: 0;
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   QUADRANT BASE
+   ──────────────────────────────────────────────────────────── */
+.quadrant {
+  background: var(--clr-panel);
+  border: 1px solid #232323;
+  /* Top-edge highlight lifts the panel; bottom-edge shadow grounds it */
+  box-shadow:
+    inset 0  1px 0 rgba(255, 255, 255, 0.030),
+    inset 0 -1px 0 rgba(0,   0,   0,   0.40);
+  overflow: hidden;
+  min-width: 0;
+  min-height: 0;
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   PANEL HEADER STRIP (shared)
+   ──────────────────────────────────────────────────────────── */
+.panelHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 16px;
+  background: var(--clr-panel-alt);
+  border-bottom: 1px solid var(--clr-border);
+  flex-shrink: 0;
+}
+
+.panelTitle {
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--clr-red);
+}
+
+.panelTitle::before {
+  content: '▌ ';
+  opacity: 0.7;
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   EXPAND / COLLAPSE BUTTON (shared by both panels)
+   ──────────────────────────────────────────────────────────── */
+.expandBtn {
+  width: 38px;
+  height: 38px;
+  background: none;
+  border: 1px solid var(--clr-red);
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--clr-red);
+  transition: background var(--ease-quick), border-color var(--ease-quick), color var(--ease-quick);
+  flex-shrink: 0;
+}
+
+.expandBtn:hover {
+  background: var(--clr-red-dim);
+  border-color: var(--clr-red-bright);
+  color: var(--clr-red-bright);
+}
+
+.expandBtn.active {
+  background: var(--clr-red);
+  border-color: var(--clr-red);
+  color: #fff;
+}
+
+.arrowIcon {
+  font-size: 17px;
+  line-height: 1;
+  pointer-events: none;
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   YOUTUBE PANEL — TOP LEFT
+   ──────────────────────────────────────────────────────────── */
+#youtubePanel {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  min-width: 0;
+}
+
+/* iframe wrapper */
+#youtubeEmbed {
+  flex: 1;
+  overflow: hidden;
+  min-width: 0;
+  background: #000;
+}
+
+#youtubeFrame,
+#youtubeQuadrantIframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+/* Right-side vertical control bar */
+#youtubeControlBar {
+  width: var(--ctrl-bar-w);
+  flex-shrink: 0;
+  background: var(--clr-panel-alt);
+  border-left: 1px solid var(--clr-border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 22px 8px 18px;
+  gap: 0;
+}
+
+/* Profile button group: avatar + label */
+.profileBtnGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.profileBtn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid var(--clr-border-mid);
+  background: var(--clr-panel);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color var(--ease-quick), background var(--ease-quick), box-shadow var(--ease-quick);
+  padding: 0;
+}
+
+.profileAvatar {
+  font-size: 12px;
+  font-weight: 900;
+  color: var(--clr-text-dim);
+  letter-spacing: 0.04em;
+  pointer-events: none;
+  transition: color var(--ease-quick);
+}
+
+.profileBtn:hover {
+  border-color: var(--clr-red);
+}
+
+.profileBtn:hover .profileAvatar {
+  color: var(--clr-red-bright);
+}
+
+.profileBtn.active {
+  border-color: var(--clr-red);
+  background: var(--clr-red-dim);
+  box-shadow: 0 0 0 1px var(--clr-red);
+}
+
+.profileBtn.active .profileAvatar {
+  color: var(--clr-red-bright);
+}
+
+.profileLabel {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--clr-text-muted);
+  text-align: center;
+  max-width: 62px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Push expand button to bottom of control bar */
+#youtubeControlBar .expandBtn {
+  margin-top: auto;
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   FORECAST PANEL — TOP RIGHT
+   Collapses when YouTube expands
+   ──────────────────────────────────────────────────────────── */
+#forecastPanel {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-width: 0;
+  transition:
+    flex-grow  var(--ease-expand),
+    opacity    var(--ease-expand),
+    min-width  var(--ease-expand);
+}
+
+#forecastPanel.collapsed {
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: 0%;
+  opacity: 0;
+  pointer-events: none;
+  min-width: 0;
+}
+
+#locationLabel {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--clr-text-muted);
+}
+
+/* Horizontal scrollable hourly row */
+#hourlyScroll {
+  flex: 1;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 14px;
+  min-height: 0;
+  scrollbar-width: thin;
+  scrollbar-color: var(--clr-red) var(--clr-panel-alt);
+}
+
+#hourlyScroll::-webkit-scrollbar {
+  height: 4px;
+}
+
+#hourlyScroll::-webkit-scrollbar-track {
+  background: var(--clr-panel-alt);
+}
+
+#hourlyScroll::-webkit-scrollbar-thumb {
+  background: var(--clr-red);
+  border-radius: 2px;
+}
+
+#hourlyList {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 10px;
+  height: 100%;
+  min-width: max-content;
+}
+
+/* Individual hourly card */
+.hourlyItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--clr-panel-alt);
+  border: 1px solid var(--clr-border);
+  border-radius: 4px;
+  padding: 12px 14px;
+  min-width: 80px;
+  cursor: default;
+  transition: border-color var(--ease-quick);
+}
+
+.hourlyItem:hover {
+  border-color: var(--clr-border-mid);
+}
+
+.hourlyItem.current {
+  border-color: var(--clr-red);
+  background: var(--clr-red-dim);
+}
+
+.hourlyTime {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--clr-text-dim);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.hourlyItem.current .hourlyTime {
+  color: var(--clr-red-bright);
+}
+
+.hourlyIcon {
+  font-size: 26px;
+  line-height: 1.2;
+}
+
+.hourlyTemp {
+  font-size: 24px;
+  font-weight: 900;
+  color: var(--clr-text);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.hourlyRain {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--clr-rain);
+}
+
+.hourlyWind {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--clr-text-muted);
+}
+
+.loadingMsg {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--clr-text-muted);
+  padding: 20px;
+  align-self: center;
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   STATS PANEL — BOTTOM LEFT
+   Collapses when cam expands
+   ──────────────────────────────────────────────────────────── */
+#statsPanel {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-width: 0;
+  transition:
+    flex-grow  var(--ease-expand),
+    opacity    var(--ease-expand),
+    min-width  var(--ease-expand);
+}
+
+#statsPanel.collapsed {
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: 0%;
+  opacity: 0;
+  pointer-events: none;
+  min-width: 0;
+}
+
+#lastUpdated {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--clr-text-muted);
+}
+
+/* 3-column × 2-row stat grid — gaps show base color as dividers */
+#statsGrid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--clr-base);
+  overflow: hidden;
+  min-height: 0;
+}
+
+.statCard {
+  background: var(--clr-panel);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 12px;
+  gap: 6px;
+  text-align: center;
+  transition: background var(--ease-quick);
+}
+
+.statCard:hover {
+  background: var(--clr-panel-alt);
+}
+
+.statValue {
+  font-size: 38px;
+  font-weight: 900;
+  color: var(--clr-text);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+/* Condition card: icon + text stacked */
+.statIcon {
+  font-size: 34px;
+  line-height: 1.1;
+}
+
+.statValueSub {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--clr-text);
+  letter-spacing: 0.04em;
+}
+
+.statLabel {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--clr-text-muted);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   CAM PANEL — BOTTOM RIGHT
+   ──────────────────────────────────────────────────────────── */
+#camPanel {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  min-width: 0;
+}
+
+/* Left-side control bar */
+#camControlBar {
+  width: var(--ctrl-bar-w);
+  flex-shrink: 0;
+  background: var(--clr-panel-alt);
+  border-right: 1px solid var(--clr-border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 8px;
+}
+
+/* Cam main area: header + video */
+#camMain {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-width: 0;
+}
+
+#camStatus {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--clr-text-muted);
+}
+
+#camStatus.online {
+  color: #22bb44;
+}
+
+/* Video viewport */
+#camView {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  background: #060606;
+  min-height: 0;
+}
+
+#camFeed {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Offline placeholder */
+#camPlaceholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  background: #060606;
+}
+
+#camPlaceholderIcon {
+  font-size: 54px;
+  color: var(--clr-text-muted);
+  opacity: 0.3;
+}
+
+#camPlaceholderText {
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--clr-text-muted);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  opacity: 0.55;
+}
+
+#camPlaceholderSub {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--clr-text-muted);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.38;
+}
