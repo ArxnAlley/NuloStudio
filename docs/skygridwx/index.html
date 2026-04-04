@@ -1,1 +1,370 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+  <head>
+
+    <meta charset="UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>SkyGrid Wx</title>
+    
+    <!-- Orbitron: geometric digital-panel font for the clock -->
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/styleIndex.css">
+
+  </head>
+
+  <body>
+
+    <!-- ============================================================
+        HEADER — Left: Logo + Location | Center: Clock | Right: Brand
+    ============================================================ -->
+    
+    <header id="mainHeader">
+
+      <!-- LEFT: Logo → separator → location -->
+      
+      <div id="headerLeft">
+      
+        <img src="logos/TPSkyGrid.png" id="siteLogo" alt="SkyGrid Wx">
+      
+        <div class="navSep"></div>
+      
+        <span id="headerLocation">Wheelersburg, OH</span>
+      
+      </div>
+
+      <!-- CENTER: Digital clock (absolute, true center) -->
+      
+      <div id="clockDisplay">
+      
+        <div id="clockTimeWrap">
+      
+          <span id="clockTime">12:00:00</span>
+      
+          <span id="clockAmPm">AM</span>
+      
+        </div>
+      
+        <span id="clockDate">Loading&hellip;</span>
+      
+      </div>
+
+      <!-- RIGHT: Brand title -->
+      
+      <div id="headerRight">
+      
+        <span id="brandName">
+      
+          <span class="skyGridText">SkyGrid</span>&nbsp;<span class="wxAccent">Wx</span>
+      
+        </span>
+      
+      </div>
+
+    </header>
+
+
+    <!-- ============================================================
+        MAIN DASHBOARD — flex rows forming the 2×2 quadrant grid
+    ============================================================ -->
+    
+    <main id="dashContent">
+
+      <!-- ===================== TOP ROW ===================== -->
+      
+      <div id="topRow">
+
+        <!-- TOP LEFT: YouTube Stream Panel -->
+      
+        <section id="youtubePanel" class="quadrant">
+
+          <div id="youtubeEmbed">
+      
+            <!--
+              YouTube Live Stream
+              ─────────────────────────────────────────────────────
+              Default source: Ryan Hall Y'all channel live stream.
+              Channel ID verification: youtube.com/@RyanHallYall
+
+              If the channel embed returns no stream, switch to
+              a specific video ID in js/indexJS.js → YT_SOURCES.ryanHall
+              Format: https://www.youtube.com/embed/VIDEO_ID?autoplay=1&mute=1
+            -->
+      
+            <iframe
+      
+              id="youtubeFrame"
+        
+              src="https://www.youtube.com/embed/live_stream?channel=UCNMbegBD9OjH4Eza8vVjBMg&autoplay=1&mute=1&rel=0&modestbranding=1"
+        
+              allow="autoplay; encrypted-media; picture-in-picture"
+        
+              allowfullscreen
+        
+              frameborder="0"
+        
+              title="Weather Stream"
+        
+            ></iframe>
+        
+          </div>
+
+          <!-- Right-side vertical control bar -->
+          
+          <div id="youtubeControlBar">
+
+            <div class="profileBtnGroup">
+          
+              <button
+          
+                id="btnRyanHall"
+            
+                class="profileBtn active"
+            
+                title="Ryan Hall Y'all"
+            
+                onclick="switchYoutubeSource('ryanHall')">
+            
+                <div class="profileAvatar">RH</div>
+            
+              </button>
+              
+              <span class="profileLabel">Ryan Hall</span>
+            
+            </div>
+
+            <div class="profileBtnGroup">
+      
+              <button
+      
+                id="btnYallBot"
+        
+                class="profileBtn"
+        
+                title="Y'allBot"
+        
+                onclick="switchYoutubeSource('yallBot')">
+                
+                <div class="profileAvatar">YB</div>
+              
+              </button>
+              
+              <span class="profileLabel">Y'allBot</span>
+            
+            </div>
+
+            <button
+            
+              id="btnExpandTop"
+              
+              class="expandBtn"
+              
+              title="Expand stream"
+              
+              onclick="toggleTopPanelExpand()">
+              
+              <span id="expandTopArrow" class="arrowIcon">&#10095;</span>
+            
+            </button>
+
+          </div>
+        
+        </section><!-- /#youtubePanel -->
+
+
+        <!-- TOP RIGHT: Hourly Forecast Panel -->
+        
+        <section id="forecastPanel" class="quadrant">
+
+          <div class="panelHeader">
+        
+            <span class="panelTitle">Hourly Forecast</span>
+        
+            <span id="locationLabel">Wheelersburg, OH</span>
+        
+          </div>
+
+          <div id="hourlyScroll">
+        
+            <div id="hourlyList">
+        
+              <p class="loadingMsg">Loading forecast&hellip;</p>
+        
+            </div>
+        
+          </div>
+
+        </section><!-- /#forecastPanel -->
+
+      </div><!-- /#topRow -->
+
+
+      <!-- ===================== BOTTOM ROW ===================== -->
+    
+      <div id="bottomRow">
+
+        <!-- BOTTOM LEFT: Weather Stats Panel -->
+    
+        <section id="statsPanel" class="quadrant">
+
+          <div class="panelHeader">
+    
+            <span class="panelTitle">Current Conditions</span>
+    
+            <span id="lastUpdated">&mdash;</span>
+    
+          </div>
+
+          <div id="statsGrid">
+
+            <div class="statCard" id="statTemp">
+    
+              <div class="statValue" id="valTemp">&mdash;</div>
+    
+              <div class="statLabel">Temperature</div>
+    
+            </div>
+
+            <div class="statCard" id="statWind">
+    
+              <div class="statValue" id="valWind">&mdash;</div>
+    
+              <div class="statLabel">Wind Speed</div>
+    
+            </div>
+
+            <div class="statCard" id="statRain">
+    
+              <div class="statValue" id="valRain">&mdash;</div>
+    
+              <div class="statLabel">Rain Chance</div>
+    
+            </div>
+
+            <div class="statCard" id="statCondition">
+    
+              <div class="statIcon" id="valConditionIcon">&mdash;</div>
+    
+              <div class="statValueSub" id="valConditionText">Loading&hellip;</div>
+    
+              <div class="statLabel">Condition</div>
+    
+            </div>
+
+            <div class="statCard" id="statSunrise">
+    
+              <div class="statValue" id="valSunrise">&mdash;</div>
+    
+              <div class="statLabel">Sunrise</div>
+    
+            </div>
+
+            <div class="statCard" id="statSunset">
+    
+              <div class="statValue" id="valSunset">&mdash;</div>
+    
+              <div class="statLabel">Sunset</div>
+    
+            </div>
+
+          </div><!-- /#statsGrid -->
+
+        </section><!-- /#statsPanel -->
+
+
+        <!-- BOTTOM RIGHT: Weather Cam Panel -->
+    
+        <section id="camPanel" class="quadrant">
+
+          <!-- Left-side vertical control bar -->
+    
+          <div id="camControlBar">
+    
+            <button
+    
+              id="btnExpandBottom"
+      
+              class="expandBtn"
+      
+              title="Expand cam view"
+      
+              onclick="toggleBottomPanelExpand()">
+              
+              <span id="expandBottomArrow" class="arrowIcon">&#10094;</span>
+            
+            </button>
+          
+          </div>
+
+          <div id="camMain">
+
+            <div class="panelHeader">
+      
+              <span class="panelTitle">Sky Cam</span>
+      
+              <span id="camStatus">Offline</span>
+      
+            </div>
+
+            <div id="camView">
+      
+              <!--
+                ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+                WEBCAM INTEGRATION POINT
+                ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+                Update CAM_STREAM_URL in js/indexJS.js to activate.
+
+                Supported stream formats:
+                  Option 1 — Direct HTTP video stream (MP4/WebM):
+                    CAM_STREAM_URL = 'http://192.168.x.x:PORT/stream'
+
+                  Option 2 — MJPEG snapshot/stream:
+                    Replace <video> with <img> in initCamFeed()
+                    CAM_STREAM_URL = 'http://192.168.x.x/snapshot.jpg'
+
+                  Option 3 — HLS (.m3u8):
+                    Load hls.js via CDN, then update initCamFeed()
+                    to use: hls.loadSource(CAM_STREAM_URL)
+
+                  Option 4 — Backend proxy endpoint:
+                    Point to your server-side stream proxy URL
+                ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+              -->
+      
+              <video id="camFeed" autoplay muted playsinline></video>
+
+              <div id="camPlaceholder">
+      
+                <div id="camPlaceholderIcon">&#9673;</div>
+      
+                <div id="camPlaceholderText">Sky Cam</div>
+      
+                <div id="camPlaceholderSub">Stream not configured</div>
+      
+              </div>
+      
+            </div><!-- /#camView -->
+
+          </div><!-- /#camMain -->
+
+        </section><!-- /#camPanel -->
+
+      </div><!-- /#bottomRow -->
+
+    </main><!-- /#dashContent -->
+
+    <script src="js/indexJS.js"></script>
+
+  </body>
+
+</html>
 
