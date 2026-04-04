@@ -1,238 +1,382 @@
 /* ============================================================
    SKYGRID WX — MAIN STYLESHEET
-   css/styleIndex.css
-   Dark weather command center · TV display optimized
-   ============================================================ */
+   
+   Dark weather command center
+
+============================================================ */
 
 
 /* ────────────────────────────────────────────────────────────
-   RESET & CUSTOM PROPERTIES
-   ──────────────────────────────────────────────────────────── */
-*, *::before, *::after {
+   RESET 
+──────────────────────────────────────────────────────────── */
+*, *::before, *::after 
+{
+
   box-sizing: border-box;
+
   margin: 0;
+
   padding: 0;
+
 }
 
-:root {
+:root 
+{
   /* Surface colors */
-  --clr-base:       #090909;
-  --clr-panel:      #111111;
-  --clr-panel-alt:  #151515;
-  --clr-header:     #0c0c0c;
+  
+  --clr-base: #090909;
+
+  --clr-panel: #111111;
+
+  --clr-panel-alt: #151515;
+
+  --clr-header: #0c0c0c;
 
   /* Border colors */
-  --clr-border:     #1e1e1e;
+
+  --clr-border: #1e1e1e;
+
   --clr-border-mid: #2a2a2a;
 
   /* Text colors */
-  --clr-text:       #eeeeee;
-  --clr-text-dim:   #787878;
+
+  --clr-text: #eeeeee;
+
+  --clr-text-dim: #787878;
+
   --clr-text-muted: #424242;
 
   /* Accent — red */
-  --clr-red:        #cc2000;
+
+  --clr-red: #cc2000;
+
   --clr-red-bright: #ff3300;
-  --clr-red-dim:    rgba(204, 32, 0, 0.13);
+
+  --clr-red-dim: rgba(204, 32, 0, 0.13);
 
   /* Accent — rain blue */
-  --clr-rain:       #4a8fc4;
+
+  --clr-rain: #4a8fc4;
 
   /* Layout */
-  --header-h:       72px;
-  --gap:            3px;
-  --ctrl-bar-w:     74px;
+
+  --header-h: 90px;
+
+  --gap: 3px;
+
+  --ctrl-bar-w: 74px;
 
   /* Transitions */
-  --ease-expand:    0.42s cubic-bezier(0.4, 0, 0.2, 1);
-  --ease-quick:     0.18s ease;
+
+  --ease-expand: 0.42s cubic-bezier(0.4, 0, 0.2, 1);
+
+  --ease-quick: 0.18s ease;
 }
 
 
 /* ────────────────────────────────────────────────────────────
    BASE
-   ──────────────────────────────────────────────────────────── */
-html {
+──────────────────────────────────────────────────────────── */
+
+html 
+{
+
   width: 100vw;
+
   height: 100vh;
+
   overflow: hidden;
+
 }
 
-body {
+body 
+{
+
   width: 100vw;
+
   height: 100vh;
+
   overflow: hidden;
+
   display: flex;
+
   flex-direction: column;
+
   background: var(--clr-base);
+
   color: var(--clr-text);
+
   font-family: 'Arial Narrow', Arial, 'Helvetica Neue', Helvetica, sans-serif;
+
   -webkit-font-smoothing: antialiased;
+
   -moz-osx-font-smoothing: grayscale;
+
 }
 
-button {
+button 
+{
+
   cursor: pointer;
+
   font-family: inherit;
+
 }
 
 
 /* ────────────────────────────────────────────────────────────
    HEADER — glass control bar
    Structure: [Logo | Location]  [Clock]  [SkyGrid Wx]
-   ──────────────────────────────────────────────────────────── */
-#mainHeader {
+──────────────────────────────────────────────────────────── */
+#mainHeader 
+{
+
   position: fixed;
+
   top: 0;
+
   left: 0;
+
   right: 0;
+
   display: flex;
+
   align-items: center;
+
   justify-content: space-between;
+
   height: var(--header-h);
-  /* Glass: gradient sheen over dark translucent base */
+
   background:
     linear-gradient(to bottom, rgba(255, 255, 255, 0.04), rgba(0, 0, 0, 0)),
     rgba(10, 10, 10, 0.65);
+
   backdrop-filter: blur(14px);
+
   -webkit-backdrop-filter: blur(14px);
+
   border-bottom: 1px solid rgba(255, 60, 0, 0.4);
+
   box-shadow:
     0 1px 0   rgba(255, 255, 255, 0.05),
     0 6px 20px rgba(0, 0, 0, 0.60);
+  
   padding: 0 28px;
+
   flex-shrink: 0;
+
   z-index: 100;
+
 }
 
 /* ── LEFT: logo + separator + location ── */
-#headerLeft {
+
+#headerLeft 
+{
+
   display: flex;
+
   align-items: center;
+
   gap: 14px;
+
   min-width: 220px;
+
 }
 
-#siteLogo {
+#siteLogo
+{
+
   height: 42px;
+
   width: auto;
+
   object-fit: contain;
+
   display: block;
+
   flex-shrink: 0;
+
   opacity: 0.55;
+
 }
 
 /* Styled UI divider — not a text character */
-.navSep {
+
+.navSep 
+{
+
   width: 1px;
+
   height: 18px;
+
   background: rgba(255, 255, 255, 0.20);
+
   flex-shrink: 0;
 }
 
-#headerLocation {
+#headerLocation
+{
+
   font-size: 12px;
+
   font-weight: 700;
+
   letter-spacing: 0.13em;
+
   text-transform: uppercase;
+
   color: #ffffff;
+
   opacity: 0.55;
+
   white-space: nowrap;
+
 }
 
 /* ── CENTER: digital clock (absolute true-center) ── */
-#clockDisplay {
+
+#clockDisplay 
+{
+
   position: absolute;
+
   left: 50%;
+
   top: 50%;
+
   transform: translate(-50%, -50%);
+
   display: flex;
+
   flex-direction: column;
+
   align-items: center;
+
   gap: 4px;
+
   pointer-events: none;
+
   white-space: nowrap;
+
 }
 
 /* Time digits + AM/PM row */
-#clockTimeWrap {
+
+#clockTimeWrap 
+{
+
   display: flex;
+
   align-items: flex-start;
+
   gap: 7px;
+
   line-height: 1;
 }
 
-#clockTime {
+#clockTime 
+{
+
   font-family: 'Orbitron', 'Courier New', monospace;
+
   font-size: 42px;
+
   font-weight: 700;
+
   letter-spacing: 0.06em;
+
   color: #ffffff;
+
   line-height: 1;
+
   font-variant-numeric: tabular-nums;
-  /* White digits with red glow — command center feel */
+
   text-shadow:
     0 0  6px rgba(255, 60, 0, 0.60),
     0 0 18px rgba(255, 60, 0, 0.25);
+  
 }
 
 /* AM/PM — smaller, dimmed, same glow family */
-#clockAmPm {
+
+#clockAmPm 
+{
+
   font-family: 'Orbitron', 'Courier New', monospace;
+
   font-size: 13px;
+
   font-weight: 700;
+
   letter-spacing: 0.12em;
+
   color: rgba(255, 255, 255, 0.50);
+
   margin-top: 7px;
+
   text-shadow: 0 0 8px rgba(255, 60, 0, 0.30);
+
 }
 
 /* Date line — low opacity, spaced */
-#clockDate {
+
+#clockDate 
+{
+
   font-size: 10px;
+
   font-weight: 600;
+
   letter-spacing: 0.22em;
+
   text-transform: uppercase;
+
   color: rgba(255, 255, 255, 0.38);
+
 }
 
 /* ── RIGHT: brand title ── */
-#headerRight {
+
+#headerRight 
+{
+
   display: flex;
+
   align-items: center;
+
   justify-content: flex-end;
+
   min-width: 220px;
+
 }
 
-#brandName {
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  line-height: 1;
-  white-space: nowrap;
-  /* Override any inherited text-transform */
-  text-transform: none;
-}
+/* #brandName is now a flex wrapper for the right-side logo image */
+#brandName { display: flex; align-items: center; }
 
-.navLogoImage {
-  height: 120px;
+/* Right nav logo — constrain by height so it always fits inside the
+   header regardless of the image's natural aspect ratio. Width scales
+   automatically. max-width: 150px caps very wide logos. */
+#headerRight img
+{
+
+  height: 76px;
+
   width: auto;
+
+  max-width: 200px;
+
+  object-fit: contain;
+
   display: block;
-  margin-top: 10px;
+
 }
 
-.skyGridText {
-  color: #ffffff;
-}
-
-.wxAccent {
-  color: #ff3c00;
-}
 
 
 /* ────────────────────────────────────────────────────────────
    MAIN DASHBOARD LAYOUT
-   ──────────────────────────────────────────────────────────── */
+──────────────────────────────────────────────────────────── */
 
 /*
   #dashContent fills the full viewport height.
@@ -243,551 +387,1097 @@ button {
   A 2px red bottom edge mirrors the header accent and visually
   locks the dashboard to the screen — no "more content below" feel.
 */
-#dashContent {
+
+#dashContent 
+{
+
   position: relative; /* establishes stacking context for ::after sentinel */
+
   display: flex;
+
   flex-direction: column;
+
   height: 100vh;
+
   padding-top: var(--header-h);
+
   gap: var(--gap);
+
   background: var(--clr-base);
+
   overflow: hidden;
-  /* Stronger bottom edge — mirrors and bookends the header accent */
+
   border-bottom: 3px solid rgba(204, 32, 0, 0.65);
+
 }
 
 /* Bottom gradient sentinel — signals "end of screen" to the eye */
-#dashContent::after {
+
+#dashContent::after 
+{
+
   content: '';
+
   position: absolute;
+
   bottom: 3px; /* sits above the border */
+
   left: 0;
+
   right: 0;
+
   height: 52px;
+
   background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.45));
+
   pointer-events: none;
+
   z-index: 5;
+
 }
 
 #topRow,
-#bottomRow {
+#bottomRow 
+{
+
   display: flex;
+
   flex: 1;
+
   gap: var(--gap);
+
   overflow: hidden;
+
   min-height: 0;
+
 }
 
 
 /* ────────────────────────────────────────────────────────────
    QUADRANT BASE
-   ──────────────────────────────────────────────────────────── */
-.quadrant {
+──────────────────────────────────────────────────────────── */
+
+.quadrant 
+{
+
   background: var(--clr-panel);
+
   border: 1px solid #232323;
-  /* Top-edge highlight lifts the panel; bottom-edge shadow grounds it */
+  
   box-shadow:
     inset 0  1px 0 rgba(255, 255, 255, 0.030),
     inset 0 -1px 0 rgba(0,   0,   0,   0.40);
+  
   overflow: hidden;
+  
   min-width: 0;
+  
   min-height: 0;
+
 }
 
 
 /* ────────────────────────────────────────────────────────────
    PANEL HEADER STRIP (shared)
-   ──────────────────────────────────────────────────────────── */
-.panelHeader {
+──────────────────────────────────────────────────────────── */
+
+.panelHeader 
+{
+
   display: flex;
+
   align-items: center;
+
   justify-content: space-between;
+
   padding: 9px 16px;
+
   background: var(--clr-panel-alt);
+
   border-bottom: 1px solid var(--clr-border);
+
   flex-shrink: 0;
+
 }
 
-.panelTitle {
-  font-size: 12px;
+.panelTitle 
+{
+
+  font-size: 10px;
+
   font-weight: 900;
+
   letter-spacing: 0.18em;
+
   text-transform: uppercase;
+
   color: var(--clr-red);
+
 }
 
-.panelTitle::before {
+.panelTitle::before 
+{
+
   content: '▌ ';
+
   opacity: 0.7;
 }
 
 
 /* ────────────────────────────────────────────────────────────
    EXPAND / COLLAPSE BUTTON (shared by both panels)
-   ──────────────────────────────────────────────────────────── */
-.expandBtn {
+──────────────────────────────────────────────────────────── */
+
+.expandBtn 
+{
+
   width: 38px;
+
   height: 38px;
+
   background: none;
+
   border: 1px solid var(--clr-red);
+
   border-radius: 3px;
+
   display: flex;
+
   align-items: center;
+
   justify-content: center;
+
   color: var(--clr-red);
+
   transition: background var(--ease-quick), border-color var(--ease-quick), color var(--ease-quick);
+
   flex-shrink: 0;
+
 }
 
-.expandBtn:hover {
+.expandBtn:hover 
+{
+
   background: var(--clr-red-dim);
+
   border-color: var(--clr-red-bright);
+
   color: var(--clr-red-bright);
+
 }
 
-.expandBtn.active {
+.expandBtn.active 
+{
+
   background: var(--clr-red);
+
   border-color: var(--clr-red);
+
   color: #fff;
+
 }
 
-.arrowIcon {
+.arrowIcon 
+{
+
   font-size: 17px;
+
   line-height: 1;
+
   pointer-events: none;
 }
 
 
 /* ────────────────────────────────────────────────────────────
    YOUTUBE PANEL — TOP LEFT
-   ──────────────────────────────────────────────────────────── */
-#youtubePanel {
+──────────────────────────────────────────────────────────── */
+
+#youtubePanel 
+{
+
   flex: 1 1 0;
+
   display: flex;
+
   flex-direction: row;
+
   overflow: hidden;
+
   min-width: 0;
+
 }
 
 /* iframe wrapper */
-#youtubeEmbed {
+
+#youtubeEmbed
+{
+
   flex: 1;
+
   overflow: hidden;
+
   min-width: 0;
+
+  min-height: 0;
+
   background: #000;
+
+  position: relative;
+
 }
 
-#youtubeFrame,
-#youtubeQuadrantIframe {
+#youtubeQuadrantIframe
+{
+
+  position: absolute;
+
+  top: 0;
+
+  left: 0;
+
   width: 100%;
+
   height: 100%;
+
   border: none;
+
   display: block;
+
 }
 
 /* Right-side vertical control bar */
-#youtubeControlBar {
+
+#youtubeControlBar 
+{
+
   width: var(--ctrl-bar-w);
+
   flex-shrink: 0;
+
   background: var(--clr-panel-alt);
+
   border-left: 1px solid var(--clr-border);
+
   display: flex;
+
   flex-direction: column;
+
   align-items: center;
+
   padding: 22px 8px 18px;
+
   gap: 0;
+
 }
 
 /* Profile button group: avatar + label */
-.profileBtnGroup {
+
+.profileBtnGroup 
+{
+
   display: flex;
+
   flex-direction: column;
+
   align-items: center;
+
   gap: 6px;
+
   margin-bottom: 20px;
 }
 
-.profileBtn {
+.profileBtn 
+{
+
   width: 48px;
+
   height: 48px;
+
   border-radius: 50%;
+
   border: 2px solid var(--clr-border-mid);
+
   background: var(--clr-panel);
+
   display: flex;
+
   align-items: center;
+
   justify-content: center;
+
   transition: border-color var(--ease-quick), background var(--ease-quick), box-shadow var(--ease-quick);
+
   padding: 0;
+
 }
 
-.profileAvatar {
+.profileAvatar 
+{
+
   font-size: 12px;
+
   font-weight: 900;
+
   color: var(--clr-text-dim);
+
   letter-spacing: 0.04em;
+
   pointer-events: none;
+
   transition: color var(--ease-quick);
+
 }
 
-.profileBtn:hover {
+.profileBtn:hover 
+{
+
   border-color: var(--clr-red);
+
 }
 
-.profileBtn:hover .profileAvatar {
+.profileBtn:hover .profileAvatar 
+{
+
   color: var(--clr-red-bright);
+
 }
 
-.profileBtn.active {
+.profileBtn.active 
+{
+
   border-color: var(--clr-red);
+
   background: var(--clr-red-dim);
+
   box-shadow: 0 0 0 1px var(--clr-red);
+
 }
 
-.profileBtn.active .profileAvatar {
+.profileBtn.active .profileAvatar 
+{
+
   color: var(--clr-red-bright);
+
 }
 
-.profileLabel {
+.profileLabel 
+{
+
   font-size: 9px;
+
   font-weight: 700;
+
   letter-spacing: 0.06em;
+
   text-transform: uppercase;
+
   color: var(--clr-text-muted);
+
   text-align: center;
+
   max-width: 62px;
+
   overflow: hidden;
+
   text-overflow: ellipsis;
+
   white-space: nowrap;
+
 }
 
 /* Push expand button to bottom of control bar */
-#youtubeControlBar .expandBtn {
+
+#youtubeControlBar .expandBtn 
+{
+
   margin-top: auto;
+
 }
 
 
 /* ────────────────────────────────────────────────────────────
    FORECAST PANEL — TOP RIGHT
    Collapses when YouTube expands
-   ──────────────────────────────────────────────────────────── */
-#forecastPanel {
+──────────────────────────────────────────────────────────── */
+
+#forecastPanel 
+{
+
   flex: 1 1 0;
+
   display: flex;
+
   flex-direction: column;
+
   overflow: hidden;
+
   min-width: 0;
+
   transition:
     flex-grow  var(--ease-expand),
     opacity    var(--ease-expand),
     min-width  var(--ease-expand);
+
 }
 
-#forecastPanel.collapsed {
+#forecastPanel.collapsed 
+{
+
   flex-grow: 0;
+
   flex-shrink: 0;
+
   flex-basis: 0%;
+
   opacity: 0;
+
   pointer-events: none;
+
   min-width: 0;
+
 }
 
-#locationLabel {
+#locationLabel 
+{
+
   font-size: 10px;
+
   font-weight: 700;
+
   letter-spacing: 0.1em;
+
   text-transform: uppercase;
+
   color: var(--clr-text-muted);
 }
 
 /* Horizontal scrollable hourly row */
-#hourlyScroll {
+
+#hourlyScroll 
+{
+
   flex: 1;
+
   overflow-x: auto;
+
   overflow-y: hidden;
+
   padding: 14px;
+
   min-height: 0;
+
   scrollbar-width: thin;
+
   scrollbar-color: var(--clr-red) var(--clr-panel-alt);
+
 }
 
-#hourlyScroll::-webkit-scrollbar {
+#hourlyScroll::-webkit-scrollbar 
+{
+
   height: 4px;
+
 }
 
-#hourlyScroll::-webkit-scrollbar-track {
+#hourlyScroll::-webkit-scrollbar-track 
+{
+
   background: var(--clr-panel-alt);
+
 }
 
-#hourlyScroll::-webkit-scrollbar-thumb {
+#hourlyScroll::-webkit-scrollbar-thumb 
+{
+
   background: var(--clr-red);
+
   border-radius: 2px;
+
 }
 
-#hourlyList {
+#hourlyList 
+{
+
   display: flex;
+
   flex-direction: row;
+
   align-items: stretch;
+
   gap: 10px;
+
   height: 100%;
+
   min-width: max-content;
+
 }
 
 /* Individual hourly card */
-.hourlyItem {
+
+.hourlyItem 
+{
+
   display: flex;
+
   flex-direction: column;
+
   align-items: center;
+
   justify-content: space-between;
+
   background: var(--clr-panel-alt);
+
   border: 1px solid var(--clr-border);
+
   border-radius: 4px;
+
   padding: 12px 14px;
+
   min-width: 80px;
+
   cursor: default;
+
   transition: border-color var(--ease-quick);
+
 }
 
-.hourlyItem:hover {
+.hourlyItem:hover 
+{
+
   border-color: var(--clr-border-mid);
+
 }
 
-.hourlyItem.current {
+.hourlyItem.current 
+{
+
   border-color: var(--clr-red);
+
   background: var(--clr-red-dim);
+
 }
 
-.hourlyTime {
+.hourlyTime 
+{
+
   font-size: 11px;
+
   font-weight: 700;
+
   color: var(--clr-text-dim);
+
   letter-spacing: 0.05em;
+
   text-transform: uppercase;
+
 }
 
-.hourlyItem.current .hourlyTime {
+.hourlyItem.current .hourlyTime 
+{
+
   color: var(--clr-red-bright);
+
 }
 
-.hourlyIcon {
+.hourlyIcon 
+{
+
   font-size: 26px;
+
   line-height: 1.2;
+
 }
 
-.hourlyTemp {
+.hourlyTemp 
+{
+
   font-size: 24px;
+
   font-weight: 900;
+
   color: var(--clr-text);
+
   letter-spacing: -0.02em;
+
   line-height: 1;
+
 }
 
-.hourlyRain {
+.hourlyRain 
+{
+
   font-size: 13px;
+
   font-weight: 700;
+
   color: var(--clr-rain);
+
 }
 
-.hourlyWind {
+.hourlyWind 
+{
+
   font-size: 10px;
+
   font-weight: 600;
+
   color: var(--clr-text-muted);
+
 }
 
-.loadingMsg {
+.loadingMsg 
+{
   font-size: 13px;
+
   font-weight: 700;
+
   letter-spacing: 0.12em;
+
   text-transform: uppercase;
+
   color: var(--clr-text-muted);
+
   padding: 20px;
+
   align-self: center;
+
 }
 
 
 /* ────────────────────────────────────────────────────────────
    STATS PANEL — BOTTOM LEFT
    Collapses when cam expands
-   ──────────────────────────────────────────────────────────── */
-#statsPanel {
+──────────────────────────────────────────────────────────── */
+
+#statsPanel 
+{
+
   flex: 1 1 0;
+
   display: flex;
+
   flex-direction: column;
+
   overflow: hidden;
+
   min-width: 0;
+
   transition:
     flex-grow  var(--ease-expand),
     opacity    var(--ease-expand),
     min-width  var(--ease-expand);
+  
 }
 
-#statsPanel.collapsed {
+#statsPanel.collapsed 
+{
+
   flex-grow: 0;
+
   flex-shrink: 0;
+
   flex-basis: 0%;
+
   opacity: 0;
+
   pointer-events: none;
+
   min-width: 0;
+
 }
 
-#lastUpdated {
+#lastUpdated 
+{
+
   font-size: 10px;
+
   font-weight: 700;
+
   letter-spacing: 0.08em;
+
   text-transform: uppercase;
+
   color: var(--clr-text-muted);
+
 }
 
 /* 3-column × 2-row stat grid — gaps show base color as dividers */
-#statsGrid {
+
+#statsGrid 
+{
+
   flex: 1;
+
   display: grid;
+
   grid-template-columns: repeat(3, 1fr);
+
   grid-template-rows: repeat(2, 1fr);
+
   gap: 1px;
+
   background: var(--clr-base);
+
   overflow: hidden;
+
   min-height: 0;
+
 }
 
-.statCard {
+.statCard 
+{
+
   background: var(--clr-panel);
+
   display: flex;
+
   flex-direction: column;
+
   align-items: center;
+
   justify-content: center;
+
   padding: 14px 12px;
+
   gap: 6px;
+
   text-align: center;
+
   transition: background var(--ease-quick);
+
 }
 
-.statCard:hover {
+.statCard:hover 
+{
+
   background: var(--clr-panel-alt);
+
 }
 
-.statValue {
+.statValue 
+{
+
   font-size: 38px;
+
   font-weight: 900;
+
   color: var(--clr-text);
+
   letter-spacing: -0.03em;
+
   line-height: 1;
+
 }
 
 /* Condition card: icon + text stacked */
-.statIcon {
+
+.statIcon 
+{
+
   font-size: 34px;
+
   line-height: 1.1;
+
 }
 
-.statValueSub {
+.statValueSub 
+{
+
   font-size: 15px;
+
   font-weight: 700;
+
+
   color: var(--clr-text);
+
   letter-spacing: 0.04em;
+
 }
 
-.statLabel {
+.statLabel 
+{
+
   font-size: 11px;
+
   font-weight: 700;
+
   color: var(--clr-text-muted);
+
   letter-spacing: 0.14em;
+
   text-transform: uppercase;
+
 }
 
 
 /* ────────────────────────────────────────────────────────────
    CAM PANEL — BOTTOM RIGHT
-   ──────────────────────────────────────────────────────────── */
-#camPanel {
+──────────────────────────────────────────────────────────── */
+
+#camPanel 
+{
+
   flex: 1 1 0;
+
   display: flex;
+
   flex-direction: row;
+
   overflow: hidden;
+
   min-width: 0;
+
 }
 
 /* Left-side control bar */
-#camControlBar {
+
+#camControlBar 
+{
+
   width: var(--ctrl-bar-w);
+
   flex-shrink: 0;
+
   background: var(--clr-panel-alt);
+
   border-right: 1px solid var(--clr-border);
+
   display: flex;
+
   flex-direction: column;
+
   align-items: center;
+
   justify-content: center;
+
   padding: 16px 8px;
+
 }
 
 /* Cam main area: header + video */
-#camMain {
+
+#camMain 
+{
+
   flex: 1;
+
   display: flex;
+
   flex-direction: column;
+
   overflow: hidden;
+
   min-width: 0;
+
 }
 
-#camStatus {
+#camStatus 
+{
+
   font-size: 10px;
+
   font-weight: 700;
+
   letter-spacing: 0.14em;
+
   text-transform: uppercase;
+
   color: var(--clr-text-muted);
+
 }
 
-#camStatus.online {
+#camStatus.online 
+{
+
   color: #22bb44;
+
 }
 
 /* Video viewport */
-#camView {
+
+#camView 
+{
+
   flex: 1;
+
   position: relative;
+
   overflow: hidden;
+
   background: #060606;
+
   min-height: 0;
+
 }
 
-#camFeed {
+#camFeed 
+{
+
   width: 100%;
+
   height: 100%;
+
   object-fit: cover;
+
   display: block;
+
 }
 
 /* Offline placeholder */
-#camPlaceholder {
+
+#camPlaceholder 
+{
+
   position: absolute;
+
   inset: 0;
+
   display: flex;
+
   flex-direction: column;
+
   align-items: center;
+
   justify-content: center;
+
   gap: 14px;
+
   background: #060606;
+
 }
 
-#camPlaceholderIcon {
+#camPlaceholderIcon 
+{
+
   font-size: 54px;
+
   color: var(--clr-text-muted);
+
   opacity: 0.3;
+
 }
 
-#camPlaceholderText {
+#camPlaceholderText 
+{
+
   font-size: 22px;
+
   font-weight: 900;
+
   color: var(--clr-text-muted);
+
   letter-spacing: 0.22em;
+
   text-transform: uppercase;
+
   opacity: 0.55;
+
 }
 
-#camPlaceholderSub {
+#camPlaceholderSub
+{
+
   font-size: 11px;
+
   font-weight: 700;
+
   color: var(--clr-text-muted);
+
   letter-spacing: 0.12em;
+
   text-transform: uppercase;
+
   opacity: 0.38;
+
+}
+
+
+/* ════════════════════════════════════════════════════════════
+   RESPONSIVE BREAKPOINTS
+   ════════════════════════════════════════════════════════════ */
+
+/* ── 4K / large TV (≥ 1920px) ── */
+@media (min-width: 1920px) {
+
+  :root { --header-h: 100px; }
+
+  #clockTime   { font-size: 54px; }
+  #clockAmPm   { font-size: 16px; }
+  .statValue   { font-size: 46px; }
+  .hourlyTemp  { font-size: 28px; }
+
+}
+
+/* ── Tablet landscape (≤ 1024px) ── */
+@media (max-width: 1024px) {
+
+  :root { --header-h: 60px; --ctrl-bar-w: 62px; }
+
+  #mainHeader  { padding: 0 18px; }
+  #headerLeft,
+  #headerRight { min-width: 160px; }
+
+  #clockTime   { font-size: clamp(20px, 2.8vw, 32px); }
+  #clockAmPm   { font-size: 11px; }
+  #clockDate   { font-size: 9px; letter-spacing: 0.16em; }
+
+  .statValue   { font-size: clamp(18px, 2.4vw, 28px); }
+  .statIcon    { font-size: 26px; }
+  .hourlyTemp  { font-size: clamp(13px, 1.6vw, 20px); }
+  .hourlyIcon  { font-size: 20px; }
+
+  #headerRight img { height: 34px; width: auto; max-width: 120px; }
+
+}
+
+/* ── Tablet portrait (≤ 768px) ── */
+@media (max-width: 768px) {
+
+  :root { --header-h: 54px; --ctrl-bar-w: 52px; --gap: 2px; }
+
+  #mainHeader  { padding: 0 12px; }
+  #headerLeft  { min-width: auto; gap: 8px; }
+  #headerRight { min-width: auto; }
+
+  .navSep      { height: 14px; }
+
+  #clockTime   { font-size: clamp(18px, 4vw, 26px); }
+  #clockAmPm   { font-size: 10px; margin-top: 5px; }
+  #clockDate   { display: none; } /* too small to be legible */
+
+  /* Stack top/bottom rows vertically — each row becomes full-width */
+  #topRow,
+  #bottomRow { flex-direction: column; }
+
+  .statValue   { font-size: clamp(16px, 4vw, 22px); }
+  .statLabel   { font-size: 10px; }
+  .hourlyTemp  { font-size: clamp(12px, 3vw, 16px); }
+
+  #headerRight img { height: 28px; width: auto; max-width: 100px; }
+  #siteLogo        { height: 12px; }
+
+}
+
+/* ── Mobile (≤ 480px) ── */
+@media (max-width: 480px) {
+
+  :root { --header-h: 50px; }
+
+  #mainHeader  { padding: 0 10px; }
+
+  #headerLocation { font-size: 10px; letter-spacing: 0.08em; }
+
+  #clockTime   { font-size: clamp(16px, 5vw, 22px); }
+  #clockAmPm   { font-size: 9px; }
+
+  /* Ensure all tap targets meet 44px minimum */
+  .expandBtn   { width: 44px; height: 44px; }
+  .profileBtn  { width: 44px; height: 44px; }
+
+  #hourlyScroll { padding: 8px; }
+  .hourlyItem   { min-width: 62px; padding: 8px 10px; }
+
+  #headerRight img { height: 22px; width: auto; max-width: 80px; }
+  #siteLogo        { height: 10px; }
+
 }

@@ -12,11 +12,22 @@
    ──────────────────────────────────────────────────────────── */
 
 /**
- * Hayden: fallback stream for the top-left YouTube quadrant.
- * This video is used only when neither monitored channel is live.
- * Replace this ID if you want a different default stream.
+ * YouTube embed sources for the top-left quadrant.
+ * Hayden: update these URLs if a channel goes offline or changes.
+ *
+ *   ryanHall — Ryan Hall Y'all live channel stream
+ *   yallBot  — Y'allBot stream (replace video ID if needed)
+ *
+ * Channel live-stream embed format:
+ *   https://www.youtube.com/embed/live_stream?channel=CHANNEL_ID
+ *
+ * Single video embed format:
+ *   https://www.youtube.com/embed/VIDEO_ID
  */
-const YT_FALLBACK_VIDEO_ID = 'EptQj6Q9ykY';
+const YT_SOURCES = {
+  ryanHall: 'https://www.youtube.com/embed/live_stream?channel=UCNMbegBD9OjH4Eza8vVjBMg&autoplay=1&mute=1&rel=0',
+  yallBot:  'https://www.youtube.com/embed/EptQj6Q9ykY?autoplay=1&mute=1&rel=0'
+};
 
 /**
  * Open-Meteo forecast API — Wheelersburg, OH (38.73, -82.99)
@@ -59,12 +70,6 @@ const CAM_STREAM_URL = ''; // ← Insert your webcam stream URL here
 
 /** How often to refresh weather data (ms). Default: 15 minutes. */
 const WEATHER_REFRESH_MS = 15 * 60 * 1000;
-
-/**
- * How long (ms) to wait for the Ryan Hall iframe to respond before
- * falling back to Y'allBot. 3 seconds is enough for a normal load.
- */
-
 
 /* ────────────────────────────────────────────────────────────
    STATE
@@ -111,83 +116,66 @@ function setActiveYoutubeButton(source) {
   document.getElementById('btnYallBot').classList.toggle('active', source === 'yallBot');
 }
 
-function setYoutubeIframeVideo(videoId) {
-  const iframe = document.getElementById('youtubeQuadrantIframe');
-  iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&rel=0&modestbranding=1`;
+function setYoutubeIframeSrc(src) {
+  document.getElementById('youtubeQuadrantIframe').src = src;
 }
 
 /**
- * Loads the YouTube quadrant stream with this priority:
- * 1. Ryan Hall live
- * 2. Y'allBot live
- * 3. Fallback weather stream
+ * On load: asks the backend which channel is currently live and loads
+ * that stream automatically. Priority: Ryan Hall → Y'allBot → RH default.
  *
- * Hayden: the API key is never used here. The frontend only calls
- * /api/getLiveStream, and the backend keeps the YouTube key private.
+ * Hayden: this requires the /api/getLiveStream backend to be running.
+ * If the backend is unreachable, falls back to Ryan Hall's channel embed
+ * (YouTube handles the "not live" state on their end).
+ *
+ * Backend expected response: { live: true, videoId: 'VIDEO_ID' }
+ *                        or: { live: false }
  */
 async function loadYouTubeStream() {
   try {
-    const [ryanResponse, yallbotResponse] = await Promise.all([
+    const [rhRes, ybRes] = await Promise.all([
       fetch('/api/getLiveStream?channel=ryan'),
       fetch('/api/getLiveStream?channel=yallbot')
     ]);
+    const [rhData, ybData] = await Promise.all([rhRes.json(), ybRes.json()]);
 
-    const [ryanData, yallbotData] = await Promise.all([
-      ryanResponse.json(),
-      yallbotResponse.json()
-    ]);
-
-    let videoId = YT_FALLBACK_VIDEO_ID;
-    let source = 'fallback';
-
-    if (ryanResponse.ok && ryanData.live) {
-      videoId = ryanData.videoId;
-      source = 'ryanHall';
-    } else if (yallbotResponse.ok && yallbotData.live) {
-      videoId = yallbotData.videoId;
-      source = 'yallBot';
+    if (rhRes.ok && rhData.live) {
+      activeYtSource = 'ryanHall';
+      setYoutubeIframeSrc(rhData.videoId
+        ? `https://www.youtube.com/embed/${rhData.videoId}?autoplay=1&mute=1&rel=0`
+        : YT_SOURCES.ryanHall);
+      setActiveYoutubeButton('ryanHall');
+    } else if (ybRes.ok && ybData.live) {
+      activeYtSource = 'yallBot';
+      setYoutubeIframeSrc(ybData.videoId
+        ? `https://www.youtube.com/embed/${ybData.videoId}?autoplay=1&mute=1&rel=0`
+        : YT_SOURCES.yallBot);
+      setActiveYoutubeButton('yallBot');
+    } else {
+      // Neither live — show RH channel embed (YouTube handles "not live" state)
+      activeYtSource = 'ryanHall';
+      setYoutubeIframeSrc(YT_SOURCES.ryanHall);
+      setActiveYoutubeButton('ryanHall');
     }
-
-    activeYtSource = source;
-    setYoutubeIframeVideo(videoId);
-    setActiveYoutubeButton(source);
-  } catch (err) {
-    console.error('[SkyGrid] Failed to load YouTube stream:', err);
-    activeYtSource = 'fallback';
-    setYoutubeIframeVideo(YT_FALLBACK_VIDEO_ID);
-    setActiveYoutubeButton('fallback');
+  } catch {
+    // Backend unavailable — fall back to RH channel embed
+    activeYtSource = 'ryanHall';
+    setYoutubeIframeSrc(YT_SOURCES.ryanHall);
+    setActiveYoutubeButton('ryanHall');
   }
 }
 
 /**
- * Manual button override for the two monitored channels.
- * This keeps the existing UI while resolving the current live
- * video through the backend endpoint.
+ * Manual button override. Switches directly to the configured embed URL
+ * for that source — no live check needed for manual selection.
  *
  * @param {'ryanHall'|'yallBot'} source
  */
-async function switchYoutubeSource(source) {
-  const channel = source === 'ryanHall' ? 'ryan' : 'yallbot';
-
-  try {
-    const response = await fetch(`/api/getLiveStream?channel=${channel}`);
-    const data = await response.json();
-    const videoId = response.ok && data.live && data.videoId
-      ? data.videoId
-      : YT_FALLBACK_VIDEO_ID;
-    const resolvedSource = response.ok && data.live && data.videoId
-      ? source
-      : 'fallback';
-
-    activeYtSource = resolvedSource;
-    setYoutubeIframeVideo(videoId);
-    setActiveYoutubeButton(resolvedSource);
-  } catch (err) {
-    console.error('[SkyGrid] Failed to switch YouTube source:', err);
-    activeYtSource = 'fallback';
-    setYoutubeIframeVideo(YT_FALLBACK_VIDEO_ID);
-    setActiveYoutubeButton('fallback');
-  }
+function switchYoutubeSource(source) {
+  if (!(source in YT_SOURCES)) return;
+  activeYtSource = source;
+  setYoutubeIframeSrc(YT_SOURCES[source]);
+  setActiveYoutubeButton(source);
 }
 
 
@@ -476,9 +464,9 @@ function initCamFeed() {
 /* ============================================================
    INIT
    ============================================================ */
-document.addEventListener('DOMContentLoaded', loadYouTubeStream);
-
 (function init() {
+  loadYouTubeStream();
+
   // Clock: start immediately, update every second
   updateClock();
   setInterval(updateClock, 1000);
