@@ -30,11 +30,24 @@ const YT_SOURCES = {
 };
 
 /**
- * Open-Meteo forecast API — Wheelersburg, OH (38.73, -82.99)
- * No API key required.
+ * Weather endpoint — Wheelersburg, OH (38.73, -82.99)
+ *
+ * CLOUDFLARE WORKER (recommended):
+ *   1. Deploy the worker from /cloudflare-worker/weather-worker.js
+ *   2. Replace the URL below with your *.workers.dev URL
+ *
+ * Fallback proxies are kept as a backup in case the worker is
+ * not yet set up or goes down.
  */
+const WORKER_URL = "https://skygrid-weather.alley-aron97.workers.dev";
+
 const WEATHER_DIRECT = "https://api.open-meteo.com/v1/forecast?latitude=38.73&longitude=-82.99&hourly=temperature_2m,precipitation_probability,weathercode,windspeed_10m&daily=sunrise,sunset&timezone=America%2FNew_York&temperature_unit=fahrenheit&wind_speed_unit=mph&precipitation_unit=inch&forecast_days=2";
-const WEATHER_API_URL = "https://corsproxy.io/?" + encodeURIComponent(WEATHER_DIRECT);
+const WEATHER_PROXIES = [
+  ...(WORKER_URL ? [WORKER_URL] : []),
+  WEATHER_DIRECT,
+  "https://corsproxy.io/?"               + encodeURIComponent(WEATHER_DIRECT),
+  "https://api.allorigins.win/raw?url="  + encodeURIComponent(WEATHER_DIRECT),
+];
 
 
 /**
@@ -211,55 +224,53 @@ function toggleBottomPanelExpand() {
  * No API key needed. Refreshes on a timer.
  */
 async function fetchWeatherData() {
-  console.log("Fetching weather from:", WEATHER_API_URL);
-
-  try {
-    const res = await fetch(WEATHER_API_URL);
-    console.log("Fetch success:", res);
-
-    if (!res.ok) throw new Error("Fetch failed");
-
-    const data = await res.json();
-    console.log("Weather data:", data);
-
-    if (!data || !data.hourly || !data.hourly.time) {
-      console.error("Invalid weather data:", data);
-      showWeatherError();
-      return;
-    }
-
-    const currentIndex = getCurrentIndex(data.hourly.time);
-
+  for (const url of WEATHER_PROXIES) {
     try {
-      renderWeatherStats(data.hourly, data.daily, currentIndex);
-      renderHourlyForecast(data.hourly, currentIndex);
+      console.log("Trying weather source:", url);
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+      const data = await res.json();
+      if (!data || !data.hourly) throw new Error("Invalid data shape");
+
+      const normalizedData = normalizeWeatherData(data);
+
+      console.log("Weather data loaded from:", url);
+      const currentIndex = getCurrentIndex(normalizedData.hourly.time);
+
+      try {
+        renderWeatherStats(normalizedData.hourly, normalizedData.daily, currentIndex);
+        renderHourlyForecast(normalizedData.hourly, currentIndex);
+      } catch (err) {
+        console.error("Render failed:", err);
+        showWeatherError();
+      }
+      return;
+
     } catch (err) {
-      console.error("Render failed:", err);
-      showWeatherError();
+      console.warn("Source failed, trying next:", url, err);
     }
+  }
 
-  } catch (err) {
-    console.error("Weather failed (network level):", err);
+  console.error("All weather sources failed.");
+  showWeatherError();
 
-    showWeatherError();
+  const now  = new Date();
+  const container = document.getElementById('hourlyList');
+  container.innerHTML = '';
 
-    const now  = new Date();
-    const container = document.getElementById('hourlyList');
-    container.innerHTML = '';
-
-    for (let i = 0; i < 12; i++) {
-      const h      = (now.getHours() + i) % 24;
-      const period = h >= 12 ? 'PM' : 'AM';
-      const label  = `${h % 12 || 12}:00 ${period}`;
-      const item   = document.createElement('div');
-      item.className = 'hourlyItem' + (i === 0 ? ' current' : '');
-      item.innerHTML = `
-        <div class="hourlyTime">${label}</div>
-        <div class="hourlyIcon">&mdash;</div>
-        <div class="hourlyTemp">&mdash;</div>
-      `;
-      container.appendChild(item);
-    }
+  for (let i = 0; i < 12; i++) {
+    const h      = (now.getHours() + i) % 24;
+    const period = h >= 12 ? 'PM' : 'AM';
+    const label  = `${h % 12 || 12}:00 ${period}`;
+    const item   = document.createElement('div');
+    item.className = 'hourlyItem' + (i === 0 ? ' current' : '');
+    item.innerHTML = `
+      <div class="hourlyTime">${label}</div>
+      <div class="hourlyIcon">&mdash;</div>
+      <div class="hourlyTemp">&mdash;</div>
+    `;
+    container.appendChild(item);
   }
 }
 
@@ -338,6 +349,30 @@ function formatLocalTime(isoStr) {
   const period   = h >= 12 ? 'PM' : 'AM';
   const hour     = h % 12 || 12;
   return `${hour}:${String(m).padStart(2, '0')} ${period}`;
+}
+
+function normalizeWeatherData(data) {
+
+  // Case 1: Standard Open-Meteo format (object with arrays)
+  if (data.hourly && Array.isArray(data.hourly.time)) {
+    return data;
+  }
+
+  // Case 2: Worker returns array of hourly objects
+  if (Array.isArray(data.hourly)) {
+    return {
+      hourly: {
+        time: data.hourly.map(h => h.time),
+        temperature_2m: data.hourly.map(h => h.temperature_2m ?? h.temp ?? 0),
+        windspeed_10m: data.hourly.map(h => h.windspeed_10m ?? h.wind ?? 0),
+        precipitation_probability: data.hourly.map(h => h.precipitation_probability ?? h.precipitation ?? 0),
+        weathercode: data.hourly.map(h => h.weathercode ?? h.weatherCode ?? 0)
+      },
+      daily: data.daily || { sunrise: [], sunset: [] }
+    };
+  }
+
+  return data;
 }
 
 
