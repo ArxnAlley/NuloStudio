@@ -33,7 +33,7 @@ const YT_SOURCES = {
  * Open-Meteo forecast API — Wheelersburg, OH (38.73, -82.99)
  * No API key required.
  */
-const WEATHER_API_URL = "https://api.open-meteo.com/v1/forecast?latitude=38.73&longitude=-82.99&hourly=temperature_2m,precipitation_probability,weathercode,windspeed_10m&daily=sunrise,sunset&timezone=auto&temperature_unit=fahrenheit&wind_speed_unit=mph&precipitation_unit=inch&forecast_days=2";
+const WEATHER_API_URL = "https://api.open-meteo.com/v1/forecast?latitude=38.73&longitude=-82.99&hourly=temperature_2m,precipitation_probability,weathercode,windspeed_10m&daily=sunrise,sunset&timezone=America%2FNew_York&temperature_unit=fahrenheit&wind_speed_unit=mph&precipitation_unit=inch&forecast_days=2";
 
 
 /**
@@ -213,11 +213,7 @@ async function fetchWeatherData() {
   console.log("Fetching weather from:", WEATHER_API_URL);
 
   try {
-    const res = await fetch(WEATHER_API_URL, {
-      method: "GET",
-      mode: "cors",
-      cache: "no-store"
-    });
+    const res = await fetch(WEATHER_API_URL);
     console.log("Fetch success:", res);
 
     if (!res.ok) throw new Error("Fetch failed");
@@ -247,16 +243,17 @@ async function fetchWeatherData() {
     showWeatherError();
 
     const now  = new Date();
-    const pad  = n => String(n).padStart(2, '0');
     const container = document.getElementById('hourlyList');
     container.innerHTML = '';
 
     for (let i = 0; i < 12; i++) {
-      const hour = pad((now.getHours() + i) % 24);
-      const item = document.createElement('div');
+      const h      = (now.getHours() + i) % 24;
+      const period = h >= 12 ? 'PM' : 'AM';
+      const label  = `${h % 12 || 12}:00 ${period}`;
+      const item   = document.createElement('div');
       item.className = 'hourlyItem' + (i === 0 ? ' current' : '');
       item.innerHTML = `
-        <div class="hourlyTime">${hour}:00</div>
+        <div class="hourlyTime">${label}</div>
         <div class="hourlyIcon">&mdash;</div>
         <div class="hourlyTemp">&mdash;</div>
       `;
