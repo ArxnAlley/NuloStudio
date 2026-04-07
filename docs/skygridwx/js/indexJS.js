@@ -33,7 +33,8 @@ const YT_SOURCES = {
  * Open-Meteo forecast API — Wheelersburg, OH (38.73, -82.99)
  * No API key required.
  */
-const WEATHER_API_URL = "https://api.open-meteo.com/v1/forecast?latitude=38.73&longitude=-82.99&hourly=temperature_2m,precipitation_probability,weathercode,windspeed_10m&daily=sunrise,sunset&timezone=America%2FNew_York&temperature_unit=fahrenheit&wind_speed_unit=mph&precipitation_unit=inch&forecast_days=2";
+const WEATHER_DIRECT = "https://api.open-meteo.com/v1/forecast?latitude=38.73&longitude=-82.99&hourly=temperature_2m,precipitation_probability,weathercode,windspeed_10m&daily=sunrise,sunset&timezone=America%2FNew_York&temperature_unit=fahrenheit&wind_speed_unit=mph&precipitation_unit=inch&forecast_days=2";
+const WEATHER_API_URL = "https://api.allorigins.win/raw?url=" + encodeURIComponent(WEATHER_DIRECT);
 
 
 /**
