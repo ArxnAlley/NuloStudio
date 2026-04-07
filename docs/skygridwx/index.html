@@ -24,6 +24,8 @@
 
   <body>
 
+    <img id="skyBackgroundVideo" src="images/BG.png" alt="">
+
     <!-- ============================================================
         HEADER — Left: Logo + Location | Center: Clock | Right: Brand
     ============================================================ -->
@@ -83,7 +85,7 @@
 
         <!-- TOP LEFT: YouTube Stream Panel -->
       
-        <section id="youtubePanel" class="quadrant">
+        <section id="youtubePanel" class="quadrant glassPanel">
 
           <div id="youtubeEmbed">
       
@@ -121,43 +123,43 @@
           <div id="youtubeControlBar">
 
             <div class="profileBtnGroup">
-          
+
               <button
-          
-                id="btnRyanHall"
-            
+
+                id="btnYallBot"
+
                 class="profileBtn active"
-            
-                title="Ryan Hall Y'all"
-            
-                onclick="switchYoutubeSource('ryanHall')">
-            
-                <div class="profileAvatar">RH</div>
-            
+
+                title="Y'allBot"
+
+                onclick="switchYoutubeSource('yallBot')">
+
+                <div class="profileAvatar">YB</div>
+
               </button>
-              
-              <span class="profileLabel">Ryan Hall</span>
-            
+
+              <span class="profileLabel">Y'allBot</span>
+
             </div>
 
             <div class="profileBtnGroup">
-      
+
               <button
-      
-                id="btnYallBot"
-        
+
+                id="btnRyanHall"
+
                 class="profileBtn"
-        
-                title="Y'allBot"
-        
-                onclick="switchYoutubeSource('yallBot')">
-                
-                <div class="profileAvatar">YB</div>
-              
+
+                title="Ryan Hall Y'all"
+
+                onclick="switchYoutubeSource('ryanHall')">
+
+                <div class="profileAvatar">RH</div>
+
               </button>
-              
-              <span class="profileLabel">Y'allBot</span>
-            
+
+              <span class="profileLabel">Ryan Hall</span>
+
             </div>
 
             <button
@@ -181,7 +183,7 @@
 
         <!-- TOP RIGHT: Hourly Forecast Panel -->
         
-        <section id="forecastPanel" class="quadrant">
+        <section id="forecastPanel" class="quadrant glassPanel">
 
           <div class="panelHeader">
         
@@ -212,7 +214,7 @@
 
         <!-- BOTTOM LEFT: Weather Stats Panel -->
     
-        <section id="statsPanel" class="quadrant">
+        <section id="statsPanel" class="quadrant glassPanel">
 
           <div class="panelHeader">
     
@@ -281,7 +283,7 @@
 
         <!-- BOTTOM RIGHT: Weather Cam Panel -->
     
-        <section id="camPanel" class="quadrant">
+        <section id="camPanel" class="quadrant glassPanel">
 
           <!-- Left-side vertical control bar -->
     

@@ -42,9 +42,9 @@
 
   --clr-text: #eeeeee;
 
-  --clr-text-dim: #787878;
+  --clr-text-dim: #b0b0b0;
 
-  --clr-text-muted: #424242;
+  --clr-text-muted: #909090;
 
   /* Accent — red */
 
@@ -78,7 +78,7 @@
    BASE
 ──────────────────────────────────────────────────────────── */
 
-html 
+html
 {
 
   width: 100vw;
@@ -86,6 +86,8 @@ html
   height: 100vh;
 
   overflow: hidden;
+
+  background: var(--clr-base);
 
 }
 
@@ -102,7 +104,7 @@ body
 
   flex-direction: column;
 
-  background: var(--clr-base);
+  background: transparent;
 
   color: var(--clr-text);
 
@@ -114,13 +116,47 @@ body
 
 }
 
-button 
+#skyBackgroundVideo
+{
+
+  position: fixed;
+
+  top: 0;
+
+  left: 0;
+
+  width: 100%;
+
+  height: 100%;
+
+  object-fit: cover;
+
+  z-index: -1;
+
+  filter: brightness(0.55) contrast(1.1);
+
+}
+
+.glassPanel {
+
+  background: transparent;
+
+  border: none;
+
+}
+
+button
 {
 
   cursor: pointer;
 
   font-family: inherit;
 
+}
+
+/* Global text legibility — prevents ALL text from blending into the background image */
+body * {
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.95), 0 0 8px rgba(0, 0, 0, 0.8);
 }
 
 
@@ -147,19 +183,11 @@ button
 
   height: var(--header-h);
 
-  background:
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.04), rgba(0, 0, 0, 0)),
-    rgba(10, 10, 10, 0.65);
+  background: transparent;
 
-  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255, 60, 0, 1);
 
-  -webkit-backdrop-filter: blur(14px);
-
-  border-bottom: 1px solid rgba(255, 60, 0, 0.4);
-
-  box-shadow:
-    0 1px 0   rgba(255, 255, 255, 0.05),
-    0 6px 20px rgba(0, 0, 0, 0.60);
+  box-shadow: none;
   
   padding: 0 28px;
 
@@ -197,7 +225,7 @@ button
 
   flex-shrink: 0;
 
-  opacity: 0.55;
+  opacity: 0.9;
 
 }
 
@@ -210,7 +238,7 @@ button
 
   height: 18px;
 
-  background: rgba(255, 255, 255, 0.20);
+  background: rgba(255, 255, 255, 0.9);
 
   flex-shrink: 0;
 }
@@ -228,7 +256,9 @@ button
 
   color: #ffffff;
 
-  opacity: 0.55;
+  opacity: 0.9;
+
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.9);
 
   white-space: nowrap;
 
@@ -332,7 +362,7 @@ button
 
   text-transform: uppercase;
 
-  color: rgba(255, 255, 255, 0.38);
+  color: #ffffff;
 
 }
 
@@ -360,15 +390,17 @@ button
 #headerRight img
 {
 
-  height: 76px;
+  height: calc(var(--header-h) + 60px);
 
   width: auto;
 
-  max-width: 200px;
+  max-width: 600px;
 
   object-fit: contain;
 
   display: block;
+
+  margin-top: 18px;
 
 }
 
@@ -401,13 +433,13 @@ button
 
   padding-top: var(--header-h);
 
-  gap: var(--gap);
+  gap: 0;
 
-  background: var(--clr-base);
+  background: transparent;
 
   overflow: hidden;
 
-  border-bottom: 3px solid rgba(204, 32, 0, 0.65);
+  border-bottom: 1px solid rgba(255, 60, 0, 1);
 
 }
 
@@ -420,7 +452,7 @@ button
 
   position: absolute;
 
-  bottom: 3px; /* sits above the border */
+  bottom: 1px; /* sits above the border */
 
   left: 0;
 
@@ -444,7 +476,7 @@ button
 
   flex: 1;
 
-  gap: var(--gap);
+  gap: 0;
 
   overflow: hidden;
 
@@ -460,13 +492,11 @@ button
 .quadrant 
 {
 
-  background: var(--clr-panel);
+  background: rgba(0, 0, 0, 0.55);
 
-  border: 1px solid #232323;
-  
-  box-shadow:
-    inset 0  1px 0 rgba(255, 255, 255, 0.030),
-    inset 0 -1px 0 rgba(0,   0,   0,   0.40);
+  border: none;
+
+  box-shadow: none;
   
   overflow: hidden;
   
@@ -492,9 +522,9 @@ button
 
   padding: 9px 16px;
 
-  background: var(--clr-panel-alt);
+  background: rgba(0, 0, 0, 0.72);
 
-  border-bottom: 1px solid var(--clr-border);
+  border-bottom: none;
 
   flex-shrink: 0;
 
@@ -512,6 +542,8 @@ button
   text-transform: uppercase;
 
   color: var(--clr-red);
+
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 1), 0 0 12px rgba(204, 32, 0, 0.5);
 
 }
 
@@ -535,7 +567,7 @@ button
 
   height: 38px;
 
-  background: none;
+  background: rgba(0, 0, 0, 0.55);
 
   border: 1px solid var(--clr-red);
 
@@ -548,6 +580,8 @@ button
   justify-content: center;
 
   color: var(--clr-red);
+
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
 
   transition: background var(--ease-quick), border-color var(--ease-quick), color var(--ease-quick);
 
@@ -647,16 +681,16 @@ button
 
 /* Right-side vertical control bar */
 
-#youtubeControlBar 
+#youtubeControlBar
 {
 
   width: var(--ctrl-bar-w);
 
   flex-shrink: 0;
 
-  background: var(--clr-panel-alt);
+  background: rgba(0, 0, 0, 0.72);
 
-  border-left: 1px solid var(--clr-border);
+  border-left: none;
 
   display: flex;
 
@@ -695,9 +729,9 @@ button
 
   border-radius: 50%;
 
-  border: 2px solid var(--clr-border-mid);
+  border: 2px solid rgba(255, 255, 255, 0.35);
 
-  background: var(--clr-panel);
+  background: rgba(0, 0, 0, 0.55);
 
   display: flex;
 
@@ -718,11 +752,13 @@ button
 
   font-weight: 900;
 
-  color: var(--clr-text-dim);
+  color: #ffffff;
 
   letter-spacing: 0.04em;
 
   pointer-events: none;
+
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
 
   transition: color var(--ease-quick);
 
@@ -771,7 +807,9 @@ button
 
   text-transform: uppercase;
 
-  color: var(--clr-text-muted);
+  color: rgba(255, 255, 255, 0.75);
+
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
 
   text-align: center;
 
@@ -820,14 +858,16 @@ button
 
 }
 
-#forecastPanel.collapsed 
+#forecastPanel.collapsed
 {
 
   flex-grow: 0;
 
   flex-shrink: 0;
 
-  flex-basis: 0%;
+  width: 0;
+
+  overflow: hidden;
 
   opacity: 0;
 
@@ -895,7 +935,7 @@ button
 
 }
 
-#hourlyList 
+#hourlyList
 {
 
   display: flex;
@@ -925,9 +965,9 @@ button
 
   justify-content: space-between;
 
-  background: var(--clr-panel-alt);
+  background: transparent;
 
-  border: 1px solid var(--clr-border);
+  border: none;
 
   border-radius: 4px;
 
@@ -948,12 +988,10 @@ button
 
 }
 
-.hourlyItem.current 
+.hourlyItem.current
 {
 
-  border-color: var(--clr-red);
-
-  background: var(--clr-red-dim);
+  border: 1px solid var(--clr-red);
 
 }
 
@@ -1116,7 +1154,7 @@ button
 
   gap: 1px;
 
-  background: var(--clr-base);
+  background: transparent;
 
   overflow: hidden;
 
@@ -1127,7 +1165,7 @@ button
 .statCard 
 {
 
-  background: var(--clr-panel);
+  background: transparent;
 
   display: flex;
 
@@ -1147,10 +1185,10 @@ button
 
 }
 
-.statCard:hover 
+.statCard:hover
 {
 
-  background: var(--clr-panel-alt);
+  background: rgba(255, 255, 255, 0.05);
 
 }
 
@@ -1231,16 +1269,16 @@ button
 
 /* Left-side control bar */
 
-#camControlBar 
+#camControlBar
 {
 
   width: var(--ctrl-bar-w);
 
   flex-shrink: 0;
 
-  background: var(--clr-panel-alt);
+  background: rgba(0, 0, 0, 0.72);
 
-  border-right: 1px solid var(--clr-border);
+  border-right: none;
 
   display: flex;
 

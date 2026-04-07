@@ -25,27 +25,16 @@
  *   https://www.youtube.com/embed/VIDEO_ID
  */
 const YT_SOURCES = {
-  ryanHall: 'https://www.youtube.com/embed/live_stream?channel=UCNMbegBD9OjH4Eza8vVjBMg&autoplay=1&mute=1&rel=0',
-  yallBot:  'https://www.youtube.com/embed/EptQj6Q9ykY?autoplay=1&mute=1&rel=0'
+  ryanHall: "https://www.youtube-nocookie.com/embed/live_stream?channel=UCNMbegBD9OjH4Eza8vVjBMg&autoplay=1&mute=1",
+  yallBot:  "https://www.youtube-nocookie.com/embed/EptQj6Q9ykY?autoplay=1&mute=1"
 };
 
 /**
  * Open-Meteo forecast API — Wheelersburg, OH (38.73, -82.99)
  * No API key required.
  */
-const WEATHER_API_URL = (() => {
-  const url = new URL('https://api.open-meteo.com/v1/forecast');
-  url.searchParams.set('latitude',          '38.73');
-  url.searchParams.set('longitude',         '-82.99');
-  url.searchParams.set('hourly',            'temperature_2m,precipitation_probability,weathercode,windspeed_10m');
-  url.searchParams.set('daily',             'sunrise,sunset');
-  url.searchParams.set('timezone',          'auto');
-  url.searchParams.set('temperature_unit',  'fahrenheit');
-  url.searchParams.set('wind_speed_unit',   'mph');
-  url.searchParams.set('precipitation_unit','inch');
-  url.searchParams.set('forecast_days',     '2');
-  return url.toString();
-})();
+const WEATHER_API_URL = "https://api.open-meteo.com/v1/forecast?latitude=38.73&longitude=-82.99&hourly=temperature_2m,precipitation_probability,weathercode,windspeed_10m&daily=sunrise,sunset&timezone=auto&temperature_unit=fahrenheit&wind_speed_unit=mph&precipitation_unit=inch&forecast_days=2";
+
 
 /**
  * Webcam stream URL.
@@ -74,7 +63,7 @@ const WEATHER_REFRESH_MS = 15 * 60 * 1000;
 /* ────────────────────────────────────────────────────────────
    STATE
    ──────────────────────────────────────────────────────────── */
-let activeYtSource = 'ryanHall';
+let activeYtSource = 'yallBot';
 let topExpanded    = false;
 let bottomExpanded = false;
 
@@ -131,38 +120,14 @@ function setYoutubeIframeSrc(src) {
  * Backend expected response: { live: true, videoId: 'VIDEO_ID' }
  *                        or: { live: false }
  */
-async function loadYouTubeStream() {
-  try {
-    const [rhRes, ybRes] = await Promise.all([
-      fetch('/api/getLiveStream?channel=ryan'),
-      fetch('/api/getLiveStream?channel=yallbot')
-    ]);
-    const [rhData, ybData] = await Promise.all([rhRes.json(), ybRes.json()]);
+function loadYouTubeStream() {
 
-    if (rhRes.ok && rhData.live) {
-      activeYtSource = 'ryanHall';
-      setYoutubeIframeSrc(rhData.videoId
-        ? `https://www.youtube.com/embed/${rhData.videoId}?autoplay=1&mute=1&rel=0`
-        : YT_SOURCES.ryanHall);
-      setActiveYoutubeButton('ryanHall');
-    } else if (ybRes.ok && ybData.live) {
-      activeYtSource = 'yallBot';
-      setYoutubeIframeSrc(ybData.videoId
-        ? `https://www.youtube.com/embed/${ybData.videoId}?autoplay=1&mute=1&rel=0`
-        : YT_SOURCES.yallBot);
-      setActiveYoutubeButton('yallBot');
-    } else {
-      // Neither live — show RH channel embed (YouTube handles "not live" state)
-      activeYtSource = 'ryanHall';
-      setYoutubeIframeSrc(YT_SOURCES.ryanHall);
-      setActiveYoutubeButton('ryanHall');
-    }
-  } catch {
-    // Backend unavailable — fall back to RH channel embed
-    activeYtSource = 'ryanHall';
-    setYoutubeIframeSrc(YT_SOURCES.ryanHall);
-    setActiveYoutubeButton('ryanHall');
-  }
+  activeYtSource = 'yallBot';
+
+  setYoutubeIframeSrc(YT_SOURCES.yallBot);
+
+  setActiveYoutubeButton('yallBot');
+
 }
 
 /**
@@ -203,6 +168,7 @@ function toggleTopPanelExpand() {
     forecastPanel.classList.remove('collapsed');
     expandBtn.classList.remove('active');
     arrow.innerHTML = '&#10095;'; // › point right = expand
+    setTimeout(() => fetchWeatherData(), 100);
   }
 }
 
@@ -244,19 +210,58 @@ function toggleBottomPanelExpand() {
  * No API key needed. Refreshes on a timer.
  */
 async function fetchWeatherData() {
-  try {
-    const res = await fetch(WEATHER_API_URL);
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  console.log("Fetching weather from:", WEATHER_API_URL);
 
-    const data         = await res.json();
+  try {
+    const res = await fetch(WEATHER_API_URL, {
+      method: "GET",
+      mode: "cors",
+      cache: "no-store"
+    });
+    console.log("Fetch success:", res);
+
+    if (!res.ok) throw new Error("Fetch failed");
+
+    const data = await res.json();
+    console.log("Weather data:", data);
+
+    if (!data || !data.hourly || !data.hourly.time) {
+      console.error("Invalid weather data:", data);
+      showWeatherError();
+      return;
+    }
+
     const currentIndex = getCurrentIndex(data.hourly.time);
 
-    renderWeatherStats(data.hourly, data.daily, currentIndex);
-    renderHourlyForecast(data.hourly, currentIndex);
+    try {
+      renderWeatherStats(data.hourly, data.daily, currentIndex);
+      renderHourlyForecast(data.hourly, currentIndex);
+    } catch (err) {
+      console.error("Render failed:", err);
+      showWeatherError();
+    }
 
   } catch (err) {
-    console.error('[SkyGrid] Weather fetch failed:', err);
+    console.error("Weather failed (network level):", err);
+
     showWeatherError();
+
+    const now  = new Date();
+    const pad  = n => String(n).padStart(2, '0');
+    const container = document.getElementById('hourlyList');
+    container.innerHTML = '';
+
+    for (let i = 0; i < 12; i++) {
+      const hour = pad((now.getHours() + i) % 24);
+      const item = document.createElement('div');
+      item.className = 'hourlyItem' + (i === 0 ? ' current' : '');
+      item.innerHTML = `
+        <div class="hourlyTime">${hour}:00</div>
+        <div class="hourlyIcon">&mdash;</div>
+        <div class="hourlyTemp">&mdash;</div>
+      `;
+      container.appendChild(item);
+    }
   }
 }
 
@@ -289,6 +294,11 @@ function getCurrentIndex(hourlyTimes) {
       break; // times are ascending — safe to stop
     }
   }
+
+  if (index < 0 || index >= hourlyTimes.length) {
+    index = 0;
+  }
+
   return index;
 }
 
@@ -354,8 +364,6 @@ function renderHourlyForecast(hourly, startIndex) {
   for (let i = startIndex; i < endIndex; i++) {
     const condition = mapWeatherCode(hourly.weathercode[i]);
     const temp      = Math.round(hourly.temperature_2m[i]);
-    const rain      = hourly.precipitation_probability[i] ?? 0;
-    const wind      = Math.round(hourly.windspeed_10m[i]);
     const timeLabel = formatLocalTime(hourly.time[i]);
 
     const item = document.createElement('div');
@@ -364,8 +372,6 @@ function renderHourlyForecast(hourly, startIndex) {
       <div class="hourlyTime">${timeLabel}</div>
       <div class="hourlyIcon">${condition.icon}</div>
       <div class="hourlyTemp">${temp}&deg;</div>
-      <div class="hourlyRain">${rain}%</div>
-      <div class="hourlyWind">${wind}&nbsp;mph</div>
     `;
     container.appendChild(item);
   }
