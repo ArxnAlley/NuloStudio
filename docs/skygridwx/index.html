@@ -64,7 +64,25 @@
 
       <!-- RIGHT: Burger -->
 
-      <div id="headerRight"></div>
+      <div id="headerRight">
+
+        <button id="hamburgerBtn" aria-label="Menu">
+
+          <svg id="hamburgerSvg" width="32" height="28" viewBox="0 0 32 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+            <rect x="0" y="0" width="32" height="2" fill="white"/>
+
+            <rect id="hamMidBar" x="0" y="13" width="18" height="2" fill="white"/>
+
+            <polygon id="hamArrow" points="21,9 30,14 21,19" fill="white"/>
+
+            <rect x="0" y="26" width="32" height="2" fill="white"/>
+
+          </svg>
+
+        </button>
+
+      </div>
 
     </header>
 
@@ -375,22 +393,6 @@
 
     </main>
 
-    <button id="hamburgerBtn" aria-label="Menu">
-      
-      <svg id="hamburgerSvg" width="32" height="28" viewBox="0 0 32 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-      
-        <rect x="0" y="0" width="32" height="2" fill="white"/>
-      
-        <rect id="hamMidBar" x="0" y="13" width="18" height="2" fill="white"/>
-      
-        <polygon id="hamArrow" points="21,9 30,14 21,19" fill="white"/>
-      
-        <rect x="0" y="26" width="32" height="2" fill="white"/>
-      
-      </svg>
-    
-    </button>
-
     <div id="slidePanel">
     
       <div id="slidePanelInner">
@@ -439,7 +441,9 @@
     
     <div id="slideOverlay"></div>
 
-    <div id="alertBanner"></div>
+    <div class="weatherAlertBar" id="alertBanner">
+      <div class="weatherAlertTrack"></div>
+    </div>
 
     <!-- ============================================================
          RADAR OVERLAY

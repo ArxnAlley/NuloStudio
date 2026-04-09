@@ -55,14 +55,16 @@
    YOUTUBE SOURCES
 ================================== */
 
-const YT_SOURCES = 
+const YT_SOURCES =
 {
 
-  ryanHall: "https://www.youtube-nocookie.com/embed/live_stream?channel=UCNMbegBD9OjH4Eza8vVjBMg&autoplay=1&mute=1",
+  ryanHall: "https://www.youtube.com/embed/live_stream?channel=UCNMbegBD9OjH4Eza8vVjBMg&autoplay=1&mute=1",
 
-  yallBot: "https://www.youtube-nocookie.com/embed/EptQj6Q9ykY?autoplay=1&mute=1"
+  yallBot: "https://www.youtube.com/embed/EptQj6Q9ykY?autoplay=1&mute=1"
 
 };
+
+let youtubeMode = 'auto'; // 'auto' or 'manual'
 
 const WORKER_URL = "https://skygrid-weather.alley-aron97.workers.dev";
 
@@ -443,72 +445,67 @@ function setActiveYoutubeButton(source)
 
 }
 
-function setYoutubeIframeSrc(src) 
+function loadYoutubeIframe(src)
 {
-
-  document.getElementById('youtubeQuadrantIframe').src = src;
-
-}
-
-
-
-async function loadYouTubeStream() 
-{
-
   const iframe = document.getElementById('youtubeQuadrantIframe');
 
-  if (!lastVideoId) 
-  {
-  
-    iframe.src = '';
-  
-    iframe.title = 'Loading stream...';
+  if (!iframe) return;
 
-  }
-
-  try 
-  {
-  
-    const res = await fetch(WORKER_URL + '/youtube');
-  
-    const data = await res.json();
-
-    if (data.videoId && data.videoId !== lastVideoId) 
-    {
-    
-      lastVideoId = data.videoId;
-    
-      iframe.src = `https://www.youtube.com/embed/${data.videoId}?autoplay=1&mute=1`;
-  
-    }
-
-  } 
-  
-  catch 
-  {
-  
-    if (lastVideoId) 
-    {
-    
-      iframe.src = `https://www.youtube.com/embed/${lastVideoId}?autoplay=1&mute=1`;
-  
-    }
-
-  }
-
+  iframe.src = src + '&t=' + Date.now();
 }
 
 
 
-function switchYoutubeSource(source) 
+async function loadYouTubeStream()
 {
+  if (youtubeMode !== 'auto') return;
 
-  if (!(source in YT_SOURCES)) return;
+  try
+  {
+    const res = await fetch(WORKER_URL + '/youtube');
+    const data = await res.json();
 
-  setYoutubeIframeSrc(YT_SOURCES[source]);
+    console.log('YT DATA:', data);
+
+    if (data.videoId && data.videoId !== lastVideoId)
+    {
+      console.log('Loading videoId:', data.videoId);
+
+      lastVideoId = data.videoId;
+
+      const src = `https://www.youtube.com/embed/${data.videoId}?autoplay=1&mute=1`;
+
+      loadYoutubeIframe(src);
+    }
+  }
+  catch
+  {
+    console.warn('YouTube fetch failed');
+  }
+}
+
+
+
+function switchYoutubeSource(source)
+{
+  if (source === 'ryanHall')
+  {
+    youtubeMode = 'manual';
+    loadYoutubeIframe(YT_SOURCES.ryanHall);
+  }
+  else if (source === 'yallBot')
+  {
+    enableAutoYoutube();
+  }
 
   setActiveYoutubeButton(source);
+}
 
+function enableAutoYoutube()
+{
+  youtubeMode = 'auto';
+  lastVideoId = null;
+  loadYouTubeStream();
 }
 
 /*  =================================
@@ -779,19 +776,23 @@ function renderHourlyForecast(hourly, startIndex)
 
   bottomRow.innerHTML = '';
 
-  const endIndex = Math.min(startIndex + 12, hourly.time.length);
+  const w = window.innerWidth;
+  const total = w >= 1920 ? 12 : w >= 1400 ? 10 : 8;
+  const half = total / 2;
+
+  const endIndex = Math.min(startIndex + total, hourly.time.length);
 
   for (let i = startIndex; i < endIndex; i++)
   {
-  
+
     const condition = mapWeatherCode(hourly.weathercode[i]);
-  
+
     const temp = Math.round(hourly.temperature_2m[i]);
-  
+
     const timeLabel = formatLocalTime(hourly.time[i]);
 
     const item = document.createElement('div');
-  
+
     item.className = 'hourlyItem' + (i === startIndex ? ' current' : '');
 
     item.innerHTML = `
@@ -804,7 +805,7 @@ function renderHourlyForecast(hourly, startIndex)
 
     `;
 
-    if (i < startIndex + 6)
+    if (i < startIndex + half)
 
     {
 
@@ -1021,40 +1022,61 @@ function renderWeatherStats(current, daily, precipTimeline)
    ALERTS
    ================================= */
 
-function renderAlerts(alerts) 
+function renderAlerts(alerts)
 {
-  
-  const banner = document.getElementById('alertBanner');
-  
-  banner.innerHTML = '';
 
-  if (!alerts || alerts.length === 0) 
+  const banner = document.getElementById('alertBanner');
+  const track  = banner.querySelector('.weatherAlertTrack');
+
+  track.style.animationDuration = '';
+  track.innerHTML = '';
+
+  if (!alerts || alerts.length === 0)
   {
-  
     banner.classList.remove('hasAlerts');
-  
     return;
-  
   }
 
-  alerts.forEach(alert => 
+  function makeItem(a)
   {
-  
     const item = document.createElement('div');
-  
-    item.className = 'alertItem alertItem--' + (alert.severity || 'severe').toLowerCase();
-  
-    item.innerHTML =
-  
-    `<span class="alertEvent">${alert.event}</span>` +
-  
-    `<span class="alertHeadline">${alert.headline || ''}</span>`;
-  
-    banner.appendChild(item);
-  
-  });
+    item.className = 'weatherAlertItem';
+    item.textContent = a.event + (a.headline ? ' \u2014 ' + a.headline : '');
+    return item;
+  }
 
+  /* Step 1 — render one pass to measure natural width */
+  alerts.forEach(a => track.appendChild(makeItem(a)));
   banner.classList.add('hasAlerts');
+
+  requestAnimationFrame(() =>
+  {
+
+    const onePassWidth  = track.scrollWidth;
+    const viewportWidth = window.innerWidth || 1920;
+
+    /* Repeat enough times so one copy fills ≥ 3× viewport —
+       the loop reset (translateX -50%) then happens entirely off-screen */
+    const repeats = Math.max(3, Math.ceil((viewportWidth * 3) / onePassWidth));
+
+    track.innerHTML = '';
+
+    function appendCopy()
+    {
+      for (let r = 0; r < repeats; r++)
+      {
+        alerts.forEach(a => track.appendChild(makeItem(a)));
+      }
+    }
+
+    appendCopy(); /* copy 1 */
+    appendCopy(); /* copy 2 — translateX(-50%) lands here seamlessly */
+
+    /* Step 2 — set speed at 80 px/s based on estimated half-width */
+    const halfWidth = onePassWidth * repeats;
+    track.style.animationDuration = (halfWidth / 80) + 's';
+
+  });
 
 }
 
@@ -1134,6 +1156,8 @@ function initCamFeed()
 (function init() 
 {
 
+  youtubeMode = 'auto';
+  lastVideoId = null;
   loadYouTubeStream();
 
   setInterval(loadYouTubeStream, 60000);

@@ -80,7 +80,7 @@ html
 
   width: 100vw;
 
-  height: 100vh;
+  height: 100dvh;
 
   overflow: hidden;
 
@@ -111,7 +111,7 @@ body
 
   width: 100vw;
 
-  height: 100vh;
+  height: 100dvh;
 
   overflow: hidden;
 
@@ -162,7 +162,7 @@ body *
     HEADER
 ============================================================ */
 
-#mainHeader 
+#mainHeader
 {
 
   position: fixed;
@@ -175,18 +175,22 @@ body *
 
   display: flex;
 
+  flex-wrap: nowrap;
+
   align-items: center;
 
   justify-content: space-between;
 
   height: var(--header-h);
 
+  overflow: hidden;
+
   background: transparent;
 
   border-bottom: 1px solid rgba(255, 60, 0, 1);
 
   box-shadow: none;
-  
+
   padding: 0 28px;
 
   flex-shrink: 0;
@@ -208,14 +212,16 @@ body *
 
   min-width: 220px;
 
+  flex-shrink: 0;
+
 }
 
 #siteLogo
 {
 
-  height: 120px;
+  height: auto;
 
-  max-height: 120px;
+  max-height: calc(var(--header-h) - 10px);
 
   width: auto;
 
@@ -226,8 +232,6 @@ body *
   flex-shrink: 0;
 
   opacity: 0.9;
-
-  margin-top: 12px;
 
 }
 
@@ -377,7 +381,7 @@ body *
 
 /* brand title */
 
-#headerRight 
+#headerRight
 {
 
   display: flex;
@@ -387,6 +391,8 @@ body *
   justify-content: flex-end;
 
   min-width: 220px;
+
+  flex-shrink: 0;
 
 }
 
@@ -403,23 +409,11 @@ body *
 
   display: flex;
 
-  flex-direction: column;
+  align-items: center;
 
-  align-items: flex-end;
-
-  gap: 5px;
+  justify-content: center;
 
   padding: 6px;
-
-  position: fixed;
-
-  top: 28px;
-
-  right: 16px;
-
-  z-index: 1002;
-
-  transition: right 0.3s ease;
 
 }
 
@@ -444,9 +438,7 @@ body *
 
   opacity: 0.75;
 
-  right: 21vw;
-
-  transition: right 0.3s ease, opacity 0.2s ease;
+  transition: opacity 0.2s ease;
 
 }
 
@@ -504,7 +496,7 @@ body *
 
   width: 25vw;
 
-  height: 100vh;
+  height: 100dvh;
 
   background: rgba(10, 10, 10, 0.96);
 
@@ -545,6 +537,8 @@ body *
   padding-left: 24px;
 
   height: 100%;
+
+  overflow-y: auto;
 
 }
 
@@ -993,25 +987,27 @@ body *
 /*
   #dashContent fills the full viewport height.
   padding-top pushes the flex rows below the fixed glass header.
-  box-sizing: border-box ensures height stays exactly 100vh.
+  box-sizing: border-box ensures height stays exactly 100dvh.
   The panel backgrounds extend behind the header so the glass
   backdrop-filter has content to blur.
   A 2px red bottom edge mirrors the header accent and visually
   locks the dashboard to the screen — no "more content below" feel.
 */
 
-#dashContent 
+#dashContent
 {
 
-  position: relative; 
+  position: relative;
 
-  display: flex;
+  display: grid;
 
-  flex-direction: column;
+  grid-template-columns: 1fr 1fr;
 
-  height: 100vh;
+  grid-template-rows: 1fr 1fr;
 
-  padding-top: var(--header-h);
+  height: calc(100dvh - var(--header-h));
+
+  margin-top: var(--header-h);
 
   gap: 0;
 
@@ -1047,18 +1043,10 @@ body *
 }
 
 #topRow,
-#bottomRow 
+#bottomRow
 {
 
-  display: flex;
-
-  flex: 1;
-
-  gap: 0;
-
-  overflow: hidden;
-
-  min-height: 0;
+  display: contents;
 
 }
 
@@ -1226,33 +1214,32 @@ body *
   content: '';
   
   position: absolute;
-  
-  top: var(--header-h);
-  
+
+  top: 50%;
+
   left: 0;
-  
+
   right: 0;
-  
+
   height: 3px;
-  
+
   background: repeating-linear-gradient
   (
-  
+
     to right,
-  
+
     rgba(255, 255, 255, 1) 0px,
-   
+
     rgba(255, 255, 255, 1) 4px,
-    
-    
+
     transparent 4px,
-    
+
     transparent 8px
-  
+
   );
 
   z-index: 200;
-  
+
   pointer-events: none;
 }
 
@@ -1265,7 +1252,7 @@ body *
    PANEL HEADER STRIP
 ============================================================ */
 
-.panelHeader 
+.panelHeader
 {
 
   display: flex;
@@ -1380,7 +1367,7 @@ body *
    YOUTUBE PANEL — TOP LEFT
 ============================================================ */
 
-#youtubePanel 
+#youtubePanel
 {
 
   flex: 1 1 0;
@@ -1392,6 +1379,8 @@ body *
   overflow: hidden;
 
   min-width: 0;
+
+  min-height: 0;
 
 }
 
@@ -1592,7 +1581,7 @@ body *
    Collapses when YouTube expands
 ============================================================ */
 
-#forecastPanel 
+#forecastPanel
 {
 
   flex: 1 1 0;
@@ -1604,6 +1593,8 @@ body *
   overflow: hidden;
 
   min-width: 0;
+
+  min-height: 0;
 
   transition:
     flex-grow  var(--ease-expand),
@@ -1653,7 +1644,7 @@ body *
 
   flex-direction: column;
 
-  height: 100%;
+  flex: 1;
 
   padding: 10px;
 
@@ -1664,9 +1655,9 @@ body *
 .hourlyRow
 {
 
-  display: grid;
+  display: flex;
 
-  grid-template-columns: repeat(6, 1fr);
+  flex-wrap: nowrap;
 
   gap: 8px;
 
@@ -1686,7 +1677,9 @@ body *
 .hourlyItem
 {
 
-  min-width: unset;
+  flex: 1 0 0;
+
+  min-width: 0;
 
   padding: 8px;
 
@@ -1713,7 +1706,7 @@ body *
 
   padding: 12px 14px;
 
-  min-width: 80px;
+  min-width: 0;
 
   cursor: default;
 
@@ -1829,7 +1822,7 @@ body *
    Collapses when cam expands
 ============================================================ */
 
-#statsPanel 
+#statsPanel
 {
 
   flex: 1 1 0;
@@ -1841,6 +1834,8 @@ body *
   overflow: hidden;
 
   min-width: 0;
+
+  min-height: 0;
 
   transition:
     flex-grow  var(--ease-expand),
@@ -1883,7 +1878,7 @@ body *
 
 /* 3-column × 2-row stat grid — gaps show base color as dividers */
 
-#statsGrid 
+#statsGrid
 {
 
   flex: 1;
@@ -1900,11 +1895,13 @@ body *
 
   overflow: hidden;
 
+  min-width: 0;
+
   min-height: 0;
 
 }
 
-.statCard 
+.statCard
 {
 
   background: transparent;
@@ -1922,6 +1919,10 @@ body *
   gap: 6px;
 
   text-align: center;
+
+  min-width: 0;
+
+  min-height: 0;
 
   transition: background var(--ease-quick);
 
@@ -1994,7 +1995,7 @@ body *
    CAM PANEL — BOTTOM RIGHT
 ============================================================ */
 
-#camPanel 
+#camPanel
 {
 
   flex: 1 1 0;
@@ -2006,6 +2007,8 @@ body *
   overflow: hidden;
 
   min-width: 0;
+
+  min-height: 0;
 
 }
 
@@ -2036,7 +2039,7 @@ body *
 
 /* Cam main area: header + video */
 
-#camMain 
+#camMain
 {
 
   flex: 1;
@@ -2048,6 +2051,8 @@ body *
   overflow: hidden;
 
   min-width: 0;
+
+  min-height: 0;
 
 }
 
@@ -2075,7 +2080,7 @@ body *
 
 /* Video viewport */
 
-#camView 
+#camView
 {
 
   flex: 1;
@@ -2085,6 +2090,8 @@ body *
   overflow: hidden;
 
   background: #060606;
+
+  min-width: 0;
 
   min-height: 0;
 
@@ -2171,99 +2178,82 @@ body *
 
 }
 
-/* ===========================================================
-   ALERT BANNER
-============================================================ */
+/* ============================= */
+/* SPECIAL WEATHER TICKER */
+/* ============================= */
 
-#alertBanner
+.weatherAlertBar
 {
-
   position: fixed;
 
-  top: var(--header-h);
+  bottom: 0;
 
   left: 0;
-  right: 0;
 
-  z-index: 900;
+  width: 100%;
 
-  display: none;
+  height: 48px;
 
-  flex-direction: column;
+  background: var(--clr-red);
 
-  gap: 2px;
-
-}
-
-#alertBanner.hasAlerts
-{
-  display: flex;
-}
-
-.alertItem
-{
+  color: #fff;
 
   display: flex;
 
   align-items: center;
 
-  gap: 10px;
+  overflow: hidden;
 
-  padding: 6px 16px;
-
-  background: rgba(180, 20, 0, 0.92);
-
-  border-bottom: 1px solid rgba(255, 60, 0, 0.5);
-
-  font-size: 12px;
-
-  font-weight: 700;
-
-  letter-spacing: 0.1em;
-
-  text-transform: uppercase;
-
-  color: #fff;
-
-  backdrop-filter: blur(4px);
+  z-index: 9999;
 }
 
-.alertItem--extreme { background: rgba(140, 0, 0, 0.96); }
-
-.alertItem--severe { background: rgba(180, 20, 0, 0.92); }
-
-.alertItem--moderate { background: rgba(160, 80, 0, 0.9); }
-
-.alertItem--minor { background: rgba(90, 70, 0, 0.88); }
-
-.alertEvent
+/* inner scrolling track — must be max-content wide so flex never squishes it */
+.weatherAlertTrack
 {
+  display: flex;
 
-  font-weight: 900;
+  width: max-content;
+
+  flex-shrink: 0;
 
   white-space: nowrap;
 
+  will-change: transform;
+
+  /* duration overridden by JS based on content width + 80px/s speed */
+  animation-name: weatherTickerScroll;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-duration: 60s;
 }
 
-.alertHeadline
+/* text items — flex-shrink: 0 prevents any item from compressing */
+.weatherAlertItem
 {
+  flex-shrink: 0;
 
-  opacity: 0.85;
+  padding-right: 120px;
+
+  font-size: 16px;
 
   font-weight: 600;
 
-  font-size: 11px;
+  letter-spacing: 1px;
+}
 
-  letter-spacing: 0.06em;
+/* animation — translateX(-50%) shifts by exactly one copy width; copy 2 is
+   visually identical to copy 1 so the loop reset is invisible */
+@keyframes weatherTickerScroll
+{
+  from
+  {
+    transform: translateX(0);
+  }
 
-  text-transform: none;
-
-  overflow: hidden;
-
-  text-overflow: ellipsis;
-
-  white-space: nowrap;
-
+  to
+  {
+    transform: translateX(-50%);
+  }
 }
 
 
@@ -2927,20 +2917,61 @@ body.radarActive #radarToggleBtn span::after
    RESPONSIVE BREAKPOINTS
 ============================================================ */
 
-/* 4K / large TV (≥ 1920px) */
+/* Large desktop / TV (≥ 1920px) */
 
-@media (min-width: 1920px) 
+@media (min-width: 1920px)
 {
 
   :root { --header-h: 100px; }
 
-  #clockTime { font-size: 54px; }
+  #clockTime        { font-size: clamp(48px, 2.8vw, 58px); }
 
-  #clockAmPm { font-size: 16px; }
+  #clockAmPm        { font-size: clamp(14px, 0.85vw, 18px); }
 
-  .statValue { font-size: 46px; }
+  #clockDate        { font-size: clamp(10px, 0.70vw, 14px); }
 
-  .hourlyTemp { font-size: 28px; }
+  #headerLocation   { font-size: clamp(12px, 0.75vw, 16px); }
+
+  .panelTitle       { font-size: clamp(15px, 0.90vw, 20px); }
+
+  .statValue        { font-size: clamp(42px, 2.4vw, 52px); }
+
+  .statIcon         { font-size: clamp(34px, 1.9vw, 44px); }
+
+  .statLabel        { font-size: clamp(11px, 0.65vw, 14px); }
+
+  .hourlyTemp       { font-size: clamp(24px, 1.5vw, 32px); }
+
+  .hourlyTime       { font-size: clamp(20px, 1.2vw, 28px); }
+
+}
+
+/* Ultra-wide / 2K+ (≥ 2560px) */
+
+@media (min-width: 2560px)
+{
+
+  :root { --header-h: 110px; }
+
+  #clockTime        { font-size: clamp(58px, 2.4vw, 74px); }
+
+  #clockAmPm        { font-size: clamp(18px, 0.80vw, 22px); }
+
+  #clockDate        { font-size: clamp(13px, 0.60vw, 18px); }
+
+  #headerLocation   { font-size: clamp(15px, 0.70vw, 20px); }
+
+  .panelTitle       { font-size: clamp(20px, 0.85vw, 26px); }
+
+  .statValue        { font-size: clamp(52px, 2.2vw, 66px); }
+
+  .statIcon         { font-size: clamp(44px, 1.9vw, 56px); }
+
+  .statLabel        { font-size: clamp(14px, 0.65vw, 18px); }
+
+  .hourlyTemp       { font-size: clamp(32px, 1.4vw, 42px); }
+
+  .hourlyTime       { font-size: clamp(26px, 1.1vw, 34px); }
 
 }
 
@@ -2997,8 +3028,7 @@ body.radarActive #radarToggleBtn span::after
 
   /* Stack top/bottom rows vertically — each row becomes full-width */
 
-  #topRow,
-  #bottomRow { flex-direction: column; }
+  #dashContent { grid-template-columns: 1fr; grid-template-rows: repeat(4, 1fr); }
 
   .statValue { font-size: clamp(16px, 4vw, 22px); }
   
