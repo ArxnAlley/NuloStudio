@@ -9,6 +9,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title>SkyGrid Wx</title>
+
+    <link rel="icon" type="image/png" href="SG_Favicon.png">
+
+    <link rel="apple-touch-icon" href="SG_Favicon.png">
     
     <!-- Orbitron: geometric digital-panel font for the clock -->
     
@@ -24,11 +28,9 @@
 
   <body>
 
-    <img id="skyBackgroundVideo" src="images/BG.png" alt="">
-
     <!-- ============================================================
-        HEADER — Left: Logo + Location | Center: Clock | Right: Brand
-    ============================================================ -->
+         HEADER
+    ============================================================= -->
     
     <header id="mainHeader">
 
@@ -36,7 +38,7 @@
       
       <div id="headerLeft">
       
-        <img src="logos/TPSkyGrid.png" id="siteLogo" alt="SkyGrid Wx">
+        <a id="siteLogoLink" href="index.html"><img src="logos/TPSkyGridLogo.png" id="siteLogo" alt="SkyGrid Wx"></a>
       
         <div class="navSep"></div>
       
@@ -44,7 +46,7 @@
       
       </div>
 
-      <!-- CENTER: Digital clock (absolute, true center) -->
+      <!-- CENTER: Digital clock -->
       
       <div id="clockDisplay">
       
@@ -60,26 +62,32 @@
       
       </div>
 
-      <!-- RIGHT: Brand title -->
-      
-      <div id="headerRight">
-      
-        <span id="brandName">
-          <img src="logos/TPSkyGridLogo.png" alt="SkyGrid Logo" class="navLogoImage">
-        </span>
-      
-      </div>
+      <!-- RIGHT: Burger -->
+
+      <div id="headerRight"></div>
 
     </header>
 
+    <div id="editControls">
+      
+      <button id="editConfirm">✔</button>
+      
+      <button id="editCancel">✕</button>
+      
+      <button id="editReset">RESET</button>
+    
+    </div>
+
 
     <!-- ============================================================
-        MAIN DASHBOARD — flex rows forming the 2×2 quadrant grid
-    ============================================================ -->
+         MAIN DASHBOARD
+    ============================================================= -->
     
     <main id="dashContent">
 
-      <!-- ===================== TOP ROW ===================== -->
+      <!-- ============================================================
+           TOP ROW
+      ============================================================= -->
       
       <div id="topRow">
 
@@ -92,12 +100,12 @@
             <!--
               YouTube Live Stream
               ─────────────────────────────────────────────────────
-              Default source: Ryan Hall Y'all channel live stream.
-              Channel ID verification: youtube.com/@RyanHallYall
+              Source is controlled dynamically via Worker.
 
-              If the channel embed returns no stream, switch to
-              a specific video ID in js/indexJS.js → YT_SOURCES.ryanHall
-              Format: https://www.youtube.com/embed/VIDEO_ID?autoplay=1&mute=1
+              Worker handles:
+                - Live stream or fallback videoId
+
+              Frontend updates iframe source at runtime.
             -->
       
             <iframe
@@ -126,26 +134,6 @@
 
               <button
 
-                id="btnYallBot"
-
-                class="profileBtn active"
-
-                title="Y'allBot"
-
-                onclick="switchYoutubeSource('yallBot')">
-
-                <div class="profileAvatar">YB</div>
-
-              </button>
-
-              <span class="profileLabel">Y'allBot</span>
-
-            </div>
-
-            <div class="profileBtnGroup">
-
-              <button
-
                 id="btnRyanHall"
 
                 class="profileBtn"
@@ -162,24 +150,57 @@
 
             </div>
 
+            <div class="profileBtnGroup">
+
+              <button
+
+                id="btnYallBot"
+
+                class="profileBtn active"
+
+                title="Y'allBot"
+
+                onclick="switchYoutubeSource('yallBot')">
+
+                <div class="profileAvatar">YB</div>
+
+              </button>
+
+              <span class="profileLabel">Y'allBot</span>
+
+            </div>
+
             <button
-            
+
               id="btnExpandTop"
-              
+
               class="expandBtn"
-              
+
               title="Expand stream"
-              
+
               onclick="toggleTopPanelExpand()">
-              
+
               <span id="expandTopArrow" class="arrowIcon">&#10095;</span>
-            
+
+            </button>
+
+            <button
+
+              id="btnExpandBottomAlt"
+
+              class="expandBtn"
+
+              title="Expand cam view"
+
+              onclick="toggleBottomPanelExpand()">
+
+              <span class="arrowIcon">&#10094;</span>
+
             </button>
 
           </div>
         
-        </section><!-- /#youtubePanel -->
-
+        </section>
 
         <!-- TOP RIGHT: Hourly Forecast Panel -->
         
@@ -189,26 +210,23 @@
         
             <span class="panelTitle">Hourly Forecast</span>
         
-            <span id="locationLabel">Wheelersburg, OH</span>
-        
           </div>
 
-          <div id="hourlyScroll">
-        
-            <div id="hourlyList">
-        
-              <p class="loadingMsg">Loading forecast&hellip;</p>
-        
-            </div>
-        
+          <div id="hourlyForecastContainer">
+            
+            <div class="hourlyRow" id="hourlyTopRow"></div>
+            
+            <div class="hourlyRow" id="hourlyBottomRow"></div>
+          
           </div>
 
-        </section><!-- /#forecastPanel -->
+        </section>
 
-      </div><!-- /#topRow -->
+      </div>
 
-
-      <!-- ===================== BOTTOM ROW ===================== -->
+      <!-- ============================================================
+           BOTTOM ROW
+      ============================================================= -->
     
       <div id="bottomRow">
 
@@ -235,19 +253,23 @@
             </div>
 
             <div class="statCard" id="statWind">
-    
+
               <div class="statValue" id="valWind">&mdash;</div>
-    
+
               <div class="statLabel">Wind Speed</div>
-    
+
+              <div class="statSub" id="valWindGust"></div>
+
             </div>
 
             <div class="statCard" id="statRain">
-    
+
               <div class="statValue" id="valRain">&mdash;</div>
-    
-              <div class="statLabel">Rain Chance</div>
-    
+
+              <div class="statLabel"><span id="valRainIntensity"></span>Rain Chance</div>
+
+              <div class="statSub" id="valRainNext"></div>
+
             </div>
 
             <div class="statCard" id="statCondition">
@@ -276,9 +298,9 @@
     
             </div>
 
-          </div><!-- /#statsGrid -->
+          </div>
 
-        </section><!-- /#statsPanel -->
+        </section>
 
 
         <!-- BOTTOM RIGHT: Weather Cam Panel -->
@@ -309,7 +331,7 @@
 
             <div class="panelHeader">
       
-              <span class="panelTitle">Sky Cam</span>
+              <span class="panelTitle">Weather Cam</span>
       
               <span id="camStatus">Offline</span>
       
@@ -319,24 +341,15 @@
       
               <!--
                 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-                WEBCAM INTEGRATION POINT
+                WEBCAM INTEGRATION
                 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-                Update CAM_STREAM_URL in js/indexJS.js to activate.
+                Configure CAM_STREAM_URL in js/indexJS.js
 
-                Supported stream formats:
-                  Option 1 — Direct HTTP video stream (MP4/WebM):
-                    CAM_STREAM_URL = 'http://192.168.x.x:PORT/stream'
-
-                  Option 2 — MJPEG snapshot/stream:
-                    Replace <video> with <img> in initCamFeed()
-                    CAM_STREAM_URL = 'http://192.168.x.x/snapshot.jpg'
-
-                  Option 3 — HLS (.m3u8):
-                    Load hls.js via CDN, then update initCamFeed()
-                    to use: hls.loadSource(CAM_STREAM_URL)
-
-                  Option 4 — Backend proxy endpoint:
-                    Point to your server-side stream proxy URL
+                Supports:
+                  - Direct video stream (MP4/WebM)
+                  - MJPEG (image stream)
+                  - HLS (.m3u8 via hls.js)
+                  - Backend proxy endpoint
                 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
               -->
       
@@ -346,21 +359,111 @@
       
                 <div id="camPlaceholderIcon">&#9673;</div>
       
-                <div id="camPlaceholderText">Sky Cam</div>
+                <div id="camPlaceholderText">Weather Cam</div>
       
                 <div id="camPlaceholderSub">Stream not configured</div>
       
               </div>
       
-            </div><!-- /#camView -->
+            </div>
 
-          </div><!-- /#camMain -->
+          </div>
 
-        </section><!-- /#camPanel -->
+        </section>
 
-      </div><!-- /#bottomRow -->
+      </div>
 
-    </main><!-- /#dashContent -->
+    </main>
+
+    <button id="hamburgerBtn" aria-label="Menu">
+      
+      <svg id="hamburgerSvg" width="32" height="28" viewBox="0 0 32 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      
+        <rect x="0" y="0" width="32" height="2" fill="white"/>
+      
+        <rect id="hamMidBar" x="0" y="13" width="18" height="2" fill="white"/>
+      
+        <polygon id="hamArrow" points="21,9 30,14 21,19" fill="white"/>
+      
+        <rect x="0" y="26" width="32" height="2" fill="white"/>
+      
+      </svg>
+    
+    </button>
+
+    <div id="slidePanel">
+    
+      <div id="slidePanelInner">
+    
+        <div id="menuLinks">
+    
+          <button id="layoutBtn"><span>Edit Layout</span></button>
+    
+          <button id="radarToggleBtn"><span>Radar</span></button>
+    
+          <div id="bgModeGroup">
+    
+            <span id="bgModeLabel">Background <span id="bgModeSub">(Choose Your BG Style)</span></span>
+      
+            <label class="bgModeOption">
+      
+              <input type="radio" name="bgMode" value="static" checked>
+      
+              <span class="bgModeText">Static (Default)</span>
+      
+            </label>
+      
+            <label class="bgModeOption">
+      
+              <input type="radio" name="bgMode" value="weather">
+      
+              <span class="bgModeText">Weather Based</span>
+      
+            </label>
+      
+            <label class="bgModeOption">
+      
+              <input type="radio" name="bgMode" value="time">
+      
+              <span class="bgModeText">Time of Day</span>
+      
+            </label>
+      
+          </div>
+      
+        </div>
+      
+      </div>
+    
+    </div>
+    
+    <div id="slideOverlay"></div>
+
+    <div id="alertBanner"></div>
+
+    <!-- ============================================================
+         RADAR OVERLAY
+    ============================================================= -->
+
+    <div id="radarOverlay">
+
+      <div id="radarMap"></div>
+
+      <button id="radarLocateBtn" title="Zoom to Wheelersburg, OH">
+        
+        <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+        
+        </svg>
+      
+      </button>
+
+      <div id="conditionsHud"></div>
+
+      <div id="radarAlertTicker"></div>
+
+    </div>
 
     <script src="js/indexJS.js" defer></script>
 

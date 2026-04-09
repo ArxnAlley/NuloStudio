@@ -1,14 +1,11 @@
-/* ============================================================
+﻿/* ============================================================
    SKYGRID WX — MAIN STYLESHEET
-   
-   Dark weather command center
-
 ============================================================ */
 
-
-/* ────────────────────────────────────────────────────────────
+/* ============================================================
    RESET 
-──────────────────────────────────────────────────────────── */
+============================================================ */
+
 *, *::before, *::after 
 {
 
@@ -74,9 +71,9 @@
 }
 
 
-/* ────────────────────────────────────────────────────────────
+/* ==========================================================
    BASE
-──────────────────────────────────────────────────────────── */
+============================================================ */
 
 html
 {
@@ -87,11 +84,29 @@ html
 
   overflow: hidden;
 
-  background: var(--clr-base);
+  background: url("../images/nightTime.jpg") center / cover no-repeat;
 
 }
 
-body 
+body[data-bg="default"]   { background: url("../images/default.png")   center / cover no-repeat; }
+
+body[data-bg="nighttime"] { background: url("../images/nightTime.jpg") center / cover no-repeat; }
+
+body[data-bg="morning"]   { background: url("../images/morning.jpg")   center / cover no-repeat; }
+
+body[data-bg="afternoon"] { background: url("../images/afternoon.jpg") center / cover no-repeat; }
+
+body[data-bg="evening"]   { background: url("../images/evening.jpg")   center / cover no-repeat; }
+
+body[data-bg="sunny"]     { background: url("../images/sunny.jpg")     center / cover no-repeat; }
+
+body[data-bg="rain"]      { background: url("../images/rain.jpg")      center / cover no-repeat; }
+
+body[data-bg="storm"]     { background: url("../images/storm.jpg")     center / cover no-repeat; }
+
+body[data-bg="foggy"]     { background: url("../images/foggy.jpg")     center / cover no-repeat; }
+
+body
 {
 
   width: 100vw;
@@ -116,28 +131,9 @@ body
 
 }
 
-#skyBackgroundVideo
+
+.glassPanel 
 {
-
-  position: fixed;
-
-  top: 0;
-
-  left: 0;
-
-  width: 100%;
-
-  height: 100%;
-
-  object-fit: cover;
-
-  z-index: -1;
-
-  filter: brightness(0.55) contrast(1.1);
-
-}
-
-.glassPanel {
 
   background: transparent;
 
@@ -154,16 +150,18 @@ button
 
 }
 
-/* Global text legibility — prevents ALL text from blending into the background image */
-body * {
+/* prevents ALL text from blending into the background image */
+
+body * 
+{
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.95), 0 0 8px rgba(0, 0, 0, 0.8);
 }
 
 
-/* ────────────────────────────────────────────────────────────
-   HEADER — glass control bar
-   Structure: [Logo | Location]  [Clock]  [SkyGrid Wx]
-──────────────────────────────────────────────────────────── */
+/* ===========================================================
+    HEADER
+============================================================ */
+
 #mainHeader 
 {
 
@@ -197,9 +195,9 @@ body * {
 
 }
 
-/* ── LEFT: logo + separator + location ── */
+/* LEFT: logo + separator + location */
 
-#headerLeft 
+#headerLeft
 {
 
   display: flex;
@@ -215,7 +213,9 @@ body * {
 #siteLogo
 {
 
-  height: 42px;
+  height: 120px;
+
+  max-height: 120px;
 
   width: auto;
 
@@ -227,11 +227,13 @@ body * {
 
   opacity: 0.9;
 
+  margin-top: 12px;
+
 }
 
-/* Styled UI divider — not a text character */
+/* Styled UI divider */
 
-.navSep 
+.navSep
 {
 
   width: 1px;
@@ -241,6 +243,15 @@ body * {
   background: rgba(255, 255, 255, 0.9);
 
   flex-shrink: 0;
+
+  font-size: 0;
+
+  line-height: 0;
+
+  overflow: hidden;
+
+  margin-left: -22px;
+
 }
 
 #headerLocation
@@ -264,7 +275,7 @@ body * {
 
 }
 
-/* ── CENTER: digital clock (absolute true-center) ── */
+/* CENTER: digital clock */
 
 #clockDisplay 
 {
@@ -328,8 +339,6 @@ body * {
   
 }
 
-/* AM/PM — smaller, dimmed, same glow family */
-
 #clockAmPm 
 {
 
@@ -349,7 +358,7 @@ body * {
 
 }
 
-/* Date line — low opacity, spaced */
+/* Date line */
 
 #clockDate 
 {
@@ -366,7 +375,7 @@ body * {
 
 }
 
-/* ── RIGHT: brand title ── */
+/* brand title */
 
 #headerRight 
 {
@@ -381,12 +390,589 @@ body * {
 
 }
 
-/* #brandName is now a flex wrapper for the right-side logo image */
 #brandName { display: flex; align-items: center; }
 
-/* Right nav logo — constrain by height so it always fits inside the
-   header regardless of the image's natural aspect ratio. Width scales
-   automatically. max-width: 150px caps very wide logos. */
+#hamburgerBtn
+{
+
+  background: none;
+
+  border: none;
+
+  cursor: pointer;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: flex-end;
+
+  gap: 5px;
+
+  padding: 6px;
+
+  position: fixed;
+
+  top: 28px;
+
+  right: 16px;
+
+  z-index: 1002;
+
+  transition: right 0.3s ease;
+
+}
+
+#hamburgerSvg
+{
+
+  transform: scaleX(-1);
+
+  transition: transform 0.3s ease;
+
+}
+
+#hamburgerBtn.active #hamburgerSvg
+{
+
+  transform: scaleX(1);
+
+}
+
+#hamburgerBtn.active
+{
+
+  opacity: 0.75;
+
+  right: 21vw;
+
+  transition: right 0.3s ease, opacity 0.2s ease;
+
+}
+
+#hamburgerBtn.active:hover
+{
+
+  opacity: 1;
+
+}
+
+@keyframes hamPulseLeft
+{
+  0%   { transform: translateX(0);   opacity: 1;    }
+  50%  { transform: translateX(-5px); opacity: 0.4; }
+  100% { transform: translateX(0);   opacity: 1;    }
+}
+
+#hamburgerBtn:hover #hamMidBar,
+#hamburgerBtn:hover #hamArrow
+{
+
+  animation: hamPulseLeft 0.9s ease infinite;
+
+}
+
+.hamLine
+{
+
+  display: block;
+
+  height: 2px;
+
+  background: var(--clr-text);
+
+  border-radius: 2px;
+
+  transition: width 0.2s ease;
+
+}
+
+.hamLine--long  { width: 24px; }
+
+.hamLine--mid   { width: 18px; }
+
+.hamLine--short { width: 12px; }
+
+#slidePanel
+{
+
+  position: fixed;
+
+  top: 0;
+
+  right: -25vw;
+
+  width: 25vw;
+
+  height: 100vh;
+
+  background: rgba(10, 10, 10, 0.96);
+
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+
+  z-index: 1000;
+
+  transition: right 0.3s ease;
+
+}
+
+#slidePanel.open
+{
+
+  right: 0;
+
+  background: rgba(10, 10, 10, 1);
+
+  border-left: 1px solid rgba(255, 60, 0, 0.6);
+
+  box-shadow: -6px 0 32px rgba(0, 0, 0, 0.8);
+
+}
+
+#slidePanelInner
+{
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: flex-start;
+
+  justify-content: flex-start;
+
+  padding-top: 130px;
+
+  padding-left: 24px;
+
+  height: 100%;
+
+}
+
+#layoutBtn
+{
+
+  background: none;
+
+  border: none;
+
+  cursor: pointer;
+
+  padding: 0;
+
+  color: var(--clr-red);
+
+  font-size: 13px;
+
+  font-weight: 900;
+
+  letter-spacing: 0.18em;
+
+  text-transform: uppercase;
+
+  opacity: 0.55;
+
+  transition: opacity 0.2s ease;
+
+  position: relative;
+
+}
+
+#layoutBtn span
+{
+
+  position: relative;
+
+  display: inline-block;
+
+}
+
+#layoutBtn span::after
+{
+
+  content: '';
+
+  position: absolute;
+
+  bottom: -3px;
+
+  left: 0;
+
+  width: 100%;
+
+  height: 2px;
+
+  background: var(--clr-red);
+
+  transform: scaleX(0);
+
+  transform-origin: right;
+
+  transition: transform 0.3s ease;
+
+}
+
+#layoutBtn:hover
+{
+
+  opacity: 1;
+
+}
+
+#layoutBtn:hover span::after
+{
+
+  transform: scaleX(1);
+
+  transform-origin: right;
+
+}
+
+#menuLinks
+{
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: flex-start;
+
+  gap: 0;
+
+  flex: 1;
+
+  width: 100%;
+
+}
+
+#bgModeGroup
+{
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: flex-start;
+
+  margin-top: auto;
+
+  gap: 16px;
+
+  width: fit-content;
+
+  padding-bottom: 32px;
+
+}
+
+#bgModeLabel
+{
+
+  color: var(--clr-red);
+
+  font-size: 13px;
+
+  font-weight: 900;
+
+  letter-spacing: 0.18em;
+
+  text-transform: uppercase;
+
+  opacity: 0.55;
+
+  margin-bottom: 4px;
+
+}
+
+#bgModeSub
+{
+
+  font-size: 11px;
+
+  font-weight: 600;
+
+  letter-spacing: 0.1em;
+
+  opacity: 0.7;
+
+}
+
+.bgModeOption
+{
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  cursor: pointer;
+
+  color: rgba(255, 255, 255, 0.7);
+
+  font-size: 13px;
+
+  font-weight: 900;
+
+  letter-spacing: 0.18em;
+
+  text-transform: uppercase;
+
+  opacity: 0.55;
+
+  transition: color 0.2s ease, opacity 0.2s ease;
+
+}
+
+.bgModeOption:hover
+{
+
+  color: var(--clr-red);
+
+  opacity: 1;
+
+}
+
+.bgModeOption:has(input[type="radio"]:checked)
+{
+
+  opacity: 1;
+
+}
+
+.bgModeText
+{
+
+  position: relative;
+
+  display: inline-block;
+
+}
+
+.bgModeText::after
+{
+
+  content: '';
+
+  position: absolute;
+
+  bottom: -3px;
+
+  left: 0;
+
+  width: 100%;
+
+  height: 2px;
+
+  background: var(--clr-red);
+
+  transform: scaleX(0);
+
+  transform-origin: right;
+
+  transition: transform 0.3s ease;
+
+}
+
+.bgModeOption:hover .bgModeText::after
+{
+
+  transform: scaleX(1);
+
+  transform-origin: right;
+
+}
+
+.bgModeOption input[type="radio"]
+{
+
+  appearance: none;
+
+  -webkit-appearance: none;
+
+  width: 14px;
+
+  height: 14px;
+
+  border: 2px solid rgba(255, 255, 255, 0.35);
+
+  border-radius: 50%;
+
+  background: transparent;
+
+  cursor: pointer;
+
+  flex-shrink: 0;
+
+  transition: border-color 0.2s ease;
+
+  position: relative;
+
+}
+
+.bgModeOption input[type="radio"]::after
+{
+
+  content: '';
+
+  position: absolute;
+
+  top: 50%;
+
+  left: 50%;
+
+  transform: translate(-50%, -50%) scale(0);
+
+  width: 6px;
+
+  height: 6px;
+
+  border-radius: 50%;
+
+  background: var(--clr-red);
+
+  transition: transform 0.2s ease;
+
+}
+
+.bgModeOption input[type="radio"]:checked
+{
+
+  border-color: var(--clr-red);
+
+}
+
+.bgModeOption input[type="radio"]:checked::after
+{
+
+  transform: translate(-50%, -50%) scale(1);
+
+}
+
+#slideOverlay
+{
+
+  position: fixed;
+
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.75);
+
+  z-index: 999;
+
+  display: none;
+
+}
+
+#slideOverlay.open
+{
+
+  display: block;
+
+  backdrop-filter: blur(4px);
+
+}
+
+.controlRight
+{
+  
+  order: 2;
+  
+  border-left: 1px solid rgba(255, 60, 0, 0.3);
+  
+  border-right: none;
+}
+
+.controlLeft
+{
+  
+  order: -1;
+  
+  border-right: 1px solid rgba(255, 60, 0, 0.3);
+  
+  border-left: none;
+}
+
+/* EDIT MODE NAV STATE */
+
+.editMode #mainHeader
+{
+
+  opacity: 0.15;
+
+  backdrop-filter: blur(12px);
+}
+
+/* FLOATING EDIT CONTROLS */
+
+#editControls
+{
+  
+  position: fixed;
+  
+  top: 0;
+  
+  left: 50%;
+  
+  transform: translateX(-50%);
+  
+  height: var(--header-h);
+
+  display: none;
+  
+  align-items: center;
+  
+  gap: 10px;
+  
+  z-index: 1100;
+
+}
+
+/* SHOW ONLY IN EDIT MODE */
+
+.editMode #editControls
+{
+  display: flex;
+}
+
+#editControls button
+{
+
+  background: rgba(0, 0, 0, 0.85);
+
+  border: 2px solid var(--clr-red);
+
+  color: white;
+
+  padding: 14px 22px;
+
+  font-size: 20px;
+
+  font-weight: 900;
+
+  letter-spacing: 0.1em;
+
+  cursor: pointer;
+
+  opacity: 1;
+
+}
+
+#editConfirm
+{
+
+  border-color: #22bb44;
+
+  color: #22bb44;
+}
+
+#editCancel
+{
+
+  border-color: #cc2000;
+
+  color: #cc2000;
+
+}
+
 #headerRight img
 {
 
@@ -404,12 +990,6 @@ body * {
 
 }
 
-
-
-/* ────────────────────────────────────────────────────────────
-   MAIN DASHBOARD LAYOUT
-──────────────────────────────────────────────────────────── */
-
 /*
   #dashContent fills the full viewport height.
   padding-top pushes the flex rows below the fixed glass header.
@@ -423,7 +1003,7 @@ body * {
 #dashContent 
 {
 
-  position: relative; /* establishes stacking context for ::after sentinel */
+  position: relative; 
 
   display: flex;
 
@@ -443,8 +1023,6 @@ body * {
 
 }
 
-/* Bottom gradient sentinel — signals "end of screen" to the eye */
-
 #dashContent::after 
 {
 
@@ -452,7 +1030,7 @@ body * {
 
   position: absolute;
 
-  bottom: 1px; /* sits above the border */
+  bottom: 1px;
 
   left: 0;
 
@@ -485,11 +1063,11 @@ body * {
 }
 
 
-/* ────────────────────────────────────────────────────────────
+/* ===========================================================
    QUADRANT BASE
-──────────────────────────────────────────────────────────── */
+============================================================ */
 
-.quadrant 
+.quadrant
 {
 
   background: rgba(0, 0, 0, 0.55);
@@ -497,19 +1075,195 @@ body * {
   border: none;
 
   box-shadow: none;
-  
+
   overflow: hidden;
-  
+
   min-width: 0;
-  
+
   min-height: 0;
 
 }
 
 
-/* ────────────────────────────────────────────────────────────
-   PANEL HEADER STRIP (shared)
-──────────────────────────────────────────────────────────── */
+#btnExpandBottomAlt { display: none; }
+
+.sharedRow #camControlBar { display: none; }
+
+.sharedRow #camPanel.expanded #camControlBar { display: flex; }
+
+.sharedRow #btnExpandBottomAlt { display: flex; }
+
+.editMode .quadrant
+{
+  
+  cursor: pointer;
+  
+  opacity: 0.45;
+  
+  transition: opacity 0.2s ease;
+  
+  position: relative;
+
+}
+
+.editMode .quadrant *
+{
+  pointer-events: none;
+}
+
+.editMode .quadrant:hover
+{
+  opacity: 0.7;
+}
+
+.editMode .quadrant.dimmed
+{
+
+  opacity: 0.2;
+
+  cursor: pointer;
+
+}
+
+.slotNumOverlay
+{
+
+  position: fixed;
+
+  font-size: 80px;
+
+  font-weight: 900;
+
+  color: rgba(255, 255, 255, 1);
+
+  pointer-events: none;
+
+  z-index: 500;
+
+  transform: translate(-50%, -50%);
+
+  line-height: 1;
+
+}
+
+
+.quadrant.selected
+{
+
+  outline: 4px dotted rgba(255, 255, 255, 1);
+
+  opacity: 1 !important;
+
+  transform: scale(1.02);
+}
+
+.editMode #topRow
+{
+
+  border-left: 3px dotted rgba(255, 255, 255, 1);
+
+  border-right: 3px dotted rgba(255, 255, 255, 1);
+
+}
+
+.editMode #bottomRow
+{
+
+  border-left: 3px dotted rgba(255, 255, 255, 1);
+
+  border-right: 3px dotted rgba(255, 255, 255, 1);
+
+  border-bottom: 3px dotted rgba(255, 255, 255, 1);
+
+  border-top: 3px dotted rgba(255, 255, 255, 1);
+
+}
+
+.editMode #topRow,
+.editMode #bottomRow
+{
+  position: relative;
+}
+
+.editMode #topRow::after,
+.editMode #bottomRow::after
+{
+
+  content: '';
+
+  position: absolute;
+
+  top: 0;
+
+  bottom: 0;
+
+  left: 50%;
+
+  width: 3px;
+
+  background: repeating-linear-gradient
+  (
+  
+    to bottom,
+  
+    rgba(255, 255, 255, 1) 0px,
+   
+    rgba(255, 255, 255, 1) 4px,
+    
+    transparent 4px,
+    
+    transparent 8px
+  );
+  
+  z-index: 200;
+  
+  pointer-events: none;
+}
+
+.editMode #dashContent::before
+{
+  
+  content: '';
+  
+  position: absolute;
+  
+  top: var(--header-h);
+  
+  left: 0;
+  
+  right: 0;
+  
+  height: 3px;
+  
+  background: repeating-linear-gradient
+  (
+  
+    to right,
+  
+    rgba(255, 255, 255, 1) 0px,
+   
+    rgba(255, 255, 255, 1) 4px,
+    
+    
+    transparent 4px,
+    
+    transparent 8px
+  
+  );
+
+  z-index: 200;
+  
+  pointer-events: none;
+}
+
+.editMode .panelHeader
+{
+  border-bottom: none;
+}
+
+/* ===========================================================
+   PANEL HEADER STRIP
+============================================================ */
 
 .panelHeader 
 {
@@ -533,7 +1287,7 @@ body * {
 .panelTitle 
 {
 
-  font-size: 10px;
+  font-size: 15px;
 
   font-weight: 900;
 
@@ -556,9 +1310,9 @@ body * {
 }
 
 
-/* ────────────────────────────────────────────────────────────
-   EXPAND / COLLAPSE BUTTON (shared by both panels)
-──────────────────────────────────────────────────────────── */
+/* ===========================================================
+   EXPAND / COLLAPSE BUTTON
+============================================================ */
 
 .expandBtn 
 {
@@ -622,9 +1376,9 @@ body * {
 }
 
 
-/* ────────────────────────────────────────────────────────────
+/* ===========================================================
    YOUTUBE PANEL — TOP LEFT
-──────────────────────────────────────────────────────────── */
+============================================================ */
 
 #youtubePanel 
 {
@@ -833,10 +1587,10 @@ body * {
 }
 
 
-/* ────────────────────────────────────────────────────────────
+/* ===========================================================
    FORECAST PANEL — TOP RIGHT
    Collapses when YouTube expands
-──────────────────────────────────────────────────────────── */
+============================================================ */
 
 #forecastPanel 
 {
@@ -858,12 +1612,11 @@ body * {
 
 }
 
+.quadrant.collapsed,
 #forecastPanel.collapsed
 {
 
-  flex-grow: 0;
-
-  flex-shrink: 0;
+  flex: 0 0 0 !important;
 
   width: 0;
 
@@ -891,68 +1644,55 @@ body * {
   color: var(--clr-text-muted);
 }
 
-/* Horizontal scrollable hourly row */
+/* HOURLY FORECAST */
 
-#hourlyScroll 
-{
-
-  flex: 1;
-
-  overflow-x: auto;
-
-  overflow-y: hidden;
-
-  padding: 14px;
-
-  min-height: 0;
-
-  scrollbar-width: thin;
-
-  scrollbar-color: var(--clr-red) var(--clr-panel-alt);
-
-}
-
-#hourlyScroll::-webkit-scrollbar 
-{
-
-  height: 4px;
-
-}
-
-#hourlyScroll::-webkit-scrollbar-track 
-{
-
-  background: var(--clr-panel-alt);
-
-}
-
-#hourlyScroll::-webkit-scrollbar-thumb 
-{
-
-  background: var(--clr-red);
-
-  border-radius: 2px;
-
-}
-
-#hourlyList
+#hourlyForecastContainer
 {
 
   display: flex;
 
-  flex-direction: row;
-
-  align-items: stretch;
-
-  gap: 10px;
+  flex-direction: column;
 
   height: 100%;
 
-  min-width: max-content;
+  padding: 10px;
+
+  gap: 10px;
 
 }
 
-/* Individual hourly card */
+.hourlyRow
+{
+
+  display: grid;
+
+  grid-template-columns: repeat(6, 1fr);
+
+  gap: 8px;
+
+  flex: 1;
+
+}
+
+#hourlyBottomRow
+{
+
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+  padding-top: 10px;
+
+}
+
+.hourlyItem
+{
+
+  min-width: unset;
+
+  padding: 8px;
+
+  justify-content: center;
+
+}
 
 .hourlyItem 
 {
@@ -995,10 +1735,10 @@ body * {
 
 }
 
-.hourlyTime 
+.hourlyTime
 {
 
-  font-size: 11px;
+  font-size: 22px;
 
   font-weight: 700;
 
@@ -1008,12 +1748,14 @@ body * {
 
   text-transform: uppercase;
 
+  white-space: nowrap;
+
 }
 
-.hourlyItem.current .hourlyTime 
+.hourlyItem.current .hourlyTime
 {
 
-  color: var(--clr-red-bright);
+  color: var(--clr-text);
 
 }
 
@@ -1082,10 +1824,10 @@ body * {
 }
 
 
-/* ────────────────────────────────────────────────────────────
+/* ===========================================================
    STATS PANEL — BOTTOM LEFT
    Collapses when cam expands
-──────────────────────────────────────────────────────────── */
+============================================================ */
 
 #statsPanel 
 {
@@ -1107,7 +1849,7 @@ body * {
   
 }
 
-#statsPanel.collapsed 
+#statsPanel.collapsed
 {
 
   flex-grow: 0;
@@ -1248,9 +1990,9 @@ body * {
 }
 
 
-/* ────────────────────────────────────────────────────────────
+/* ===========================================================
    CAM PANEL — BOTTOM RIGHT
-──────────────────────────────────────────────────────────── */
+============================================================ */
 
 #camPanel 
 {
@@ -1429,93 +2171,872 @@ body * {
 
 }
 
+/* ===========================================================
+   ALERT BANNER
+============================================================ */
 
-/* ════════════════════════════════════════════════════════════
-   RESPONSIVE BREAKPOINTS
-   ════════════════════════════════════════════════════════════ */
+#alertBanner
+{
 
-/* ── 4K / large TV (≥ 1920px) ── */
-@media (min-width: 1920px) {
+  position: fixed;
 
-  :root { --header-h: 100px; }
+  top: var(--header-h);
 
-  #clockTime   { font-size: 54px; }
-  #clockAmPm   { font-size: 16px; }
-  .statValue   { font-size: 46px; }
-  .hourlyTemp  { font-size: 28px; }
+  left: 0;
+  right: 0;
+
+  z-index: 900;
+
+  display: none;
+
+  flex-direction: column;
+
+  gap: 2px;
 
 }
 
-/* ── Tablet landscape (≤ 1024px) ── */
-@media (max-width: 1024px) {
+#alertBanner.hasAlerts
+{
+  display: flex;
+}
+
+.alertItem
+{
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 6px 16px;
+
+  background: rgba(180, 20, 0, 0.92);
+
+  border-bottom: 1px solid rgba(255, 60, 0, 0.5);
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.1em;
+
+  text-transform: uppercase;
+
+  color: #fff;
+
+  backdrop-filter: blur(4px);
+}
+
+.alertItem--extreme { background: rgba(140, 0, 0, 0.96); }
+
+.alertItem--severe { background: rgba(180, 20, 0, 0.92); }
+
+.alertItem--moderate { background: rgba(160, 80, 0, 0.9); }
+
+.alertItem--minor { background: rgba(90, 70, 0, 0.88); }
+
+.alertEvent
+{
+
+  font-weight: 900;
+
+  white-space: nowrap;
+
+}
+
+.alertHeadline
+{
+
+  opacity: 0.85;
+
+  font-weight: 600;
+
+  font-size: 11px;
+
+  letter-spacing: 0.06em;
+
+  text-transform: none;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+
+}
+
+
+/* ===========================================================
+   WIND ARROW + STAT CARD INLINE SUB-TEXT
+============================================================ */
+
+.windArrow
+{
+
+  display: inline-block;
+
+  line-height: 1;
+
+  transition: transform 0.6s ease;
+}
+
+#valWind small
+{
+
+  display: block;
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  color: var(--clr-text-dim);
+
+  letter-spacing: 0.04em;
+
+  line-height: 1.4;
+
+  margin-top: 2px;
+}
+
+#valRain
+{
+
+  white-space: nowrap;
+}
+
+#valRain small
+{
+
+  display: inline;
+
+  font-size: 0.65em;
+
+  font-weight: 700;
+
+  vertical-align: middle;
+
+  letter-spacing: 0.03em;
+}
+
+.feelsLike
+{
+
+  display: block;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  color: var(--clr-text-dim);
+
+  letter-spacing: 0.04em;
+
+  margin-top: 3px;
+
+}
+
+
+/* ===========================================================
+   RADAR OVERLAY
+============================================================ */
+
+#radarOverlay
+{
+
+  display: none;
+
+  position: fixed;
+
+  top: var(--header-h);
+
+  left: 0;
+
+  right: 0;
+
+  bottom: 0;
+
+  z-index: 900;
+
+  background: var(--clr-base);
+
+  overflow: hidden;
+
+}
+
+#radarMap
+{
+
+  position: absolute;
+
+  inset: 0;
+
+}
+
+/* #conditionsHud full styles consolidated below in CONDITIONS HUD section */
+
+/* #radarAlertTicker full styles consolidated below in RADAR ALERT TICKER section */
+
+/* ===========================================================
+   CONDITIONS HUD
+============================================================ */
+
+#conditionsHud
+{
+
+  position: absolute;
+
+  top: 52%;
+
+  right: 12px;
+
+  z-index: 910;
+
+  width: 105px;
+
+  max-width: 105px;
+
+  background: rgba(255, 255, 255, 0.07);
+
+  backdrop-filter: blur(24px) saturate(160%);
+
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+
+  border: 1px solid rgba(255, 255, 255, 0.14);
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+
+  border-radius: 10px;
+
+  padding: 10px 14px;
+
+  color: var(--clr-text);
+
+  font-size: 0.76rem;
+
+  line-height: 1.5;
+
+  pointer-events: auto;
+
+}
+
+.hudRow
+{
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+}
+
+.hudRow + .hudRow
+{
+
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+
+  margin-top: 4px;
+
+  padding-top: 5px;
+
+}
+
+.hudTemp
+{
+
+  font-size: 0.95rem;
+
+  font-weight: 700;
+
+  letter-spacing: 0.02em;
+
+  flex-wrap: wrap;
+
+  gap: 4px;
+
+}
+
+.hudFeels
+{
+
+  font-size: 0.7rem;
+
+  font-weight: 400;
+
+  color: var(--clr-text-dim);
+
+}
+
+.hudArrow
+{
+
+  display: inline-block;
+
+  font-size: 1rem;
+
+  flex-shrink: 0;
+
+}
+
+.hudGusts
+{
+
+  color: var(--clr-text-dim);
+
+}
+
+.hudRain
+{
+
+  color: var(--clr-rain);
+
+  flex-wrap: wrap;
+
+}
+
+.hudRain small
+{
+
+  font-size: 0.9em;
+
+  margin-left: 3px;
+
+  opacity: 0.8;
+
+}
+
+
+/* ===========================================================
+   RADAR ALERT TICKER
+============================================================ */
+
+#radarAlertTicker
+{
+
+  position: absolute;
+
+  bottom: 0;
+
+  left: 0;
+
+  right: 0;
+
+  z-index: 910;
+
+  height: 34px;
+
+  background: var(--clr-red);
+
+  border-top: 1px solid rgba(255, 60, 0, 0.4);
+
+  overflow: hidden;
+
+  display: none;
+
+  align-items: center;
+
+}
+
+#radarAlertTicker.tickerActive
+{
+
+  display: flex;
+
+}
+
+.tickerLabel
+{
+
+  flex-shrink: 0;
+
+  padding: 0 14px;
+
+  height: 100%;
+
+  display: flex;
+
+  align-items: center;
+
+  font-size: 11px;
+
+  font-weight: 900;
+
+  letter-spacing: 0.15em;
+
+  text-transform: uppercase;
+
+  color: #fff;
+
+  background: rgba(0, 0, 0, 0.25);
+
+  border-right: 1px solid rgba(255, 255, 255, 0.25);
+
+  white-space: nowrap;
+
+}
+
+.tickerTrack
+{
+
+  flex: 1;
+
+  overflow: hidden;
+
+  height: 100%;
+
+  display: flex;
+
+  align-items: center;
+
+}
+
+.tickerContent
+{
+
+  white-space: nowrap;
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.08em;
+
+  text-transform: uppercase;
+
+  color: #fff;
+
+  animation: tickerScroll 28s linear infinite;
+
+}
+
+@keyframes tickerScroll
+{
+
+  from { transform: translateX(100vw);  }
+
+  to   { transform: translateX(-100%); }
+
+}
+
+#radarToggleBtn
+{
+
+  background: none;
+
+  border: none;
+
+  cursor: pointer;
+
+  padding: 0;
+
+  margin-top: 20px;
+
+  color: var(--clr-red);
+
+  font-size: 13px;
+
+  font-weight: 900;
+
+  letter-spacing: 0.18em;
+
+  text-transform: uppercase;
+
+  opacity: 0.55;
+
+  transition: opacity 0.2s ease;
+
+  position: relative;
+
+}
+
+#radarToggleBtn span
+{
+
+  position: relative;
+
+  display: inline-block;
+
+}
+
+#radarToggleBtn span::after
+{
+
+  content: '';
+
+  position: absolute;
+
+  bottom: -3px;
+
+  left: 0;
+
+  width: 100%;
+
+  height: 2px;
+
+  background: var(--clr-red);
+
+  transform: scaleX(0);
+
+  transform-origin: right;
+
+  transition: transform 0.3s ease;
+
+}
+
+#radarToggleBtn:hover
+{
+
+  opacity: 1;
+
+}
+
+#radarToggleBtn:hover span::after
+{
+
+  transform: scaleX(1);
+
+  transform-origin: right;
+
+}
+
+body.radarActive #radarToggleBtn
+{
+
+  opacity: 1;
+
+}
+
+body.radarActive #radarToggleBtn span::after
+{
+
+  transform: scaleX(1);
+
+  transform-origin: left;
+
+}
+
+/* ===========================================================
+   STAT CARD — SUB-LINE
+============================================================ */
+
+.statSub
+{
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  color: var(--clr-text-muted);
+
+  letter-spacing: 0.14em;
+
+  text-transform: uppercase;
+
+  margin-top: 4px;
+
+  min-height: 14px;
+
+}
+
+
+/* ===========================================================
+   CONDITIONS HUD — expanded full conditions
+============================================================ */
+
+#hudCloseBtn
+{
+
+  display: block;
+
+  width: 100%;
+
+  margin-top: 12px;
+
+  margin-bottom: 0;
+
+  padding: 7px 10px;
+
+  background: var(--clr-red);
+
+  border: none;
+
+  border-radius: 6px;
+
+  color: #fff;
+
+  font-size: 11px;
+
+  font-weight: 900;
+
+  letter-spacing: 0.12em;
+
+  text-transform: uppercase;
+
+  cursor: pointer;
+
+  transition: background 0.2s ease;
+
+}
+
+#hudCloseBtn:hover
+{
+
+  background: var(--clr-red-bright);
+
+}
+
+.hudCondition
+{
+
+  gap: 6px;
+
+}
+
+.hudCondIcon
+{
+
+  font-size: 1.1rem;
+
+}
+
+.hudRainNext
+{
+
+  color: var(--clr-rain);
+
+  font-style: italic;
+
+  font-size: 0.72rem;
+
+}
+
+.hudSun
+{
+
+  justify-content: space-between;
+
+  gap: 8px;
+
+  color: var(--clr-text-dim);
+
+}
+
+
+/* ===========================================================
+   LEAFLET 
+============================================================ */
+
+#radarMap .leaflet-control-attribution
+{
+
+  opacity: 0.18;
+
+  transition: opacity 0.2s ease;
+
+}
+
+#radarMap .leaflet-control-attribution:hover
+{
+
+  opacity: 0.6;
+
+}
+
+
+/* ===========================================================
+   RADAR — locate button (pin silhouette)
+============================================================ */
+
+#radarLocateBtn
+{
+
+  position: absolute;
+
+  bottom: 46px; 
+
+  left: 12px;
+
+  z-index: 920;
+
+  width: 38px;
+
+  height: 38px;
+
+  padding: 7px;
+
+  background: rgba(12, 12, 12, 0.65);
+
+  backdrop-filter:  blur(12px);
+
+  -webkit-backdrop-filter: blur(12px);
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  border-radius: 8px;
+
+  color: #fff;
+
+  cursor: pointer;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  transition: background 0.2s ease, transform 0.15s ease;
+
+}
+
+#radarLocateBtn:hover
+{
+
+  background: rgba(204, 32, 0, 0.75);
+
+  transform: scale(1.08);
+
+}
+
+#radarLocateBtn svg
+{
+
+  width: 100%;
+
+  height: 100%;
+
+  display: block;
+
+}
+
+#radarMap .leaflet-control-attribution a
+{
+
+  color: inherit;
+
+  text-decoration: none;
+
+}
+
+
+/* ===========================================================
+   RESPONSIVE BREAKPOINTS
+============================================================ */
+
+/* 4K / large TV (≥ 1920px) */
+
+@media (min-width: 1920px) 
+{
+
+  :root { --header-h: 100px; }
+
+  #clockTime { font-size: 54px; }
+
+  #clockAmPm { font-size: 16px; }
+
+  .statValue { font-size: 46px; }
+
+  .hourlyTemp { font-size: 28px; }
+
+}
+
+/* Tablet landscape (≤ 1024px) */
+
+@media (max-width: 1024px) 
+{
 
   :root { --header-h: 60px; --ctrl-bar-w: 62px; }
 
   #mainHeader  { padding: 0 18px; }
+
   #headerLeft,
   #headerRight { min-width: 160px; }
 
-  #clockTime   { font-size: clamp(20px, 2.8vw, 32px); }
-  #clockAmPm   { font-size: 11px; }
-  #clockDate   { font-size: 9px; letter-spacing: 0.16em; }
+  #clockTime { font-size: clamp(20px, 2.8vw, 32px); }
 
-  .statValue   { font-size: clamp(18px, 2.4vw, 28px); }
-  .statIcon    { font-size: 26px; }
-  .hourlyTemp  { font-size: clamp(13px, 1.6vw, 20px); }
-  .hourlyIcon  { font-size: 20px; }
+  #clockAmPm { font-size: 11px; }
+
+  #clockDate { font-size: 9px; letter-spacing: 0.16em; }
+
+  .statValue { font-size: clamp(18px, 2.4vw, 28px); }
+
+  .statIcon { font-size: 26px; }
+
+  .hourlyTemp { font-size: clamp(13px, 1.6vw, 20px); }
+
+  .hourlyIcon { font-size: 20px; }
 
   #headerRight img { height: 34px; width: auto; max-width: 120px; }
 
 }
 
-/* ── Tablet portrait (≤ 768px) ── */
-@media (max-width: 768px) {
+/* Tablet portrait (≤ 768px) */
+
+@media (max-width: 768px) 
+{
 
   :root { --header-h: 54px; --ctrl-bar-w: 52px; --gap: 2px; }
 
-  #mainHeader  { padding: 0 12px; }
-  #headerLeft  { min-width: auto; gap: 8px; }
+  #mainHeader { padding: 0 12px; }
+
+  #headerLeft { min-width: auto; gap: 8px; }
+
   #headerRight { min-width: auto; }
 
-  .navSep      { height: 14px; }
+  .navSep { height: 14px; }
 
-  #clockTime   { font-size: clamp(18px, 4vw, 26px); }
-  #clockAmPm   { font-size: 10px; margin-top: 5px; }
-  #clockDate   { display: none; } /* too small to be legible */
+  #clockTime { font-size: clamp(18px, 4vw, 26px); }
+
+  #clockAmPm { font-size: 10px; margin-top: 5px; }
+
+  #clockDate { display: none; }
 
   /* Stack top/bottom rows vertically — each row becomes full-width */
+
   #topRow,
   #bottomRow { flex-direction: column; }
 
-  .statValue   { font-size: clamp(16px, 4vw, 22px); }
-  .statLabel   { font-size: 10px; }
-  .hourlyTemp  { font-size: clamp(12px, 3vw, 16px); }
+  .statValue { font-size: clamp(16px, 4vw, 22px); }
+  
+  .statLabel { font-size: 10px; }
+  
+  .hourlyTemp { font-size: clamp(12px, 3vw, 16px); }
 
   #headerRight img { height: 28px; width: auto; max-width: 100px; }
-  #siteLogo        { height: 12px; }
+  
+  #siteLogo { height: 12px; }
 
 }
 
-/* ── Mobile (≤ 480px) ── */
-@media (max-width: 480px) {
+/* Mobile (≤ 480px) */
+
+@media (max-width: 480px) 
+{
 
   :root { --header-h: 50px; }
 
-  #mainHeader  { padding: 0 10px; }
+  #mainHeader { padding: 0 10px; }
 
   #headerLocation { font-size: 10px; letter-spacing: 0.08em; }
 
-  #clockTime   { font-size: clamp(16px, 5vw, 22px); }
-  #clockAmPm   { font-size: 9px; }
+  #clockTime { font-size: clamp(16px, 5vw, 22px); }
+
+  #clockAmPm { font-size: 9px; }
 
   /* Ensure all tap targets meet 44px minimum */
-  .expandBtn   { width: 44px; height: 44px; }
-  .profileBtn  { width: 44px; height: 44px; }
 
-  #hourlyScroll { padding: 8px; }
-  .hourlyItem   { min-width: 62px; padding: 8px 10px; }
+  .expandBtn { width: 44px; height: 44px; }
+
+  .profileBtn { width: 44px; height: 44px; }
+
+  .hourlyItem { padding: 8px 10px; }
 
   #headerRight img { height: 22px; width: auto; max-width: 80px; }
-  #siteLogo        { height: 10px; }
+
+  #siteLogo { height: 10px; }
 
 }
