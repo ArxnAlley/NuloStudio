@@ -58,9 +58,9 @@
 const YT_SOURCES =
 {
 
-  ryanHall: "https://www.youtube.com/embed/live_stream?channel=UCNMbegBD9OjH4Eza8vVjBMg&autoplay=1&mute=1",
+  ryanHall: "https://www.youtube.com/embed/live_stream?channel=UCNMbegBD9OjH4Eza8vVjBMg&autoplay=1&mute=0&enablejsapi=1",
 
-  yallBot: "https://www.youtube.com/embed/EptQj6Q9ykY?autoplay=1&mute=1"
+  yallBot: "https://www.youtube.com/embed/EptQj6Q9ykY?autoplay=1&mute=0&enablejsapi=1"
 
 };
 
@@ -454,6 +454,54 @@ function loadYoutubeIframe(src)
   iframe.src = src + '&t=' + Date.now();
 }
 
+/*  =================================
+   YOUTUBE PLAYER INITIALIZATION
+================================== */
+
+(function initYouTubePlayer()
+{
+
+  /* Load the IFrame API script once */
+  const tag = document.createElement('script');
+
+  tag.src = 'https://www.youtube.com/iframe_api';
+
+  document.head.appendChild(tag);
+
+  /* Called automatically by the API when ready */
+  window.onYouTubeIframeAPIReady = function()
+  {
+
+    new YT.Player('youtubeQuadrantIframe',
+    {
+
+      playerVars:
+      {
+
+        mute: 0
+
+      },
+
+      events:
+      {
+
+        onReady: function(event)
+        {
+
+          event.target.unMute();
+
+          event.target.setVolume(100);
+
+        }
+
+      }
+
+    });
+
+  };
+
+})();
+
 
 
 async function loadYouTubeStream()
@@ -473,7 +521,7 @@ async function loadYouTubeStream()
 
       lastVideoId = data.videoId;
 
-      const src = `https://www.youtube.com/embed/${data.videoId}?autoplay=1&mute=1`;
+      const src = `https://www.youtube.com/embed/${data.videoId}?autoplay=1&mute=0`;
 
       loadYoutubeIframe(src);
     }
@@ -1022,63 +1070,72 @@ function renderWeatherStats(current, daily, precipTimeline)
    ALERTS
    ================================= */
 
+let _currentAlerts = [];
+
 function renderAlerts(alerts)
 {
 
-  const banner = document.getElementById('alertBanner');
-  const track  = banner.querySelector('.weatherAlertTrack');
+  _currentAlerts = alerts || [];
 
-  track.style.animationDuration = '';
-  track.innerHTML = '';
+  const indicator = document.getElementById('alertIndicator');
 
-  if (!alerts || alerts.length === 0)
+  if (!indicator) return;
+
+  if (_currentAlerts.length > 0)
   {
-    banner.classList.remove('hasAlerts');
-    return;
+    indicator.classList.add('active');
+  }
+  else
+  {
+    indicator.classList.remove('active');
   }
 
-  function makeItem(a)
-  {
-    const item = document.createElement('div');
-    item.className = 'weatherAlertItem';
-    item.textContent = a.event + (a.headline ? ' \u2014 ' + a.headline : '');
-    return item;
-  }
+}
 
-  /* Step 1 — render one pass to measure natural width */
-  alerts.forEach(a => track.appendChild(makeItem(a)));
-  banner.classList.add('hasAlerts');
+(function initAlertIndicator()
+{
 
-  requestAnimationFrame(() =>
+  const indicator = document.getElementById('alertIndicator');
+
+  if (!indicator) return;
+
+  indicator.addEventListener('click', () =>
   {
 
-    const onePassWidth  = track.scrollWidth;
-    const viewportWidth = window.innerWidth || 1920;
+    if (!_currentAlerts.length) return;
 
-    /* Repeat enough times so one copy fills ≥ 3× viewport —
-       the loop reset (translateX -50%) then happens entirely off-screen */
-    const repeats = Math.max(3, Math.ceil((viewportWidth * 3) / onePassWidth));
+    const existing = document.getElementById('alertModal');
 
-    track.innerHTML = '';
+    if (existing) { existing.remove(); return; }
 
-    function appendCopy()
-    {
-      for (let r = 0; r < repeats; r++)
-      {
-        alerts.forEach(a => track.appendChild(makeItem(a)));
-      }
-    }
+    const modal = document.createElement('div');
 
-    appendCopy(); /* copy 1 */
-    appendCopy(); /* copy 2 — translateX(-50%) lands here seamlessly */
+    modal.id = 'alertModal';
 
-    /* Step 2 — set speed at 80 px/s based on estimated half-width */
-    const halfWidth = onePassWidth * repeats;
-    track.style.animationDuration = (halfWidth / 80) + 's';
+    modal.innerHTML =
+      '<div id="alertModalBox">' +
+        '<button id="alertModalClose">&times;</button>' +
+        '<h2 id="alertModalTitle">Severe Weather Alert</h2>' +
+        '<div id="alertModalBody">' +
+          _currentAlerts.map(a =>
+            '<div class="alertModalItem">' +
+              '<div class="alertModalEvent">' + (a.event || '') + '</div>' +
+              (a.headline    ? '<div class="alertModalHeadline">' + a.headline    + '</div>' : '') +
+              (a.description ? '<div class="alertModalDesc">'     + a.description + '</div>' : '') +
+            '</div>'
+          ).join('') +
+        '</div>' +
+      '</div>';
+
+    document.body.appendChild(modal);
+
+    modal.addEventListener('click', e => { if (e.target === modal) modal.remove(); });
+
+    document.getElementById('alertModalClose').addEventListener('click', () => modal.remove());
 
   });
 
-}
+})();
 
 
 
@@ -1199,15 +1256,26 @@ function initCamFeed()
   
   });
 
-  slideOverlay.addEventListener('click', () => 
+  slideOverlay.addEventListener('click', () =>
   {
-  
+
     slidePanel.classList.remove('open');
-  
+
     slideOverlay.classList.remove('open');
-  
+
     hamburgerBtn.classList.remove('active');
-  
+
+  });
+
+  document.getElementById('panelCloseBtn').addEventListener('click', () =>
+  {
+
+    slidePanel.classList.remove('open');
+
+    slideOverlay.classList.remove('open');
+
+    hamburgerBtn.classList.remove('active');
+
   });
 
   document.getElementById('layoutBtn').addEventListener('click', () => 
@@ -1875,55 +1943,35 @@ function initCamFeed()
 (function initRadarAlertTicker() 
 {
 
-  function buildTicker() 
+  function buildTicker()
   {
 
     const ticker = document.getElementById('radarAlertTicker');
-  
+
     if (!ticker) return;
 
-    const banner = document.getElementById('alertBanner');
-  
-    const hasAlerts = banner && banner.classList.contains('hasAlerts');
-
-    if (!hasAlerts) 
+    if (!_currentAlerts.length)
     {
-    
-      ticker.classList.remove('tickerActive');
-    
-      ticker.innerHTML = '';
-    
-      return;
-    }
 
-    const items = banner.querySelectorAll('.alertItem');
-    
-    if (!items.length) 
-    {
-    
       ticker.classList.remove('tickerActive');
-    
+
       ticker.innerHTML = '';
-    
+
       return;
     }
 
     /* Alert Text */
     const segments = [];
-    
-    items.forEach(item => 
+
+    _currentAlerts.forEach(a =>
     {
-    
-      const eventEl = item.querySelector('.alertEvent');
-    
-      const headlineEl = item.querySelector('.alertHeadline');
-    
-      const event = eventEl    ? eventEl.textContent.trim()    : '';
-    
-      const headline = headlineEl ? headlineEl.textContent.trim() : '';
-    
+
+      const event    = a.event    || '';
+
+      const headline = a.headline || '';
+
       if (event) segments.push(headline ? `${event} \u2014 ${headline}` : event);
-    
+
     });
 
     if (!segments.length) 
@@ -1980,37 +2028,33 @@ function initCamFeed()
   
   bodyObserver.observe(document.body, { attributeFilter: ['class'] });
 
-  /* Alert Watch */
-  const banner = document.getElementById('alertBanner');
-  
-  if (banner) 
+  /* Alert Watch — observe indicator class changes to rebuild ticker */
+  const indicator = document.getElementById('alertIndicator');
+
+  if (indicator)
   {
-  
-    const alertObserver = new MutationObserver(() => 
+
+    const alertObserver = new MutationObserver(() =>
     {
-    
-      if (document.body.classList.contains('radarActive')) 
+
+      if (document.body.classList.contains('radarActive'))
       {
-      
+
         buildTicker();
-      
+
       }
-    
+
     });
-    
-    alertObserver.observe(banner, 
+
+    alertObserver.observe(indicator,
     {
-    
-      childList: true,
-    
-      subtree: true,
-    
+
       attributes: true,
-    
+
       attributeFilter: ['class']
-    
+
     });
-  
+
   }
 
 })();
@@ -2026,18 +2070,18 @@ function initCamFeed()
 
   if (!link) return;
 
-  link.addEventListener('click', e => 
+  link.addEventListener('click', e =>
   {
-  
-    if (document.body.classList.contains('radarActive')) 
+
+    if (document.body.classList.contains('radarActive'))
     {
-    
+
       e.preventDefault();
-    
+
       document.getElementById('radarToggleBtn').click();
-    
+
     }
-  
+
   });
 
 })();

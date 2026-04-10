@@ -57,7 +57,7 @@
 
   /* Layout */
 
-  --header-h: 90px;
+  --header-h: 70px;
 
   --gap: 3px;
 
@@ -88,23 +88,23 @@ html
 
 }
 
-body[data-bg="default"]   { background: url("../images/default.png")   center / cover no-repeat; }
+body[data-bg="default"] { background: url("../images/default.png")   center / cover no-repeat; }
 
 body[data-bg="nighttime"] { background: url("../images/nightTime.jpg") center / cover no-repeat; }
 
-body[data-bg="morning"]   { background: url("../images/morning.jpg")   center / cover no-repeat; }
+body[data-bg="morning"] { background: url("../images/morning.jpg")   center / cover no-repeat; }
 
 body[data-bg="afternoon"] { background: url("../images/afternoon.jpg") center / cover no-repeat; }
 
-body[data-bg="evening"]   { background: url("../images/evening.jpg")   center / cover no-repeat; }
+body[data-bg="evening"] { background: url("../images/evening.jpg")   center / cover no-repeat; }
 
-body[data-bg="sunny"]     { background: url("../images/sunny.jpg")     center / cover no-repeat; }
+body[data-bg="sunny"] { background: url("../images/sunny.jpg")     center / cover no-repeat; }
 
-body[data-bg="rain"]      { background: url("../images/rain.jpg")      center / cover no-repeat; }
+body[data-bg="rain"] { background: url("../images/rain.jpg")      center / cover no-repeat; }
 
-body[data-bg="storm"]     { background: url("../images/storm.jpg")     center / cover no-repeat; }
+body[data-bg="storm"] { background: url("../images/storm.jpg")     center / cover no-repeat; }
 
-body[data-bg="foggy"]     { background: url("../images/foggy.jpg")     center / cover no-repeat; }
+body[data-bg="foggy"] { background: url("../images/foggy.jpg")     center / cover no-repeat; }
 
 body
 {
@@ -191,7 +191,7 @@ body *
 
   box-shadow: none;
 
-  padding: 0 28px;
+  padding: 0 22px;
 
   flex-shrink: 0;
 
@@ -208,9 +208,9 @@ body *
 
   align-items: center;
 
-  gap: 14px;
+  gap: 10px;
 
-  min-width: 220px;
+  min-width: 200px;
 
   flex-shrink: 0;
 
@@ -221,7 +221,7 @@ body *
 
   height: auto;
 
-  max-height: calc(var(--header-h) - 10px);
+  max-height: calc(var(--header-h) + 50px);
 
   width: auto;
 
@@ -232,6 +232,8 @@ body *
   flex-shrink: 0;
 
   opacity: 0.9;
+
+  margin-top: 15px;
 
 }
 
@@ -254,7 +256,7 @@ body *
 
   overflow: hidden;
 
-  margin-left: -22px;
+  margin-left: -18px;
 
 }
 
@@ -298,7 +300,7 @@ body *
 
   align-items: center;
 
-  gap: 4px;
+  gap: 2px;
 
   pointer-events: none;
 
@@ -325,7 +327,7 @@ body *
 
   font-family: 'Orbitron', 'Courier New', monospace;
 
-  font-size: 42px;
+  font-size: 34px;
 
   font-weight: 700;
 
@@ -356,7 +358,7 @@ body *
 
   color: rgba(255, 255, 255, 0.50);
 
-  margin-top: 7px;
+  margin-top: 4px;
 
   text-shadow: 0 0 8px rgba(255, 60, 0, 0.30);
 
@@ -389,6 +391,8 @@ body *
   align-items: center;
 
   justify-content: flex-end;
+
+  gap: 0;
 
   min-width: 220px;
 
@@ -453,6 +457,13 @@ body *
 {
   0%   { transform: translateX(0);   opacity: 1;    }
   50%  { transform: translateX(-5px); opacity: 0.4; }
+  100% { transform: translateX(0);   opacity: 1;    }
+}
+
+@keyframes hamPulseRight
+{
+  0%   { transform: translateX(0);   opacity: 1;    }
+  50%  { transform: translateX(5px);  opacity: 0.4; }
   100% { transform: translateX(0);   opacity: 1;    }
 }
 
@@ -521,6 +532,63 @@ body *
 
 }
 
+#panelCloseBtn
+{
+
+  position: absolute;
+
+  top: 15px;
+
+  left: 15px;
+
+  background: none;
+
+  border: none;
+
+  cursor: pointer;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  padding: 6px;
+
+  overflow: visible;
+
+  z-index: 10;
+
+  opacity: 0.75;
+
+  transition: opacity 0.2s ease;
+
+}
+
+#panelCloseBtn:hover
+{
+
+  opacity: 1;
+
+}
+
+#panelCloseBtn svg
+{
+
+  overflow: visible;
+
+  transition: transform 0.3s ease;
+
+}
+
+#panelCloseBtn:hover #panelMidBar,
+#panelCloseBtn:hover #panelArrow
+{
+
+  animation: hamPulseRight 0.9s ease infinite;
+
+}
+
 #slidePanelInner
 {
 
@@ -532,9 +600,9 @@ body *
 
   justify-content: flex-start;
 
-  padding-top: 130px;
+  padding-top: 110px;
 
-  padding-left: 24px;
+  padding-left: 16px;
 
   height: 100%;
 
@@ -999,11 +1067,9 @@ body *
 
   position: relative;
 
-  display: grid;
+  display: flex;
 
-  grid-template-columns: 1fr 1fr;
-
-  grid-template-rows: 1fr 1fr;
+  flex-direction: column;
 
   height: calc(100dvh - var(--header-h));
 
@@ -1046,7 +1112,13 @@ body *
 #bottomRow
 {
 
-  display: contents;
+  display: flex;
+
+  flex: 1;
+
+  min-height: 0;
+
+  overflow: hidden;
 
 }
 
@@ -2179,81 +2251,187 @@ body *
 }
 
 /* ============================= */
-/* SPECIAL WEATHER TICKER */
+/* ALERT INDICATOR               */
 /* ============================= */
 
-.weatherAlertBar
+#alertIndicator
 {
+
+  width: 14px;
+
+  height: 14px;
+
+  border-radius: 50%;
+
+  background: #444;
+
+  border: 2px solid #333;
+
+  flex-shrink: 0;
+
+  cursor: default;
+
+  transition: background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+
+  margin-left: 8px;
+
+  margin-right: 16px;
+
+}
+
+#alertIndicator.active
+{
+
+  background: var(--clr-red-bright);
+
+  border-color: rgba(255, 51, 0, 0.6);
+
+  cursor: pointer;
+
+  box-shadow:
+    0 0  6px rgba(255, 51, 0, 0.9),
+    0 0 14px rgba(255, 51, 0, 0.5);
+
+}
+
+/* ============================= */
+/* ALERT MODAL                   */
+/* ============================= */
+
+#alertModal
+{
+
   position: fixed;
 
-  bottom: 0;
+  inset: 0;
 
-  left: 0;
-
-  width: 100%;
-
-  height: 48px;
-
-  background: var(--clr-red);
-
-  color: #fff;
+  background: rgba(0, 0, 0, 0.72);
 
   display: flex;
 
   align-items: center;
 
-  overflow: hidden;
+  justify-content: center;
 
-  z-index: 9999;
+  z-index: 9000;
+
 }
 
-/* inner scrolling track — must be max-content wide so flex never squishes it */
-.weatherAlertTrack
+#alertModalBox
 {
-  display: flex;
 
-  width: max-content;
+  position: relative;
 
-  flex-shrink: 0;
+  background: #111;
 
-  white-space: nowrap;
+  border: 1px solid var(--clr-red);
 
-  will-change: transform;
+  border-radius: 4px;
 
-  /* duration overridden by JS based on content width + 80px/s speed */
-  animation-name: weatherTickerScroll;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  animation-duration: 60s;
+  padding: 32px 36px 28px;
+
+  max-width: 560px;
+
+  width: 90%;
+
+  max-height: 80vh;
+
+  overflow-y: auto;
+
+  box-shadow: 0 0 40px rgba(204, 32, 0, 0.35);
+
 }
 
-/* text items — flex-shrink: 0 prevents any item from compressing */
-.weatherAlertItem
+#alertModalClose
 {
-  flex-shrink: 0;
 
-  padding-right: 120px;
+  position: absolute;
 
-  font-size: 16px;
+  top: 12px;
 
-  font-weight: 600;
+  right: 14px;
 
-  letter-spacing: 1px;
+  background: none;
+
+  border: none;
+
+  color: var(--clr-text-dim);
+
+  font-size: 22px;
+
+  line-height: 1;
+
+  cursor: pointer;
+
+  padding: 4px 6px;
+
 }
 
-/* animation — translateX(-50%) shifts by exactly one copy width; copy 2 is
-   visually identical to copy 1 so the loop reset is invisible */
-@keyframes weatherTickerScroll
-{
-  from
-  {
-    transform: translateX(0);
-  }
+#alertModalClose:hover { color: #fff; }
 
-  to
-  {
-    transform: translateX(-50%);
-  }
+#alertModalTitle
+{
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.14em;
+
+  text-transform: uppercase;
+
+  color: var(--clr-red-bright);
+
+  margin-bottom: 18px;
+
+}
+
+.alertModalItem + .alertModalItem
+{
+
+  margin-top: 20px;
+
+  padding-top: 20px;
+
+  border-top: 1px solid var(--clr-border);
+
+}
+
+.alertModalEvent
+{
+
+  font-size: 15px;
+
+  font-weight: 700;
+
+  color: #fff;
+
+  margin-bottom: 6px;
+
+}
+
+.alertModalHeadline
+{
+
+  font-size: 13px;
+
+  color: var(--clr-text-dim);
+
+  margin-bottom: 8px;
+
+}
+
+.alertModalDesc
+{
+
+  font-size: 12px;
+
+  color: var(--clr-text-muted);
+
+  line-height: 1.6;
+
+  white-space: pre-wrap;
+
 }
 
 
@@ -2922,11 +3100,47 @@ body.radarActive #radarToggleBtn span::after
 @media (min-width: 1920px)
 {
 
-  :root { --header-h: 100px; }
+  :root { --header-h: 70px; }
 
-  #clockTime        { font-size: clamp(48px, 2.8vw, 58px); }
+  #mainHeader { max-height: 70px; }
 
-  #clockAmPm        { font-size: clamp(14px, 0.85vw, 18px); }
+  #dashContent
+  {
+
+    height: calc(100vh - var(--header-h));
+
+    overflow: hidden;
+
+    display: flex;
+
+    flex-direction: column;
+
+  }
+
+  #topRow,
+  #bottomRow
+  {
+
+    flex: 1;
+
+    display: flex;
+
+    min-height: 0;
+
+  }
+
+  .quadrant
+  {
+
+    flex: 1;
+
+    min-height: 0;
+
+  }
+
+  #clockTime        { font-size: clamp(36px, 2.2vw, 44px); }
+
+  #clockAmPm        { font-size: clamp(11px, 0.70vw, 14px); }
 
   #clockDate        { font-size: clamp(10px, 0.70vw, 14px); }
 
@@ -2951,11 +3165,11 @@ body.radarActive #radarToggleBtn span::after
 @media (min-width: 2560px)
 {
 
-  :root { --header-h: 110px; }
+  :root { --header-h: 88px; }
 
-  #clockTime        { font-size: clamp(58px, 2.4vw, 74px); }
+  #clockTime        { font-size: clamp(44px, 1.8vw, 56px); }
 
-  #clockAmPm        { font-size: clamp(18px, 0.80vw, 22px); }
+  #clockAmPm        { font-size: clamp(13px, 0.65vw, 17px); }
 
   #clockDate        { font-size: clamp(13px, 0.60vw, 18px); }
 
@@ -3028,7 +3242,8 @@ body.radarActive #radarToggleBtn span::after
 
   /* Stack top/bottom rows vertically — each row becomes full-width */
 
-  #dashContent { grid-template-columns: 1fr; grid-template-rows: repeat(4, 1fr); }
+  #topRow,
+  #bottomRow { flex-direction: column; }
 
   .statValue { font-size: clamp(16px, 4vw, 22px); }
   
